@@ -16,7 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends ActionBarActivity {
     private GoogleMap googleMap;
-    private LatLng latLong= new LatLng(0,0);
+    private LatLng latLong= new LatLng(0,0); //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
