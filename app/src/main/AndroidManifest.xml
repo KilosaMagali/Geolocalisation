@@ -30,7 +30,8 @@
             />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAUmaxAZ5Bn-pzI4kKeeHYvHEvTTOigeJM"/>
+            android:value="AIzaSyD2Fqbyhj4e74izwcaIpbAe7TieFrWt4Fk"/>
+        <!-- cle Vincent : AIzaSyD2Fqbyhj4e74izwcaIpbAe7TieFrWt4Fk -->
 
     </application>
 
