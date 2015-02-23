@@ -3,14 +3,64 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:id="@+id/relativeView">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkSugg"
+        android:layout_alignParentTop="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sugg"
+        android:id="@+id/btnSugg"
+        android:layout_toRightOf="@+id/checkSugg"
+        android:layout_alignParentTop="true"
+        />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/checkLieu"
+        android:layout_toRightOf="@+id/btnSugg"
+        android:layout_alignParentTop="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lieu"
+        android:id="@+id/btnLieu"
+        android:layout_toRightOf="@+id/checkLieu"
+        android:layout_alignParentTop="true" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkAmis"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/btnLieu"
+        android:checked="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amis"
+        android:id="@+id/btnAmis"
+        android:layout_above="@+id/mapView"
+        android:layout_toRightOf="@+id/checkAmis"
+         />
+
     <fragment
         android:id="@+id/mapView"
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btnLieu" />
+
+
+
+
+
 
 </RelativeLayout>
