@@ -90,7 +90,7 @@ public class Map extends Activity implements View.OnClickListener {
         });
         Context c = getApplicationContext();
         Utilisateur vincent;
-        vincent = new Utilisateur("iorjebpoer","Bonnemains","Vincent","en couple",new LatLng(1.2344444444444444,4.567777777777777));
+        vincent = new Utilisateur(1,"Bonnemains","Vincent","en couple",new LatLng(1.2344444444444444,4.567777777777777));
         vincent.save(c);
         Utilisateur test = new Utilisateur();
         test.recup(c);
@@ -98,10 +98,10 @@ public class Map extends Activity implements View.OnClickListener {
         System.out.println(test);
 
         DataBase db = new DataBase(c,"base de donne",null,1);
-        int i;
+        long i;
         for(i = 0;i < 100;++i)
-            db.supprAmi(new Ami(i,null,null,null,null));
-        Ami a = new Ami(new LatLng(40.0,40.0),"Mahot","Lucien","mange de la pizza");
+            db.supprAmi(new Ami(i,null,null,null));
+        Ami a = new Ami(new LatLng(40.0,40.0),"MahotLucien","mange de la pizza");
         db.ajoutAmi(a);
         //A executer une fois
         /*Ami a = new Ami(new LatLng(40.0,40.0),"Mahot","Lucien","mange de la pizza");
