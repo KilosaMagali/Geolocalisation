@@ -96,7 +96,7 @@ public class DataBase extends SQLiteOpenHelper {
         SQLiteDatabase bd = this.getWritableDatabase();
         Cursor c = bd.rawQuery("select " + "*" + " from " + LIEU_TABLE_NAME,null);
         while (c.moveToNext()) {
-            l = new Lieu(c.getLong(0),Categorie_lieu.valueOf(c.getString(3)),c.getString(2),c.getString(1),c.getInt(6) == 1,new LatLng(c.getDouble(4),c.getDouble(5)));
+            l = new Lieu(c.getLong(0),Categorie_lieu.valueOf(c.getString(3)),c.getString(1),c.getString(2),c.getInt(6) == 1,new LatLng(c.getDouble(4),c.getDouble(5)));
             res.add(l);
         }
         c.close();

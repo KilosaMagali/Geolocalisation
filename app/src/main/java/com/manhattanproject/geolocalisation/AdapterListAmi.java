@@ -11,52 +11,46 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by kilosakeyrocker on 22/02/15.
- * Modified by Vincent on 26/02/15
+ * Created by Vincent on 22/02/15.
  */
-public class AdapterListLieu extends BaseExpandableListAdapter {
+public class AdapterListAmi extends BaseExpandableListAdapter {
     private Context context;
-    private List<Lieu> lieu_list;
+    private List<Ami> Ami_list;
 
-    public AdapterListLieu(Context context, List<Lieu> lieu_list )
+    public AdapterListAmi(Context context, List<Ami> Ami_list )
     {
         this.context = context;
-        this.lieu_list = lieu_list;
+        this.Ami_list = Ami_list;
 
     }
 
     @Override
     public int getGroupCount() {
-        return lieu_list.size();
+        return Ami_list.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 4;
+        return 3;
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return lieu_list.get(groupPosition);
+        return Ami_list.get(groupPosition);
     }
-
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         switch(childPosition){
             case 0:
-                return lieu_list.get(groupPosition).getDescription();
-
+                return Ami_list.get(groupPosition).getStatut();
             case 1:
-                return lieu_list.get(groupPosition).getCategorie();
-
-            case 2:
-                return lieu_list.get(groupPosition).getPosition();
-
+                return Ami_list.get(groupPosition).getPosition();
             default:
-                if (lieu_list.get(groupPosition).isPartage())
-                    return "lieu public";
+                if (Ami_list.get(groupPosition).isConnect())
+                    return Ami_list.get(groupPosition).getPrenom()+" est en ligne";
                 else
-                    return "lieu prive";
+                    return Ami_list.get(groupPosition).getPrenom()+" est hors ligne";
+
         }
     }
 
@@ -77,7 +71,7 @@ public class AdapterListLieu extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String groupTitle= ((Lieu)getGroup(groupPosition)).getDesignation();
+        String groupTitle= ((Ami)getGroup(groupPosition)).getPrenom()+" "+((Ami)getGroup(groupPosition)).getNom();
         if(convertView==null){
             LayoutInflater inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflator.inflate(R.layout.list_item, parent,false);
@@ -100,9 +94,9 @@ public class AdapterListLieu extends BaseExpandableListAdapter {
         }
         else {
 
-                TextView itemTextView = (TextView) convertView.findViewById(R.id.child_lieu);
-                itemTextView.setText(childTitle);
-            }
+            TextView itemTextView = (TextView) convertView.findViewById(R.id.child_lieu);
+            itemTextView.setText(childTitle);
+        }
 
         return convertView;
     }
@@ -112,3 +106,4 @@ public class AdapterListLieu extends BaseExpandableListAdapter {
         return true;
     }
 }
+

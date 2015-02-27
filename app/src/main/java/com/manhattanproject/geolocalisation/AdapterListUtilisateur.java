@@ -11,52 +11,42 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by kilosakeyrocker on 22/02/15.
- * Modified by Vincent on 26/02/15
+ * Created by Vincent on 22/02/15.
  */
-public class AdapterListLieu extends BaseExpandableListAdapter {
+public class AdapterListUtilisateur extends BaseExpandableListAdapter {
     private Context context;
-    private List<Lieu> lieu_list;
+    private List<Utilisateur> User_list;
 
-    public AdapterListLieu(Context context, List<Lieu> lieu_list )
+    public AdapterListUtilisateur(Context context, List<Utilisateur> User_list )
     {
         this.context = context;
-        this.lieu_list = lieu_list;
+        this.User_list = User_list;
 
     }
 
     @Override
     public int getGroupCount() {
-        return lieu_list.size();
+        return User_list.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 4;
+        return 2;
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return lieu_list.get(groupPosition);
+        return User_list.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         switch(childPosition){
             case 0:
-                return lieu_list.get(groupPosition).getDescription();
-
-            case 1:
-                return lieu_list.get(groupPosition).getCategorie();
-
-            case 2:
-                return lieu_list.get(groupPosition).getPosition();
+                return User_list.get(groupPosition).getStatut();
 
             default:
-                if (lieu_list.get(groupPosition).isPartage())
-                    return "lieu public";
-                else
-                    return "lieu prive";
+                return User_list.get(groupPosition).getPosition();
         }
     }
 
@@ -77,7 +67,7 @@ public class AdapterListLieu extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String groupTitle= ((Lieu)getGroup(groupPosition)).getDesignation();
+        String groupTitle= ((Utilisateur)getGroup(groupPosition)).getPrenom()+" "+((Utilisateur)getGroup(groupPosition)).getNom();
         if(convertView==null){
             LayoutInflater inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflator.inflate(R.layout.list_item, parent,false);
@@ -100,9 +90,9 @@ public class AdapterListLieu extends BaseExpandableListAdapter {
         }
         else {
 
-                TextView itemTextView = (TextView) convertView.findViewById(R.id.child_lieu);
-                itemTextView.setText(childTitle);
-            }
+            TextView itemTextView = (TextView) convertView.findViewById(R.id.child_lieu);
+            itemTextView.setText(childTitle);
+        }
 
         return convertView;
     }

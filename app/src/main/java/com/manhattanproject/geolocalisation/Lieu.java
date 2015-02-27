@@ -14,7 +14,7 @@ public class Lieu {
     Categorie_lieu categorie;
     boolean partage;
 
-    public Lieu(Categorie_lieu categorie, String description, String designation, boolean partage, LatLng position) {
+    public Lieu(Categorie_lieu categorie, String designation, String description, boolean partage, LatLng position) {
         this.categorie = categorie;
         this.description = description;
         this.designation = designation;
@@ -23,7 +23,7 @@ public class Lieu {
         this.id = -1;
     }
 
-    public Lieu(long id,Categorie_lieu categorie, String description, String designation, boolean partage, LatLng position) {
+    public Lieu(long id,Categorie_lieu categorie, String designation, String description, boolean partage, LatLng position) {
         this.id = id;
         this.categorie = categorie;
         this.description = description;

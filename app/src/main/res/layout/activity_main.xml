@@ -49,6 +49,7 @@
         android:id="@+id/btnAmis"
         android:layout_above="@+id/mapView"
         android:layout_toRightOf="@+id/checkAmis"
+        android:layout_alignParentTop="true"
          />
 
     <fragment
