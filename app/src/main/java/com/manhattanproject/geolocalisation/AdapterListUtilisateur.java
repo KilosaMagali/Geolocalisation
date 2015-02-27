@@ -67,7 +67,7 @@ public class AdapterListUtilisateur extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String groupTitle= ((Utilisateur)getGroup(groupPosition)).getPrenom()+" "+((Utilisateur)getGroup(groupPosition)).getNom();
+        String groupTitle= ((Utilisateur)getGroup(groupPosition)).getPseudo();
         if(convertView==null){
             LayoutInflater inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflator.inflate(R.layout.list_item, parent,false);

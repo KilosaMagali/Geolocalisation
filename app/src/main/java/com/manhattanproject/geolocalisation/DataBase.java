@@ -24,8 +24,7 @@ public class DataBase extends SQLiteOpenHelper {
     public static final String LIEU_LONGITUDE = "longitude";
 
     public static final String AMI_ID = "id";
-    public static final String AMI_NOM = "nom";
-    public static final String AMI_PRENOM = "prenom";
+    public static final String AMI_PSEUDO = "pseudo";
     public static final String AMI_STATUT = "statut";
     public static final String AMI_LATITUDE = "latitude";
     public static final String AMI_LONGITUDE = "longitude";
@@ -45,8 +44,7 @@ public class DataBase extends SQLiteOpenHelper {
     public static final String AMI_TABLE_CREATE =
             "CREATE TABLE " + AMI_TABLE_NAME + " (" +
                     AMI_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    AMI_NOM + " TEXT, " +
-                    AMI_PRENOM + " TEXT, " +
+                    AMI_PSEUDO + " TEXT, " +
                     AMI_STATUT + " TEXT, " +
                     AMI_LATITUDE + " REAL, " +
                     AMI_LONGITUDE + " REAL);";
@@ -109,7 +107,7 @@ public class DataBase extends SQLiteOpenHelper {
         SQLiteDatabase bd = this.getWritableDatabase();
         Cursor c = bd.rawQuery("select " + "*" + " from " + AMI_TABLE_NAME,null);
         while (c.moveToNext()) {
-            a = new Ami(c.getLong(0),new LatLng(c.getDouble(4),c.getDouble(5)),c.getString(1),c.getString(2),c.getString(3));
+            a = new Ami(c.getLong(0),new LatLng(c.getDouble(3),c.getDouble(4)),c.getString(1),c.getString(2));
             res.add(a);
         }
         c.close();
@@ -161,8 +159,7 @@ public class DataBase extends SQLiteOpenHelper {
     public long ajoutAmi(Ami a){
         SQLiteDatabase bd = this.getWritableDatabase();
         ContentValues value = new ContentValues();
-        value.put(AMI_NOM, a.getNom());
-        value.put(AMI_PRENOM, a.getPrenom());
+        value.put(AMI_PSEUDO, a.getPseudo());
         value.put(AMI_STATUT, a.getStatut());
         value.put(AMI_LATITUDE, a.getPosition().latitude);
         value.put(AMI_LONGITUDE, a.getPosition().longitude);
@@ -182,8 +179,7 @@ public class DataBase extends SQLiteOpenHelper {
     public long updateAmi(Ami a){
         SQLiteDatabase bd = this.getWritableDatabase();
         ContentValues value = new ContentValues();
-        value.put(AMI_NOM, a.getNom());
-        value.put(AMI_PRENOM, a.getPrenom());
+        value.put(AMI_PSEUDO, a.getPseudo());
         value.put(AMI_STATUT, a.getStatut());
         value.put(AMI_LATITUDE, a.getPosition().latitude);
         value.put(AMI_LONGITUDE, a.getPosition().longitude);

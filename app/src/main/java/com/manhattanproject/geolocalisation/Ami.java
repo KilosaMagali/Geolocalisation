@@ -8,25 +8,22 @@ import com.google.android.gms.maps.model.LatLng;
 public class Ami {
     long id;
     LatLng position;
-    String nom;
-    String prenom;
+    String pseudo;
     String statut;
     boolean connect;
 
-    public Ami(LatLng position, String nom, String prenom, String statut) {
+    public Ami(LatLng position, String pseudo, String statut) {
         this.position = position;
-        this.nom = nom;
-        this.prenom = prenom;
+        this.pseudo = pseudo;
         this.statut = statut;
         this.connect = false;
         this.id = -1;
     }
 
-    public Ami(long id,LatLng position, String nom, String prenom, String statut) {
+    public Ami(long id,LatLng position, String pseudo, String statut) {
         this.id = id;
         this.position = position;
-        this.nom = nom;
-        this.prenom = prenom;
+        this.pseudo = pseudo;
         this.statut = statut;
         this.connect = false;
     }
@@ -47,21 +44,14 @@ public class Ami {
         this.position = position;
     }
 
-    public String getNom() {
-        return nom;
+    public String getPseudo() {
+        return pseudo;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
 
     public String getStatut() {
         return statut;
@@ -80,7 +70,7 @@ public class Ami {
     }
 
     public String toString(){
-        String s = new String("Ami "+this.id+" :\n"+this.prenom+" "+this.nom+"\n"+"statut : "+this.statut+"\n");
+        String s = new String("Ami "+this.id+" :\n"+this.pseudo+"\n"+"statut : "+this.statut+"\n");
         if (this.connect)
             s = s+"position : "+this.position;
         return s;

@@ -20,7 +20,7 @@ public class Activity_list_lieu extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_lieu);
         expandableList = (ExpandableListView) findViewById(R.id.expandableListLieu);
-        db = new DataBase(getApplicationContext(),"base de donne",null,1);
+        db = new DataBase(getApplicationContext(),"base de donne",null,2);
         listeLieu = db.recupLieuBD();
         adaptor = new AdapterListLieu(this, listeLieu);
         expandableList.setAdapter(adaptor);

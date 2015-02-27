@@ -90,21 +90,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         });
         Context c = getApplicationContext();
         Utilisateur vincent;
-        vincent = new Utilisateur("iorjebpoer","Bonnemains","Vincent","en couple",new LatLng(1.2344444444444444,4.567777777777777));
+        vincent = new Utilisateur(1,"Vincent Bonnemains","tototititata","en couple",new LatLng(1.2344444444444444,4.567777777777777));
         vincent.save(c);
         Utilisateur test = new Utilisateur();
         test.recup(c);
         System.out.println("recuperation");
         System.out.println(test);
 
-        DataBase db = new DataBase(c,"base de donne",null,1);
-        int i;
-        for(i = 0;i < 100;++i)
-            db.supprAmi(new Ami(i,null,null,null,null));
-        Ami a = new Ami(new LatLng(40.0,40.0),"Mahot","Lucien","mange de la pizza");
-        db.ajoutAmi(a);
-        //A executer une fois
-        /*Ami a = new Ami(new LatLng(40.0,40.0),"Mahot","Lucien","mange de la pizza");
+        /*Ami a = new Ami(new LatLng(40.0,40.0),"lulu","mange de la pizza");
         Lieu l1 = new Lieu(Categorie_lieu.Bar,"De danu","Pub Irlandais qui sert la nuit comme le jour une biere de qualite", true,new LatLng(43.6042600 , 1.4436700));
         Lieu l2 = new Lieu(Categorie_lieu.Magasin,"Auchan","Supermarche de bonne qualite, pas cher", false,new LatLng(43.6142600 , 1.4436700));
         DataBase db = new DataBase(c,"base de donne",null,1);

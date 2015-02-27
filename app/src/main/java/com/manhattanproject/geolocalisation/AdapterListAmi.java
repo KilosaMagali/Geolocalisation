@@ -47,9 +47,9 @@ public class AdapterListAmi extends BaseExpandableListAdapter {
                 return Ami_list.get(groupPosition).getPosition();
             default:
                 if (Ami_list.get(groupPosition).isConnect())
-                    return Ami_list.get(groupPosition).getPrenom()+" est en ligne";
+                    return Ami_list.get(groupPosition).getPseudo()+" est en ligne";
                 else
-                    return Ami_list.get(groupPosition).getPrenom()+" est hors ligne";
+                    return Ami_list.get(groupPosition).getPseudo()+" est hors ligne";
 
         }
     }
@@ -71,7 +71,7 @@ public class AdapterListAmi extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String groupTitle= ((Ami)getGroup(groupPosition)).getPrenom()+" "+((Ami)getGroup(groupPosition)).getNom();
+        String groupTitle= ((Ami)getGroup(groupPosition)).getPseudo();
         if(convertView==null){
             LayoutInflater inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflator.inflate(R.layout.list_item, parent,false);

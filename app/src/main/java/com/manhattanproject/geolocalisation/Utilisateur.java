@@ -10,9 +10,9 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by vince_000 on 25/02/2015.
  */
 public class Utilisateur {
-    String identifiant;
-    String nom;
-    String prenom;
+    int identifiant;
+    String pseudo;
+    String mdp;
     String statut;
     LatLng position;
 
@@ -32,67 +32,68 @@ public class Utilisateur {
         this.statut = statut;
     }
 
-    public String getPrenom() {
-        return prenom;
+
+    public String getPseudo() {
+        return pseudo;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setPseudo(String prenom) {
+        this.pseudo = pseudo;
     }
 
-    public String getNom() {
-        return nom;
+    public String getMdp() {
+        return mdp;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
     }
 
-    public String getIdentifiant() {
+    public int getIdentifiant() {
         return identifiant;
     }
 
-    public void setIdentifiant(String identifiant) {
+    public void setIdentifiant(int identifiant) {
         this.identifiant = identifiant;
     }
 
     public Utilisateur() {
-
-        this.identifiant = "";
-        this.nom = "";
+        this.identifiant = -1;
+        this.pseudo = "";
+        this.mdp = "";
         this.statut = "";
-        this.prenom = "";
         this.position = null;
     }
 
-    public Utilisateur( String identifiant, String nom, String prenom, String statut, LatLng position) {
+    public Utilisateur( int identifiant, String pseudo, String mdp, String statut, LatLng position) {
 
         this.identifiant = identifiant;
-        this.nom = nom;
+        this.pseudo = pseudo;
         this.statut = statut;
-        this.prenom = prenom;
+        this.mdp = mdp;
         this.position = position;
     }
 
     public Utilisateur(Utilisateur u) {
 
         this.identifiant = u.identifiant;
-        this.nom = u.nom;
+        this.pseudo = u.pseudo;
         this.statut = u.statut;
-        this.prenom = u.prenom;
+        this.mdp = u.mdp;
         this.position = u.position;
     }
 
     public String toString(){
-        return new String("Utilisateur "+this.identifiant+" :\n"+this.prenom+" "+this.nom+"\n"+"statut : "+this.statut+"\n"+this.position);
+        return new String("Utilisateur "+this.identifiant+" :\n"+this.pseudo+"\nMot de passe:"+this.mdp+"\n"+"\n"+"statut : "+this.statut+"\n"+this.position);
     }
 
     public void save(Context c){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("identifiant", this.identifiant);
-        editor.putString("nom", this.nom);
-        editor.putString("prenom", this.prenom);
+        editor.putInt("identifiant", this.identifiant);
+        editor.putString("pseudo", this.pseudo);
+        editor.putString("mdp", this.mdp);
         editor.putString("statut",this.statut);
         editor.putFloat("latitude", (float)this.position.latitude);
         editor.putFloat("longitude",(float)this.position.longitude);
@@ -101,9 +102,9 @@ public class Utilisateur {
 
     public void recup(Context c){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-        this.setIdentifiant(preferences.getString("identifiant",""));
-        this.setNom(preferences.getString("nom", ""));
-        this.setPrenom(preferences.getString("prenom", ""));
+        this.setIdentifiant(preferences.getInt("identifiant",-1));
+        this.setPseudo(preferences.getString("pseudo", ""));
+        this.setMdp(preferences.getString("mdp", ""));
         this.setStatut(preferences.getString("statut", ""));
         this.setPosition(new LatLng(preferences.getFloat("latitude",0.f),preferences.getFloat("longitude",0.f)));
     }
