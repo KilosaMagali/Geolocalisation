@@ -89,13 +89,13 @@ public class Map extends Activity implements View.OnClickListener {
             }
         });
         Context c = getApplicationContext();
-        Utilisateur vincent;
+        /*Utilisateur vincent;
         vincent = new Utilisateur(1,"Bonnemains","Vincent","en couple",new LatLng(1.2344444444444444,4.567777777777777));
         vincent.save(c);
         Utilisateur test = new Utilisateur();
         test.recup(c);
         System.out.println("recuperation");
-        System.out.println(test);
+        System.out.println(test);*/
 
         DataBase db = new DataBase(c,"base de donne",null,1);
         long i;

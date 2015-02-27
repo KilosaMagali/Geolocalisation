@@ -7,5 +7,8 @@
     <string name="title_activity_activity_list_ami">Activity_list_ami</string>
     <string name="title_activity_activity_list_utilisateur">Activity_list_utilisateur</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="error_field_required">\"This field is requiered\"</string>
 
 </resources>

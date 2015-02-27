@@ -1,6 +1,9 @@
 ﻿package com.manhattanproject.geolocalisation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,9 +19,21 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button profil_btn = (Button) findViewById(R.id.profil_button);
-        profil_btn.setEnabled(false);
+        Context c=getApplicationContext();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+        if(preferences.getInt("identifiant",-1)==-1) {
+            profil_btn.setEnabled(false);
+        }
     }
 
+    public void onActivityReenter(int resultCode, Intent data){
+        Context c=getApplicationContext();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+        /*if(preferences.getInt("identifiant",-1)==-1) {
+            Button profil_btn = (Button) findViewById(R.id.profil_button);
+            profil_btn.setEnabled(false);
+        }*/
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,13 +48,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void openProfil(View view){
-        /*Intent intent = new Intent(this, Profil.class);
+        /*Intent intent = new Intent(this, Activity.class);
         startActivity(intent);*/
     }
 
     public void openRegister(View view){
-        /*Intent intent = new Intent(this, Register.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
     @Override
