@@ -2,6 +2,7 @@ package com.manhattanproject.geolocalisation;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by kilosakeyrocker on 22/02/15.
  */
-public class Activity_list_lieu extends Activity{
+public class Activity_list_lieu extends ActionBarActivity {
     private ExpandableListView expandableList;
     private AdapterListLieu adaptor;
     private ArrayList<Lieu> listeLieu;
