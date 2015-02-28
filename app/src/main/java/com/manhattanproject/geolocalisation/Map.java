@@ -97,12 +97,12 @@ public class Map extends Activity implements View.OnClickListener {
         System.out.println("recuperation");
         System.out.println(test);*/
 
-        DataBase db = new DataBase(c,"base de donne",null,1);
+        /*DataBase db = new DataBase(c,"base de donne",null,1);
         long i;
         for(i = 0;i < 100;++i)
             db.supprAmi(new Ami(i,null,null,null));
         Ami a = new Ami(new LatLng(40.0,40.0),"MahotLucien","mange de la pizza");
-        db.ajoutAmi(a);
+        db.ajoutAmi(a);*/
         //A executer une fois
         /*Ami a = new Ami(new LatLng(40.0,40.0),"Mahot","Lucien","mange de la pizza");
         Lieu l1 = new Lieu(Categorie_lieu.Bar,"De danu","Pub Irlandais qui sert la nuit comme le jour une biere de qualite", true,new LatLng(43.6042600 , 1.4436700));

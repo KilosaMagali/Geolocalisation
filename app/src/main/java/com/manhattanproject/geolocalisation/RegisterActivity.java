@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +37,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -122,8 +126,8 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             }
             p[params.length]="rid";
             p[params.length+1]=regid;
-            Requete r = new Requete(p);
-            System.out.println(r.getResult());
+            /*Requete r = new Requete();
+            r.LancerRequete(p);*/
             Utilisateur u;
             u = new Utilisateur(1,params[2],"",params[4],new LatLng(1.2344444444444444,4.567777777777777));
             u.save(c);
@@ -204,7 +208,18 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
     }
 
     private boolean PseudoExists(String pseudo) {
-        //TODO: Replace this with your own logic
+        /*String[] params={"selectUser.php","pseudo",pseudo};
+        Requete r=new Requete();
+        String response=r.LancerRequete(params);
+        try {
+            JSONArray jArray = new JSONArray(response);
+            JSONObject json_data = jArray.getJSONObject(0);
+            response=json_data.getString("pseudo");
+        }catch(JSONException e){
+            Log.e("log_tag", "Error parsing data " + e.toString());
+        }
+        if(response.equalsIgnoreCase(pseudo))
+            return true;*/
         return false;
     }
 

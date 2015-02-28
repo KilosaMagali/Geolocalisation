@@ -34,39 +34,35 @@ public class Requete {
         return result;
     }
 
-    public Requete(String[] params) {
+    public Requete() {
+    }
+
+    public String LancerRequete(String[] params) {
         int i;
         InputStream is=null;
+        String [] p=params;
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();
+        HttpResponse response;
+        BufferedReader reader = null;
         for (i=1;i<params.length;i=i+2) {
             nameValuePairs.add(new BasicNameValuePair(params[i], params[i+1]));
         }
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://lmahot.hd.free.fr/"+params[0]);
+        HttpPost httppost = new HttpPost("http://lmahot.hd.free.fr/" + p[0]);
         try {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        try {
-            HttpResponse response = httpclient.execute(httppost);
+            response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             is = entity.getContent();
-        }catch( IOException e){ e.printStackTrace();}
-        BufferedReader reader = null;
-        try {
             reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        StringBuilder sb = new StringBuilder();
-        String line = null;
-        try {
+            StringBuilder sb = new StringBuilder();
+            String line = null;
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
             }
             is.close();
+            result=sb.toString();
         }catch ( IOException e ){ e.printStackTrace();}
-        result=sb.toString();
+        return result;
     }
 }

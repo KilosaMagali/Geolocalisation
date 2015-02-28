@@ -1,4 +1,4 @@
-﻿package com.manhattanproject.geolocalisation;
+package com.manhattanproject.geolocalisation;
 
 import android.content.Context;
 import android.content.Intent;
