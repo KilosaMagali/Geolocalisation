@@ -66,10 +66,11 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
         else {  // zoom to one of the existing locations
-            if (listeLieu.size() != 0)
+            if (listeLieu.size() != 0) {
                 cameraPosition = new CameraPosition.Builder().target(listeLieu.get(0).getPosition())
                         .zoom(15).build();
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            }
         }
 
 
