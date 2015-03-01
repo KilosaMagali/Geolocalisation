@@ -9,5 +9,6 @@ public enum Categorie_lieu {
     Magasin,
     Cinema,
     Home,
+    Parking,
     Autre
 }

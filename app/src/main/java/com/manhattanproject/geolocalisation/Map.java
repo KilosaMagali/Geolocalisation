@@ -4,16 +4,23 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -22,36 +29,51 @@ import java.util.ArrayList;
 
 
 
-public class Map extends Activity implements View.OnClickListener {
+public class Map extends Activity implements View.OnClickListener ,AdapterView.OnItemSelectedListener {
     private GoogleMap googleMap;
     private LatLng latLong=new LatLng(0,0);
-    private ArrayList<LatLng> tabLocations=new ArrayList<>();
-    private ArrayList<String> tabNames=new ArrayList<>();
-    private ArrayList<String> tabCategories=new ArrayList<>();
     private Dialog addLieuDialog;
     private EditText locationName;
-    private EditText locationCategory;
-    private Button btnAjouter;
-    private Button btnSugg, btnLieu,btnAmis;
+    private Spinner locationCategory;
+    private Button btnSugg, btnLieu,btnAmis,btnAjouter;
     private LatLng currentPosition;
+    private CameraPosition cameraPosition;
+    private EditText locationDescription;
+    private CheckBox shareLocation,checkBoxSuggestion,checkBoxLieu,checkBoxAmis,checkBoxAddCurrentLoc;
+    private ArrayAdapter<CharSequence> adapterLocationCategories;
+    private String categorySelected;
+    private ArrayList<Lieu> listeLieu;
+    private DataBase db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         createMapView();
-        tabLocations.add(new LatLng(43.6042600 , 1.4436700));
-        tabNames.add("Jean Jaures");
-        tabCategories.add("bar");
-        tabLocations.add(new LatLng(43.6142600 , 1.4436700));
-        tabNames.add("Auchan");
-        tabCategories.add("parking");
-        addMarker();
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(tabLocations.get(1))
-                .zoom(15).build();
-        /*CameraPosition cameraPosition=new CameraPosition.Builder().target(currentPosition).zoom(10).build();*/
+        checkBoxAmis=(CheckBox)findViewById(R.id.checkAmis);
+        checkBoxLieu=(CheckBox)findViewById(R.id.checkLieu);
+        checkBoxSuggestion=(CheckBox)findViewById(R.id.checkSugg);
+        checkBoxLieu.setChecked(true);
+        setOnCheckedChanged();
+        db = new DataBase(getApplicationContext(),"base de donne",null,4);
+        listeLieu = db.recupLieuBD();
+        addMarkerLieu();
+        currentPosition=getMyCurrentLocation();
+        if(currentPosition!=null) { //zoom to my current location
+            cameraPosition = new CameraPosition.Builder().target(currentPosition)
+                    .zoom(17).build();
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
+        else {  // zoom to one of the existing locations
+            if (listeLieu.size() != 0)
+                cameraPosition = new CameraPosition.Builder().target(listeLieu.get(0).getPosition())
+                        .zoom(15).build();
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
 
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
 
         btnSugg=(Button)findViewById(R.id.btnSugg);
         btnLieu=(Button)findViewById(R.id.btnLieu);
@@ -68,23 +90,45 @@ public class Map extends Activity implements View.OnClickListener {
                 addLieuDialog.setCancelable(true);
                 addLieuDialog.setContentView(R.layout.add_lieu);
                 locationName=(EditText)addLieuDialog.findViewById(R.id.locationName);
-                locationCategory=(EditText)addLieuDialog.findViewById(R.id.locationCategory);
+                locationDescription=(EditText)addLieuDialog.findViewById(R.id.locationDescription);
+                locationCategory=(Spinner)addLieuDialog.findViewById(R.id.locationCategory);
+                shareLocation=(CheckBox)addLieuDialog.findViewById(R.id.checkBoxShareLocation);
+                checkBoxAddCurrentLoc=(CheckBox)addLieuDialog.findViewById(R.id.checkBoxAddCurrentLoc);
                 btnAjouter=(Button)addLieuDialog.findViewById(R.id.btnAjout);
                 btnAjouter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(),
-                                "Lieu:" + locationName.getText() +
-                                        "\nCategorie:" + locationCategory.getText() +
-                                        "\nSuccès!! :) ",
-                                Toast.LENGTH_LONG).show();
-                        tabLocations.add(latLng);
-                        tabNames.add(locationName.getText().toString());
-                        tabCategories.add(locationCategory.getText().toString());
+                        String name=locationName.getText().toString().trim();
+                        String description=locationDescription.getText().toString().trim();
+                        //categorySelected retrieved in onItemSelected() method
+                        boolean toBeshared=shareLocation.isChecked();
+                        if(name.isEmpty()){
+                            locationName.setError("Champs requis");
+                            locationDescription.setError("Nom de lieu requis");
+                            return;
+                        }
+                        if(checkBoxAddCurrentLoc.isChecked()) latLong=getMyCurrentLocation();
+                        else latLong=latLng;
+                        Lieu locationToAdd=new Lieu(Categorie_lieu.valueOf(categorySelected),name, description,toBeshared,latLong);
+                        //db = new DataBase(getApplicationContext(),"base de donne",null,4);
+                        if(db.ajoutLieu(locationToAdd)!=-1) {
+                            listeLieu.add(locationToAdd);
+                            Toast.makeText(getApplicationContext(),
+                                    "Lieu:" + name +
+                                            "\nCategorie:" + categorySelected +
+                                            "\nSUCCESS!! :) ",
+                                    Toast.LENGTH_LONG).show();
+
+
+                            addMarkerLieu();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"FAILED",Toast.LENGTH_LONG).show();
+                        }
                         addLieuDialog.dismiss();
-                        addMarker();
                     }
                 });
+                populateCategoryCheckBox();
                 addLieuDialog.show();
             }
         });
@@ -112,6 +156,29 @@ public class Map extends Activity implements View.OnClickListener {
         db.ajoutLieu(l2);
         db.ajoutAmi(a);
         */
+    }
+
+    private LatLng getMyCurrentLocation() {
+        googleMap.setMyLocationEnabled(true);
+
+        Location currentLocation = googleMap.getMyLocation();
+
+        if (currentLocation != null) {
+            currentPosition = new LatLng(currentLocation.getLatitude(),
+                    currentLocation.getLongitude());
+        }
+        return currentPosition;
+    }
+
+    public void populateCategoryCheckBox(){
+// Create an ArrayAdapter using the string array and a default spinner layout
+        adapterLocationCategories = ArrayAdapter.createFromResource(this,
+                R.array.locationCategory, android.R.layout.simple_spinner_dropdown_item);
+// Specify the layout to use when the list of choices appears
+        adapterLocationCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        locationCategory.setAdapter(adapterLocationCategories);
+        locationCategory.setOnItemSelectedListener(this);
     }
 
     private void createMapView(){
@@ -142,32 +209,32 @@ public class Map extends Activity implements View.OnClickListener {
             //Log.e("mapApp", exception.toString());
         }
     }
-    private void addMarker(){
+    private void addMarkerLieu(){
 
         /** Make sure that the map has been initialised **/
         if(null != googleMap && latLong!=null){
-            for(int i=0; i<tabLocations.size(); i++) {
-                googleMap.addMarker(new MarkerOptions()
-                                .position(tabLocations.get(i))
-                                .title(tabNames.get(i)).snippet(tabCategories.get(i))
-                );
+            if(listeLieu.size()!=0 && checkBoxLieu.isChecked()) {
+                for (int i = 0; i < listeLieu.size(); i++) {
+                    if(listeLieu.get(i).getCategorie()==Categorie_lieu.Parking)
+                    googleMap.addMarker(new MarkerOptions()
+                                    .position(listeLieu.get(i).getPosition())
+                                    .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description).
+                                            icon(BitmapDescriptorFactory.fromResource(R.drawable.parking))
+                    );
+                    else
+                        googleMap.addMarker(new MarkerOptions()
+                                        .position(listeLieu.get(i).getPosition())
+                                        .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description) );
+                }
+            }
+            else{   //remove all markers and re-add the checked ones
+                googleMap.clear();
+                //addMarkerSuggestion()   à coder
+                //addMarkerAmis();         à coder
             }
         }
     }
-   /* private void addMarker(LatLng latlong){
 
-        /** Make sure that the map has been initialised **/
-       /* if(null != googleMap && latLong!=null){
-            googleMap.addMarker(new MarkerOptions()
-                            .position(latlong)
-                            .title("My Marker")
-            );
-            googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(0,0))
-                            .title("Equator")
-            );
-        }
-    }*/
 
     @Override
     public void onClick(View v) {
@@ -189,30 +256,38 @@ public class Map extends Activity implements View.OnClickListener {
         }
     }
 
+//on location category selection
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+              categorySelected=(String)parent.getItemAtPosition(position);
 
-    /*private class MyLocationListener implements LocationListener {
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+public void setOnCheckedChanged(){
+    checkBoxAmis.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override
-        public void onLocationChanged(Location location) {
-            if(location!=null){
-                latLong=new LatLng(location.getLatitude(), location.getLongitude());
-            }
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         }
+    });
+    checkBoxLieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        addMarkerLieu();
+        }
+    });
+    checkBoxSuggestion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        }
+    });
+}
 
 
-    }*/
+
 }

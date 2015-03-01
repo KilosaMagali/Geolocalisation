@@ -34,9 +34,10 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyA4hdAZGC6pUZ6LpZ_uMEOWCvNYZMAHQkM" />
+            android:value="AIzaSyAUmaxAZ5Bn-pzI4kKeeHYvHEvTTOigeJM" />
         <!-- cle Vincent : AIzaSyD2Fqbyhj4e74izwcaIpbAe7TieFrWt4Fk -->
         <!-- cle lucien : AIzaSyA4hdAZGC6pUZ6LpZ_uMEOWCvNYZMAHQkM -->
+        <!-- cle Kilosa : AIzaSyAUmaxAZ5Bn-pzI4kKeeHYvHEvTTOigeJM -->
 
         <activity
             android:name=".Activity_list_ami"

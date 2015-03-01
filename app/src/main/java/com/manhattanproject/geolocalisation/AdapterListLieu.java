@@ -32,7 +32,7 @@ public class AdapterListLieu extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 4;
+        return 3;
     }
 
     @Override
@@ -44,19 +44,19 @@ public class AdapterListLieu extends BaseExpandableListAdapter {
     public Object getChild(int groupPosition, int childPosition) {
         switch(childPosition){
             case 0:
-                return lieu_list.get(groupPosition).getDescription();
+                return "Description: "+lieu_list.get(groupPosition).getDescription();
 
             case 1:
-                return lieu_list.get(groupPosition).getCategorie();
+                return "Catégorie: "+lieu_list.get(groupPosition).getCategorie();
 
-            case 2:
-                return lieu_list.get(groupPosition).getPosition();
+            /*case 2:
+                return lieu_list.get(groupPosition).getPosition();*/
 
             default:
                 if (lieu_list.get(groupPosition).isPartage())
-                    return "lieu public";
+                    return "Lieu public";
                 else
-                    return "lieu prive";
+                    return "Lieu privé";
         }
     }
 

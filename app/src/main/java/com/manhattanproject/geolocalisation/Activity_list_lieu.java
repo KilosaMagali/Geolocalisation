@@ -1,30 +1,180 @@
 package com.manhattanproject.geolocalisation;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 /**
  * Created by kilosakeyrocker on 22/02/15.
  */
-public class Activity_list_lieu extends ActionBarActivity {
+public class Activity_list_lieu extends ActionBarActivity implements AdapterView.OnItemSelectedListener  {
     private ExpandableListView expandableList;
     private AdapterListLieu adaptor;
     private ArrayList<Lieu> listeLieu;
     private DataBase db;
+    private Lieu lieuClicked;  //lieu selectionné au longclick d'un lieu
+    private Bundle savedInstanceState;
+    private Dialog modifyLieuDialog;
+    private ArrayAdapter<CharSequence> adapterLocationCategories;
+    private Spinner locationCategory;
+    private EditText locationName,locationDescription;
+    private CheckBox shareLocation,checkBoxAddCurrentLoc;
+    private Button btnModify;
+    private String categorySelected;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.savedInstanceState=savedInstanceState;
         setContentView(R.layout.activity_list_lieu);
         expandableList = (ExpandableListView) findViewById(R.id.expandableListLieu);
-        db = new DataBase(getApplicationContext(),"base de donne",null,2);
+        db = new DataBase(getApplicationContext(),"base de donne",null,4);
         listeLieu = db.recupLieuBD();
         adaptor = new AdapterListLieu(this, listeLieu);
         expandableList.setAdapter(adaptor);
+        registerForContextMenu(expandableList);
 
     }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        ExpandableListView.ExpandableListContextMenuInfo
+                info=(ExpandableListView.ExpandableListContextMenuInfo)menuInfo;
+        if(ExpandableListView.getPackedPositionType(info.packedPosition)
+                == ExpandableListView.PACKED_POSITION_TYPE_GROUP){
+            lieuClicked=listeLieu.get((int)info.id);
+            menu.setHeaderTitle("Options: "+lieuClicked.getDesignation());
+            String [] menuItems=getResources().getStringArray(R.array.menuLieuLongClick);
+            for(int i=0; i<menuItems.length; i++){
+                menu.add(Menu.NONE,i,i,menuItems[i]);
+            } }
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int menuItemIndex=item.getItemId();
+        String [] menuItems=getResources().getStringArray(R.array.menuLieuLongClick);
+
+        switch(menuItemIndex){
+            case 0: //Partager
+                break;
+            case 1: //Modifier
+                      modifyLieu();
+                break;
+            case 2: //M'y rendre
+                break;
+            case 3: //Supprimer
+                 if(db.supprLieu(lieuClicked)!=-1) {
+                     listeLieu.remove(lieuClicked);
+                     Toast.makeText(getApplicationContext(), "SUPPRESSION AVEC SUCCES", Toast.LENGTH_LONG)
+                             .show();
+                 }
+                else
+                     Toast.makeText(getApplicationContext(),"SUPPRESSION ECHOUEE",Toast.LENGTH_LONG)
+                             .show();
+                break;
+            default:
+
+        }
+        /*String menuItemName=menuItems[menuItemIndex];
+        Toast.makeText(getApplicationContext(), menuItemName + "  " + "Clicked", Toast.LENGTH_LONG).show();*/
+        adaptor = new AdapterListLieu(this, listeLieu);
+        expandableList.setAdapter(adaptor);
+        return true;
+    }
+    public void modifyLieu(){
+        modifyLieuDialog=new Dialog(this,android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth);
+        modifyLieuDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        modifyLieuDialog.setCancelable(true);
+        modifyLieuDialog.setContentView(R.layout.add_lieu);
+        locationName=(EditText)modifyLieuDialog.findViewById(R.id.locationName);
+        locationName.setText(lieuClicked.getDesignation());
+        locationName.setEnabled(false);
+        locationDescription=(EditText)modifyLieuDialog.findViewById(R.id.locationDescription);
+        locationDescription.setText(lieuClicked.getDescription());
+        locationCategory=(Spinner)modifyLieuDialog.findViewById(R.id.locationCategory);
+        //locationCategory.setId(lieuClicked.getCategorie().ordinal());
+        shareLocation=(CheckBox)modifyLieuDialog.findViewById(R.id.checkBoxShareLocation);
+        shareLocation.setChecked(lieuClicked.isPartage());
+        checkBoxAddCurrentLoc=(CheckBox)modifyLieuDialog.findViewById(R.id.checkBoxAddCurrentLoc);
+        checkBoxAddCurrentLoc.setEnabled(false);
+        btnModify=(Button)modifyLieuDialog.findViewById(R.id.btnAjout);
+        btnModify.setText("Modify");
+        btnModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name=locationName.getText().toString().trim();
+                String description=locationDescription.getText().toString().trim();
+                //categorySelected retrieved in onItemSelected() method
+                boolean toBeshared=shareLocation.isChecked();
+                if(name.isEmpty()){
+                    locationName.setError("Champs requis");
+                    locationDescription.setError("Nom de lieu requis");
+                    return;
+                }
+                Lieu locationModified=lieuClicked;
+                locationModified.setDescription(description);
+                locationModified.setCategorie(Categorie_lieu.valueOf(categorySelected));
+                locationModified.setPartage(toBeshared);
+
+                //db = new DataBase(getApplicationContext(),"base de donne",null,4);
+                if(db.updateLieu(locationModified)!=-1) {
+                    listeLieu.remove(lieuClicked);
+                    listeLieu.add(locationModified);
+                    Toast.makeText(getApplicationContext(),
+                            "MODIFICATION AVEC SUCCES", Toast.LENGTH_LONG).show();
+
+                //refresh la liste
+                    adaptor = new AdapterListLieu(getApplicationContext(), listeLieu);
+                    expandableList.setAdapter(adaptor);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"MODIFICATION ECHOUEE",Toast.LENGTH_LONG).show();
+                }
+                modifyLieuDialog.dismiss();
+
+            }
+        });
+        populateCategoryCheckBox();
+        modifyLieuDialog.show();
+    }
+    public void populateCategoryCheckBox(){
+// Create an ArrayAdapter using the string array and a default spinner layout
+        adapterLocationCategories = ArrayAdapter.createFromResource(this,
+                R.array.locationCategory, android.R.layout.simple_spinner_dropdown_item);
+// Specify the layout to use when the list of choices appears
+        adapterLocationCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        locationCategory.setAdapter(adapterLocationCategories);
+        locationCategory.setOnItemSelectedListener(this);
+    }
+
+    //on location category selection
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        categorySelected=(String)parent.getItemAtPosition(position);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
 }

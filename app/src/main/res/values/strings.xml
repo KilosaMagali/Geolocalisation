@@ -10,5 +10,23 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="error_field_required">\"This field is requiered\"</string>
+    <string name="labelCheckBoxPartager">Partager ce lieu avec mes amis</string>
+    <string name="addCurrentLoc">Je suis sur place</string>
+    <string-array name="locationCategory">
+        <item>Parking</item>
+        <item>Restaurant</item>
+        <item>Magasin</item>
+        <item>Bar</item>
+        <item>Cinema</item>
+        <item>Home</item>
+        <item>Autre</item>
+    </string-array>
+    <string-array name="menuLieuLongClick">
+        <item>Partager</item>
+        <item>Modifier</item>
+        <item>M\'y rendre</item>
+        <item>Supprimer</item>
+    </string-array>
+
 
 </resources>
