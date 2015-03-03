@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -17,6 +18,8 @@ import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 /**
@@ -27,14 +30,17 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
     private AdapterListLieu adaptor;
     private ArrayList<Lieu> listeLieu;
     private DataBase db;
+    private LatLng latLong=new LatLng(0,0);
     private Lieu lieuClicked;  //lieu selectionné au longclick d'un lieu
     private Bundle savedInstanceState;
     private Dialog modifyLieuDialog;
+    private Dialog addLieuDialog;
     private ArrayAdapter<CharSequence> adapterLocationCategories;
     private Spinner locationCategory;
     private EditText locationName,locationDescription;
     private CheckBox shareLocation,checkBoxAddCurrentLoc;
     private Button btnModify;
+    private Button btnAjouter,btnAnnule;
     private String categorySelected;
 
 
@@ -49,7 +55,12 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
         adaptor = new AdapterListLieu(this, listeLieu);
         expandableList.setAdapter(adaptor);
         registerForContextMenu(expandableList);
-
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_activity_list_lieu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -175,6 +186,18 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.add:
+                Toast.makeText(getApplicationContext(),"Ouverture d'ajout message",Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

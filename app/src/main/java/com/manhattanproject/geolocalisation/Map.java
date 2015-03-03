@@ -35,7 +35,7 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
     private Dialog addLieuDialog;
     private EditText locationName;
     private Spinner locationCategory;
-    private Button btnSugg, btnLieu,btnAmis,btnAjouter;
+    private Button btnSugg, btnLieu,btnAmis,btnAjouter,btnAnnule;
     private LatLng currentPosition;
     private CameraPosition cameraPosition;
     private EditText locationDescription;
@@ -61,14 +61,16 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         addMarkerLieu();
         currentPosition=getMyCurrentLocation();
         if(currentPosition!=null) { //zoom to my current location
+            System.out.println("ok ok ok");
             cameraPosition = new CameraPosition.Builder().target(currentPosition)
                     .zoom(17).build();
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
         else {  // zoom to one of the existing locations
+            System.out.println("non ono non");
             if (listeLieu.size() != 0) {
                 cameraPosition = new CameraPosition.Builder().target(listeLieu.get(0).getPosition())
-                        .zoom(15).build();
+                       .zoom(15).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         }
@@ -116,8 +118,7 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                             listeLieu.add(locationToAdd);
                             Toast.makeText(getApplicationContext(),
                                     "Lieu:" + name +
-                                            "\nCategorie:" + categorySelected +
-                                            "\nSUCCESS!! :) ",
+                                            "\nAjout reussi!! ",
                                     Toast.LENGTH_LONG).show();
 
 
@@ -126,6 +127,12 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                         else{
                             Toast.makeText(getApplicationContext(),"FAILED",Toast.LENGTH_LONG).show();
                         }
+                        addLieuDialog.dismiss();
+                    }
+                });
+                btnAnnule=(Button)addLieuDialog.findViewById(R.id.btnAnnule);
+                btnAnnule.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
                         addLieuDialog.dismiss();
                     }
                 });
@@ -163,8 +170,9 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         googleMap.setMyLocationEnabled(true);
 
         Location currentLocation = googleMap.getMyLocation();
-
+        System.out.println("aie aie aie"+currentLocation+googleMap.isMyLocationEnabled());
         if (currentLocation != null) {
+            System.out.println("trouvé!!!!!!!!!!!!!!!");
             currentPosition = new LatLng(currentLocation.getLatitude(),
                     currentLocation.getLongitude());
         }
@@ -210,7 +218,7 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
             //Log.e("mapApp", exception.toString());
         }
     }
-    private void addMarkerLieu(){
+    public void addMarkerLieu(){
 
         /** Make sure that the map has been initialised **/
         if(null != googleMap && latLong!=null){
