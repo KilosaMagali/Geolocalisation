@@ -12,6 +12,9 @@
     <string name="error_field_required">\"This field is requiered\"</string>
     <string name="labelCheckBoxPartager">Partager ce lieu avec mes amis</string>
     <string name="addCurrentLoc">Je suis sur place</string>
+    <string name="str_rb_driving">Voiture</string>
+    <string name="str_rb_bicycling">Vélo</string>
+    <string name="str_rb_walking">A pied</string>
     <string-array name="locationCategory">
         <item>Parking</item>
         <item>Restaurant</item>

@@ -1,6 +1,7 @@
 package com.manhattanproject.geolocalisation;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
@@ -89,6 +90,15 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
                       modifyLieu();
                 break;
             case 2: //M'y rendre
+                Intent intentParser=new Intent(getApplicationContext(),MapDrawerActivity.class);
+                intentParser.putExtra("nameLieu",lieuClicked.getDesignation());
+                intentParser.putExtra("descriptionLieu",lieuClicked.getDescription());
+                intentParser.putExtra("categoryLieu",lieuClicked.getCategorie().name());
+                intentParser.putExtra("latitudeLieu",lieuClicked.getPosition().latitude);
+                intentParser.putExtra("longitudeLieu",lieuClicked.getPosition().longitude);
+                intentParser.putExtra("partage",lieuClicked.isPartage());
+                startActivity(intentParser);
+
                 break;
             case 3: //Supprimer
                  if(db.supprLieu(lieuClicked)!=-1) {
@@ -120,7 +130,6 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
         locationDescription=(EditText)modifyLieuDialog.findViewById(R.id.locationDescription);
         locationDescription.setText(lieuClicked.getDescription());
         locationCategory=(Spinner)modifyLieuDialog.findViewById(R.id.locationCategory);
-        //locationCategory.setId(lieuClicked.getCategorie().ordinal());
         shareLocation=(CheckBox)modifyLieuDialog.findViewById(R.id.checkBoxShareLocation);
         shareLocation.setChecked(lieuClicked.isPartage());
         checkBoxAddCurrentLoc=(CheckBox)modifyLieuDialog.findViewById(R.id.checkBoxAddCurrentLoc);
@@ -173,6 +182,7 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
         adapterLocationCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         locationCategory.setAdapter(adapterLocationCategories);
+        locationCategory.setSelection(Categorie_lieu.valueOf(lieuClicked.getCategorie().name()).ordinal());
         locationCategory.setOnItemSelectedListener(this);
     }
 
@@ -181,11 +191,12 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         categorySelected=(String)parent.getItemAtPosition(position);
 
+
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+            categorySelected=parent.getSelectedItem().toString();
     }
 
     @Override

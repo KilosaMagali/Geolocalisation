@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.manhattanproject.geolocalisation"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.manhattanproject.geolocalisation.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.manhattanproject.geolocalisation.permission.C2D_MESSAGE" />
+
+    <permission
+        android:name="com.manhattanproject.geolocalisation.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.manhattanproject.geolocalisation.permission.MAPS_RECEIVE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.manhattanproject.geolocalisation.Map"
+            android:label="@string/app_name" >
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAUmaxAZ5Bn-pzI4kKeeHYvHEvTTOigeJM" />
+        <!-- cle Vincent : AIzaSyD2Fqbyhj4e74izwcaIpbAe7TieFrWt4Fk -->
+        <!-- cle lucien : AIzaSyA4hdAZGC6pUZ6LpZ_uMEOWCvNYZMAHQkM -->
+        <!-- cle Kilosa : AIzaSyAUmaxAZ5Bn-pzI4kKeeHYvHEvTTOigeJM -->
+
+        <activity
+            android:name="com.manhattanproject.geolocalisation.Activity_list_ami"
+            android:label="@string/title_activity_activity_list_ami"
+            android:parentActivityName="com.manhattanproject.geolocalisation.Map" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Map" />
+        </activity>
+        <activity
+            android:name="com.manhattanproject.geolocalisation.Activity_list_lieu"
+            android:label="activity list lieu"
+            android:parentActivityName="com.manhattanproject.geolocalisation.Map" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Map" />
+        </activity>
+        <activity
+            android:name="com.manhattanproject.geolocalisation.Activity_list_utilisateur"
+            android:label="@string/title_activity_activity_list_utilisateur"
+            android:parentActivityName="com.manhattanproject.geolocalisation.Map" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Map" />
+        </activity>
+        <activity
+            android:name="com.manhattanproject.geolocalisation.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.manhattanproject.geolocalisation.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="com.manhattanproject.geolocalisation.RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="com.manhattanproject.geolocalisation.MapDrawerActivity"
+            android:label="SeRendreAunLiuDonne" >
+        </activity>
+
+        <receiver
+            android:name="com.manhattanproject.geolocalisation.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.manhattanproject.geolocalisation" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+</manifest>
