@@ -31,8 +31,8 @@ public class Activity_list_ami extends ActionBarActivity {
         //System.out.println(listeAmi.get(0));
         Utilisateur courant = new Utilisateur();
         courant.recup(getApplicationContext());
-        //test final String[] params={"selectUsersFriends.php","pseudo","4rrrrrr"};
-        String[] params={"selectUsersFriends.php","pseudo",courant.getPseudo()};
+        final String[] params={"selectUsersFriends.php","pseudo","4rrrrrr"};
+        //String[] params={"selectUsersFriends.php","pseudo",courant.getPseudo()};
         Requete r = new Requete();
         r.execute(params);
         try {
