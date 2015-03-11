@@ -1,5 +1,7 @@
 package com.manhattanproject.geolocalisation;
 
+import android.os.AsyncTask;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -13,7 +15,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -26,15 +27,17 @@ import java.util.ArrayList;
 * Faire new requete(tableau_de_string);
 * puis getResult();
  */
-public class Requete {
+public class Requete extends AsyncTask<String, Void, String>{
 
-    String result=null;
+    String result="";
 
     public String getResult() {
         return result;
     }
 
-    public Requete() {
+    @Override
+    protected String doInBackground(String... params) {
+        return LancerRequete(params);
     }
 
     public String LancerRequete(String[] params) {
@@ -63,6 +66,7 @@ public class Requete {
             is.close();
             result=sb.toString();
         }catch ( IOException e ){ e.printStackTrace();}
+        System.out.println("result : "+result);
         return result;
     }
 }
