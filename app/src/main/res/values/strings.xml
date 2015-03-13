@@ -15,6 +15,7 @@
     <string name="str_rb_driving">Voiture</string>
     <string name="str_rb_bicycling">Vélo</string>
     <string name="str_rb_walking">A pied</string>
+
     <string-array name="locationCategory">
         <item>Parking</item>
         <item>Restaurant</item>
@@ -31,5 +32,6 @@
         <item>Supprimer</item>
     </string-array>
 
+    <string name="title_activity_activity__search">Activity_Search</string>
 
 </resources>

@@ -1,9 +1,14 @@
 package com.manhattanproject.geolocalisation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -57,5 +62,25 @@ public class Activity_list_ami extends ActionBarActivity {
         adaptor = new AdapterListAmi(this, listeAmi);
         expandableList.setAdapter(adaptor);
 
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_activity_list_lieu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.add:
+                //Toast.makeText(getApplicationContext(), "Ouverture d'ajout message", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, Activity_Search.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
