@@ -135,6 +135,7 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
         checkBoxAddCurrentLoc=(CheckBox)modifyLieuDialog.findViewById(R.id.checkBoxAddCurrentLoc);
         checkBoxAddCurrentLoc.setEnabled(false);
         btnModify=(Button)modifyLieuDialog.findViewById(R.id.btnAjout);
+        btnAnnule = (Button)modifyLieuDialog.findViewById(R.id.btnAnnule);
         btnModify.setText("Modify");
         btnModify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +170,12 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
                 }
                 modifyLieuDialog.dismiss();
 
+            }
+        });
+        btnAnnule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modifyLieuDialog.dismiss();
             }
         });
         populateCategoryCheckBox();

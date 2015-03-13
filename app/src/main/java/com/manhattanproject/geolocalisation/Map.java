@@ -70,7 +70,7 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
             System.out.println("non ono non");
             if (listeLieu.size() != 0) {
                 cameraPosition = new CameraPosition.Builder().target(listeLieu.get(0).getPosition())
-                       .zoom(15).build();
+                        .zoom(15).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         }
@@ -225,15 +225,15 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
             if(listeLieu.size()!=0 && checkBoxLieu.isChecked()) {
                 for (int i = 0; i < listeLieu.size(); i++) {
                     if(listeLieu.get(i).getCategorie()==Categorie_lieu.Parking)
-                    googleMap.addMarker(new MarkerOptions()
-                                    .position(listeLieu.get(i).getPosition())
-                                    .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description).
-                                            icon(BitmapDescriptorFactory.fromResource(R.drawable.parking))
-                    );
-                    else
                         googleMap.addMarker(new MarkerOptions()
                                         .position(listeLieu.get(i).getPosition())
-                                        .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description) );
+                                        .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description).
+                                                icon(BitmapDescriptorFactory.fromResource(R.drawable.parking))
+                        );
+                    else
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(listeLieu.get(i).getPosition())
+                                .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description) );
                 }
             }
             else{   //remove all markers and re-add the checked ones
@@ -265,10 +265,10 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         }
     }
 
-//on location category selection
+    //on location category selection
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-              categorySelected=(String)parent.getItemAtPosition(position);
+        categorySelected=(String)parent.getItemAtPosition(position);
 
     }
 
@@ -276,26 +276,26 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-public void setOnCheckedChanged(){
-    checkBoxAmis.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+    public void setOnCheckedChanged(){
+        checkBoxAmis.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        }
-    });
-    checkBoxLieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        addMarkerLieu();
-        }
-    });
-    checkBoxSuggestion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            }
+        });
+        checkBoxLieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                addMarkerLieu();
+            }
+        });
+        checkBoxSuggestion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        }
-    });
-}
+            }
+        });
+    }
 
 
 
