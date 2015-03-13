@@ -61,13 +61,11 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         addMarkerLieu();
         currentPosition=getMyCurrentLocation();
         if(currentPosition!=null) { //zoom to my current location
-            System.out.println("ok ok ok");
             cameraPosition = new CameraPosition.Builder().target(currentPosition)
                     .zoom(17).build();
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
         else {  // zoom to one of the existing locations
-            System.out.println("non ono non");
             if (listeLieu.size() != 0) {
                 cameraPosition = new CameraPosition.Builder().target(listeLieu.get(0).getPosition())
                         .zoom(15).build();
