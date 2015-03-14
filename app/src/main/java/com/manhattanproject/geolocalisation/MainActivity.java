@@ -21,9 +21,9 @@ public class MainActivity extends ActionBarActivity {
         Button profil_btn = (Button) findViewById(R.id.profil_button);
         Context c=getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-        if(preferences.getInt("identifiant",-1)==-1) {
+        /*if(preferences.getInt("identifiant",-1)==-1) {
             profil_btn.setEnabled(false);
-        }
+        }*/
     }
 
     public void onActivityReenter(int resultCode, Intent data){
@@ -48,8 +48,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void openProfil(View view){
-        /*Intent intent = new Intent(this, Activity.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, Activity_profil.class);
+        startActivity(intent);
     }
 
     public void openRegister(View view){

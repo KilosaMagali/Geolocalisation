@@ -17,8 +17,9 @@ public final class R {
         public static final int abc_slide_out_top=0x7f040005;
     }
     public static final class array {
-        public static final int locationCategory=0x7f060000;
-        public static final int menuLieuLongClick=0x7f060001;
+        public static final int DureeCategory=0x7f060000;
+        public static final int locationCategory=0x7f060001;
+        public static final int menuLieuLongClick=0x7f060002;
     }
     public static final class attr {
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1697,6 +1698,8 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020054;
     }
     public static final class id {
+        public static final int SpinnerDuree=0x7f0a006b;
+        public static final int Statut=0x7f0a006d;
         public static final int action_bar=0x7f0a0045;
         public static final int action_bar_activity_content=0x7f0a0000;
         public static final int action_bar_container=0x7f0a0044;
@@ -1710,31 +1713,34 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0a0042;
         public static final int action_mode_bar_stub=0x7f0a0041;
         public static final int action_mode_close_button=0x7f0a0034;
-        public static final int action_settings=0x7f0a0079;
+        public static final int action_settings=0x7f0a0081;
         public static final int activity_chooser_view_content=0x7f0a0035;
-        public static final int add=0x7f0a007a;
-        public static final int addlieu=0x7f0a006e;
+        public static final int add=0x7f0a0082;
+        public static final int addlieu=0x7f0a0076;
         public static final int adjust_height=0x7f0a0016;
         public static final int adjust_width=0x7f0a0017;
         public static final int always=0x7f0a001b;
         public static final int beginning=0x7f0a0013;
         public static final int book_now=0x7f0a002b;
-        public static final int btnAjout=0x7f0a0074;
+        public static final int btnAjout=0x7f0a007c;
         public static final int btnAmis=0x7f0a0060;
-        public static final int btnAnnule=0x7f0a0075;
+        public static final int btnAnnule=0x7f0a007d;
         public static final int btnLieu=0x7f0a005e;
-        public static final int btnLieuModifier=0x7f0a0076;
+        public static final int btnLieuModifier=0x7f0a007e;
         public static final int btnSugg=0x7f0a005c;
+        public static final int btnapp=0x7f0a006a;
+        public static final int btnmod=0x7f0a006c;
         public static final int buyButton=0x7f0a0028;
         public static final int buy_now=0x7f0a002c;
         public static final int buy_with_google=0x7f0a002d;
         public static final int checkAmis=0x7f0a005f;
-        public static final int checkBoxAddCurrentLoc=0x7f0a0073;
-        public static final int checkBoxShareLocation=0x7f0a0072;
+        public static final int checkBoxAddCurrentLoc=0x7f0a007b;
+        public static final int checkBoxPartagePos=0x7f0a006e;
+        public static final int checkBoxShareLocation=0x7f0a007a;
         public static final int checkLieu=0x7f0a005d;
         public static final int checkSugg=0x7f0a005b;
         public static final int checkbox=0x7f0a003d;
-        public static final int child_lieu=0x7f0a0077;
+        public static final int child_lieu=0x7f0a007f;
         public static final int classic=0x7f0a002f;
         public static final int collapseActionView=0x7f0a001c;
         public static final int decor_content_parent=0x7f0a0043;
@@ -1744,8 +1750,9 @@ containing a value of this type.
         public static final int donate_with_google=0x7f0a002e;
         public static final int dropdown=0x7f0a0021;
         public static final int editText=0x7f0a0054;
+        public static final int editText2=0x7f0a006f;
         public static final int edit_query=0x7f0a0047;
-        public static final int email_login_form=0x7f0a0069;
+        public static final int email_login_form=0x7f0a0072;
         public static final int end=0x7f0a0014;
         public static final int expand_activities_button=0x7f0a0036;
         public static final int expandableListAmi=0x7f0a0055;
@@ -1761,36 +1768,38 @@ containing a value of this type.
         public static final int icon=0x7f0a003a;
         public static final int ifRoom=0x7f0a001d;
         public static final int image=0x7f0a0037;
+        public static final int imageView=0x7f0a0067;
         public static final int listMode=0x7f0a0009;
         public static final int list_item=0x7f0a0039;
-        public static final int locationCategory=0x7f0a0071;
-        public static final int locationDescription=0x7f0a0070;
-        public static final int locationName=0x7f0a006f;
-        public static final int login=0x7f0a006c;
-        public static final int login_form=0x7f0a0068;
-        public static final int login_progress=0x7f0a0067;
+        public static final int locationCategory=0x7f0a0079;
+        public static final int locationDescription=0x7f0a0078;
+        public static final int locationName=0x7f0a0077;
+        public static final int login=0x7f0a0074;
+        public static final int login_form=0x7f0a0071;
+        public static final int login_progress=0x7f0a0070;
         public static final int map=0x7f0a0066;
         public static final int mapView=0x7f0a0061;
         public static final int map_button=0x7f0a0057;
         public static final int match_parent=0x7f0a002a;
+        public static final int mdp=0x7f0a0069;
         public static final int middle=0x7f0a0015;
         public static final int monochrome=0x7f0a0031;
         public static final int never=0x7f0a001e;
         public static final int none=0x7f0a000e;
         public static final int normal=0x7f0a000a;
-        public static final int parent_lieu=0x7f0a0078;
-        public static final int password=0x7f0a006b;
+        public static final int parent_lieu=0x7f0a0080;
+        public static final int password=0x7f0a0073;
         public static final int production=0x7f0a0025;
         public static final int profil_button=0x7f0a0058;
         public static final int progress_circular=0x7f0a0005;
         public static final int progress_horizontal=0x7f0a0006;
-        public static final int pseudo=0x7f0a006a;
+        public static final int pseudo=0x7f0a0068;
         public static final int radio=0x7f0a003f;
         public static final int rb_bicycling=0x7f0a0064;
         public static final int rb_driving=0x7f0a0063;
         public static final int rb_walking=0x7f0a0065;
         public static final int register_button=0x7f0a0059;
-        public static final int register_signin_button=0x7f0a006d;
+        public static final int register_signin_button=0x7f0a0075;
         public static final int relativeView=0x7f0a005a;
         public static final int rg_modes=0x7f0a0062;
         public static final int sandbox=0x7f0a0026;
@@ -1857,21 +1866,23 @@ containing a value of this type.
         public static final int activity_main=0x7f03001c;
         public static final int activity_map=0x7f03001d;
         public static final int activity_map_drawer=0x7f03001e;
-        public static final int activity_register=0x7f03001f;
-        public static final int add_lieu=0x7f030020;
-        public static final int button_modifier=0x7f030021;
-        public static final int lieu_detail=0x7f030022;
-        public static final int list_item=0x7f030023;
-        public static final int support_simple_spinner_dropdown_item=0x7f030024;
+        public static final int activity_profil=0x7f03001f;
+        public static final int activity_register=0x7f030020;
+        public static final int add_lieu=0x7f030021;
+        public static final int button_modifier=0x7f030022;
+        public static final int lieu_detail=0x7f030023;
+        public static final int list_item=0x7f030024;
+        public static final int support_simple_spinner_dropdown_item=0x7f030025;
     }
     public static final class menu {
         public static final int menu_activity__search=0x7f0e0000;
         public static final int menu_activity_list_ami=0x7f0e0001;
         public static final int menu_activity_list_lieu=0x7f0e0002;
         public static final int menu_activity_list_utilisateur=0x7f0e0003;
-        public static final int menu_login=0x7f0e0004;
-        public static final int menu_main=0x7f0e0005;
-        public static final int menu_register=0x7f0e0006;
+        public static final int menu_activity_profil=0x7f0e0004;
+        public static final int menu_login=0x7f0e0005;
+        public static final int menu_main=0x7f0e0006;
+        public static final int menu_register=0x7f0e0007;
     }
     public static final class raw {
         public static final int gtm_analytics=0x7f050000;
@@ -1939,10 +1950,11 @@ containing a value of this type.
         public static final int title_activity_activity__search=0x7f0c003b;
         public static final int title_activity_activity_list_ami=0x7f0c003c;
         public static final int title_activity_activity_list_utilisateur=0x7f0c003d;
-        public static final int title_activity_login=0x7f0c003e;
-        public static final int title_activity_main=0x7f0c003f;
-        public static final int title_activity_register=0x7f0c0040;
-        public static final int wallet_buy_button_place_holder=0x7f0c0041;
+        public static final int title_activity_activity_profil=0x7f0c003e;
+        public static final int title_activity_login=0x7f0c003f;
+        public static final int title_activity_main=0x7f0c0040;
+        public static final int title_activity_register=0x7f0c0041;
+        public static final int wallet_buy_button_place_holder=0x7f0c0042;
     }
     public static final class style {
         /**  Customize your theme here. 
