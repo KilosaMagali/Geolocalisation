@@ -211,11 +211,73 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.add:
-                Toast.makeText(getApplicationContext(),"Ouverture d'ajout message",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),"Ouverture d'ajout message",Toast.LENGTH_LONG).show();
+                addLieu();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void addLieu(){
+        addLieuDialog=new Dialog(this,android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth);
+        addLieuDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        addLieuDialog.setCancelable(true);
+        addLieuDialog.setContentView(R.layout.add_lieu);
+        locationName=(EditText)addLieuDialog.findViewById(R.id.locationName);
+        locationDescription=(EditText)addLieuDialog.findViewById(R.id.locationDescription);
+        locationCategory=(Spinner)addLieuDialog.findViewById(R.id.locationCategory);
+        shareLocation=(CheckBox)addLieuDialog.findViewById(R.id.checkBoxShareLocation);
+        checkBoxAddCurrentLoc=(CheckBox)addLieuDialog.findViewById(R.id.checkBoxAddCurrentLoc);
+        checkBoxAddCurrentLoc.setChecked(true);
+        checkBoxAddCurrentLoc.setEnabled(false);
+        btnAjouter=(Button)addLieuDialog.findViewById(R.id.btnAjout);
+        btnAjouter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name=locationName.getText().toString().trim();
+                String description=locationDescription.getText().toString().trim();
+                //categorySelected retrieved in onItemSelected() method
+                boolean toBeshared=shareLocation.isChecked();
+                if(name.isEmpty()){
+                    locationName.setError("Champs requis");
+                    locationDescription.setError("Nom de lieu requis");
+                    return;
+                }
+                latLong=Map.getLocationFromOutsideTheClass();
+                Lieu locationToAdd=new Lieu(Categorie_lieu.valueOf(categorySelected),name, description,toBeshared,latLong);
+                //db = new DataBase(getApplicationContext(),"base de donne",null,4);
+                if(db.ajoutLieu(locationToAdd)!=-1) {
+                    listeLieu.add(locationToAdd);
+                    Toast.makeText(getApplicationContext(),
+                            "Lieu:" + name +
+                                    "\nAjout reussi!! ",
+                            Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"FAILED",Toast.LENGTH_LONG).show();
+                }
+                addLieuDialog.dismiss();
+            }
+        });
+        btnAnnule=(Button)addLieuDialog.findViewById(R.id.btnAnnule);
+        btnAnnule.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                addLieuDialog.dismiss();
+            }
+        });
+        populateCategoryCheckBoxForAdd();
+        addLieuDialog.show();
+    }
+    public void populateCategoryCheckBoxForAdd(){
+// Create an ArrayAdapter using the string array and a default spinner layout
+        adapterLocationCategories = ArrayAdapter.createFromResource(this,
+                R.array.locationCategory, android.R.layout.simple_spinner_dropdown_item);
+// Specify the layout to use when the list of choices appears
+        adapterLocationCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        locationCategory.setAdapter(adapterLocationCategories);
+        locationCategory.setOnItemSelectedListener(this);
     }
 
 }

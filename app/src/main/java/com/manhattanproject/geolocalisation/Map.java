@@ -1,11 +1,16 @@
 package com.manhattanproject.geolocalisation;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -44,6 +49,9 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
     private String categorySelected;
     private ArrayList<Lieu> listeLieu;
     private DataBase db;
+    private Location currentLocation;
+    private static LatLng staticCurrentPosition;
+    private static boolean gpsRequest=false;
 
 
     @Override
@@ -68,7 +76,7 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         else {  // zoom to one of the existing locations
             if (listeLieu.size() != 0) {
                 cameraPosition = new CameraPosition.Builder().target(listeLieu.get(0).getPosition())
-                        .zoom(15).build();
+                        .zoom(17).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         }
@@ -108,7 +116,8 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                             locationDescription.setError("Nom de lieu requis");
                             return;
                         }
-                        if(checkBoxAddCurrentLoc.isChecked()) latLong=getMyCurrentLocation();
+                        if(checkBoxAddCurrentLoc.isChecked())
+                            latLong=getMyCurrentLocation();
                         else latLong=latLng;
                         Lieu locationToAdd=new Lieu(Categorie_lieu.valueOf(categorySelected),name, description,toBeshared,latLong);
                         //db = new DataBase(getApplicationContext(),"base de donne",null,4);
@@ -139,41 +148,23 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
             }
         });
         Context c = getApplicationContext();
-        /*Utilisateur vincent;
-        vincent = new Utilisateur(1,"Bonnemains","Vincent","en couple",new LatLng(1.2344444444444444,4.567777777777777));
-        vincent.save(c);
-        Utilisateur test = new Utilisateur();
-        test.recup(c);
-        System.out.println("recuperation");
-        System.out.println(test);*/
+    }
 
-        /*DataBase db = new DataBase(c,"base de donne",null,1);
-        long i;
-        for(i = 0;i < 100;++i)
-            db.supprAmi(new Ami(i,null,null,null));
-        Ami a = new Ami(new LatLng(40.0,40.0),"MahotLucien","mange de la pizza");
-        db.ajoutAmi(a);*/
-        //A executer une fois
-        /*Ami a = new Ami(new LatLng(40.0,40.0),"Mahot","Lucien","mange de la pizza");
-        Lieu l1 = new Lieu(Categorie_lieu.Bar,"De danu","Pub Irlandais qui sert la nuit comme le jour une biere de qualite", true,new LatLng(43.6042600 , 1.4436700));
-        Lieu l2 = new Lieu(Categorie_lieu.Magasin,"Auchan","Supermarche de bonne qualite, pas cher", false,new LatLng(43.6142600 , 1.4436700));
-        DataBase db = new DataBase(c,"base de donne",null,1);
-        db.ajoutLieu(l1);
-        db.ajoutLieu(l2);
-        db.ajoutAmi(a);
-        */
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        gpsRequest=true;
     }
 
     private LatLng getMyCurrentLocation() {
+        //Enable MyLocation Layer of Google Map
         googleMap.setMyLocationEnabled(true);
 
-        Location currentLocation = googleMap.getMyLocation();
-        System.out.println("aie aie aie"+currentLocation+googleMap.isMyLocationEnabled());
-        if (currentLocation != null) {
-            System.out.println("trouvé!!!!!!!!!!!!!!!");
-            currentPosition = new LatLng(currentLocation.getLatitude(),
-                    currentLocation.getLongitude());
-        }
+        LocationProvider locationProvider = new LocationProvider();
+
+        //Get LocationManager object from System Service LOCATION_SERVICE
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        currentPosition=locationProvider.getLocation();
         return currentPosition;
     }
 
@@ -188,34 +179,44 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         locationCategory.setOnItemSelectedListener(this);
     }
 
+
+
+    /**
+     *    MapFragment requires the native API Level 11 fragment implementation,
+     *    can only be used on API Level 11 and higher devices
+     */
+
     private void createMapView(){
-        /**
-         * Catch the null pointer exception that
-         * may be thrown when initialising the activity_map
-         */
+/**
+ * Catch the null pointer exception that
+ * may be thrown when initialising the activity_map
+ */
         try {
             if(null == googleMap){
                 googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.mapView)).getMap();
-                googleMap.getUiSettings().setZoomControlsEnabled(true); // true to enable
-                //googleMap.getUiSettings().setMyLocationButtonEnabled(true); //my location button
+                googleMap.getUiSettings().setZoomControlsEnabled(false); // true to enable
+                googleMap.getUiSettings().setCompassEnabled(true);
                 googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
                 googleMap.setMyLocationEnabled(true);
                 currentPosition=new LatLng(googleMap.getMyLocation().getLatitude(),
                         googleMap.getMyLocation().getLongitude());
-
-                /**
-                 * If the activity_map is still null after attempted initialisation,
-                 * show an error to the user
-                 */
+/**
+ * If the activity_map is still null after attempted initialisation,
+ * show an error to the user
+ */
                 if(null == googleMap) {
                     Toast.makeText(getApplicationContext(),
                             "Error creating map", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (NullPointerException exception){
-            //Log.e("mapApp", exception.toString());
+   Log.e("mapApp", exception.toString());
         }
     }
+
+    /**
+     *  Add markers on the map.
+     */
     public void addMarkerLieu(){
 
         /** Make sure that the map has been initialised **/
@@ -293,6 +294,130 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
 
             }
         });
+    }
+
+    private void showGPSDisabledAlertToUser(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("GPS est desactivé. Veuillez l'activer pour plus de précision?")
+                .setCancelable(false)
+                .setPositiveButton("Activer GPS",
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){
+                                Intent callGPSSettingIntent = new Intent(
+                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(callGPSSettingIntent);
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Continuer sans GPS",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+
+    /**
+     *A Class to Manage current location using GPS.
+     */
+    private class LocationProvider implements LocationListener {
+        private double latitude, longitude;
+        private String providerName;
+        private final int TIME_INTERVAL=15000;
+        private final String NETWORK_PROV=LocationManager.NETWORK_PROVIDER;
+        private final String GPS_PROV=LocationManager.GPS_PROVIDER;
+
+        public LocationProvider() {
+            LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            if (!lm.isProviderEnabled(GPS_PROV) && !gpsRequest){
+                showGPSDisabledAlertToUser();
+
+            }
+            gpsRequest=true;
+            if (lm.isProviderEnabled(GPS_PROV)){
+                providerName=GPS_PROV;
+            }
+            else
+                providerName=NETWORK_PROV;
+
+
+            Location lastLocation = lm.getLastKnownLocation(providerName);
+            if (lastLocation != null) {
+                latitude = lastLocation.getLatitude();
+                longitude = lastLocation.getLongitude();
+            }
+            lm.requestLocationUpdates(providerName, TIME_INTERVAL, 0, this);
+
+        }
+
+        public  LatLng getLocation(){
+            //Get current location as indicated on the map
+            currentLocation=googleMap.getMyLocation();
+            if(currentLocation!=null)
+                currentPosition=new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+            else {
+                /**
+                 *  If we cant get the location marked on map, get loc set
+                 *  by the network/GPS
+                 */
+                currentPosition = new LatLng(latitude, longitude);
+            }
+             //updte staticCurrentPosition
+            staticCurrentPosition=currentPosition;
+            return currentPosition;
+        }
+
+        @Override
+        public void onLocationChanged(Location location) {
+            if (location != null) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                currentLocation=location;
+
+            }
+            currentPosition=getLocation();
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            //if GPS has been activated, use it a provider
+            if(provider.equals(GPS_PROV)) providerName = GPS_PROV;
+            LocationManager lm=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            Location location=lm.getLastKnownLocation(providerName);
+            if(location!=null){
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                currentLocation=location;
+
+            }
+            currentPosition=getLocation();
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            if(provider.equals(GPS_PROV))
+                providerName = NETWORK_PROV;
+            LocationManager lm=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            Location location=lm.getLastKnownLocation(providerName);
+            if(location!=null){
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                currentLocation=location;
+
+            }
+            currentPosition=getLocation();
+        }
+    }
+
+    public static LatLng getLocationFromOutsideTheClass(){
+                return staticCurrentPosition;
     }
 
 

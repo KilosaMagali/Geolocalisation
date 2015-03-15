@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:background="#90FFFFFF"
+    android:layout_height="wrap_content">
+    <RadioGroup
+        android:id="@+id/dir_modes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        >
+
+        <RadioButton android:id="@+id/rb_fromMyCurrentPos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/depuisMaposition"
+            android:checked="true" />
+
+        <RadioButton android:id="@+id/rb_frmSpecifiedPos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/specifierDepart" />
+</RadioGroup>
+
+    <!--<SearchView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchOptions"
+        android:layout_below="@id/dir_modes"
+        /> -->
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    OK    "
+        android:id="@+id/btnOKOptions"
+        android:layout_below="@+id/dir_modes"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp"
+         />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/btnCancelOptions"
+        android:layout_below="@+id/dir_modes"
+        android:layout_toRightOf="@id/btnOKOptions"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="30dp"
+        />
+
+
+</RelativeLayout>

@@ -33,5 +33,7 @@
     </string-array>
 
     <string name="title_activity_activity__search">Activity_Search</string>
+    <string name="specifierDepart">Specifier l\'endroit de depart</string>
+    <string name="depuisMaposition">Depuis ma position courrante</string>
 
 </resources>

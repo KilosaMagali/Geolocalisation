@@ -1,13 +1,23 @@
 package com.manhattanproject.geolocalisation;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -15,7 +25,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -38,7 +47,7 @@ import java.util.List;
 
 public class MapDrawerActivity extends FragmentActivity {
 
-	private GoogleMap map;
+	private GoogleMap googleMap;
     private RadioButton rbDriving;
     private RadioButton rbBiCycling;
     private RadioButton rbWalking;
@@ -52,10 +61,17 @@ public class MapDrawerActivity extends FragmentActivity {
     private LatLng  currentPosition;
     private Intent intent;
     private CameraPosition cameraPosition;
+    private Location currentLocation;
+    private static boolean gpsRequest=false;
+    private Button btnShowPopUp,btnOkOptions,btnCancelOptions;
+    private RadioButton rbFromCurrentPos;
+    private RadioButton rbFromSpecifiedPos;
+    private RadioGroup dir_modes;
+    private PopupWindow popupOptions;
+    private boolean  boolFromSpecifiedPos, boolFromCurrentPos;
 
-	
-	
-	@Override
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map_drawer);
@@ -79,81 +95,216 @@ public class MapDrawerActivity extends FragmentActivity {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {				
 				
-				// Checks, whether start and end locations are captured
-				if(markerPoints.size() >= 2){					
-					LatLng origin = markerPoints.get(0);
-					LatLng dest = markerPoints.get(1);
-					
-					// Getting URL to the Google Directions API
-					String url = getDirectionsUrl(origin, dest);				
-					
-					DownloadTask downloadTask = new DownloadTask();
-					
-					// Start downloading json data from Google Directions API
-					downloadTask.execute(url);
-				}			
+		        downloadAndDrawPath();
 			}
 		});
 		
 		// Initializing 
 		markerPoints = new ArrayList<LatLng>();
-		
-		// Getting reference to SupportMapFragment of the activity_main
-		SupportMapFragment fm = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
-		
-		// Getting Map for the SupportMapFragment
-		map = fm.getMap();
-		
-		// Enable MyLocation Button in the Map
-		map.setMyLocationEnabled(true);
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        Location loc=map.getMyLocation();
-        if(loc!=null)
-        currentPosition=new LatLng(loc.getLatitude(),loc.getLongitude());
-        //retrieve information passed from Activity_list_lieu
-		retrieveLieuPassed();
-        markerPoints.add(lieuDestination.getPosition());
-        drawStartStopMarkers();
-        if(currentPosition!=null)
-            markerPoints.add(currentPosition);
-		// Setting onclick event listener for the map
-		map.setOnMapClickListener(new OnMapClickListener() {
-			
-			@Override
-			public void onMapClick(LatLng point) {
-				
-				// Already two locations				
-				if(markerPoints.size()>1){
-					markerPoints.remove(1);
-					map.clear();
-                    drawStartStopMarkers();
-				}
-				
-				// Adding new item to the ArrayList
-				markerPoints.add(point);						
-				
-				// Draws Start and Stop markers on the Google Map
-				drawStartStopMarkers();								
-				
-				// Checks, whether start and end locations are captured
-				if(markerPoints.size() == 2){
-					LatLng dest = markerPoints.get(0);
-					LatLng origin = markerPoints.get(1);
 
-					
-					// Getting URL to the Google Directions API
-					String url = getDirectionsUrl(origin, dest);				
-					
-					DownloadTask downloadTask = new DownloadTask();
-					
-					// Start downloading json data from Google Directions API
-					downloadTask.execute(url);
-				}
-				
-			}
-		});
+        createMapView();
+        //Retrieve all the infos passed from the previous activity
+		retrieveLieuPassed();
+        //add destination in the list
+        markerPoints.add(lieuDestination.getPosition());
+        currentPosition=getMyCurrentLocation();
+        //drawStartStopMarkers();
+        if(currentPosition!=null) {
+            markerPoints.add(currentPosition);
+            googleMap.clear();
+            drawStartStopMarkers();
+            downloadAndDrawPath();
+        }
+
+        //Options button
+        btnShowPopUp=(Button)findViewById(R.id.btnOptions);
+        setUpPopup();
+        boolFromCurrentPos=true;
+        boolFromSpecifiedPos=false;
+        //setMapOnClickListener();
 
 	}
+
+    /**
+     * Set up popup window for each click on options
+     */
+    private void setUpPopup() {
+        btnShowPopUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // inflating popup layout
+                View popUpView = getLayoutInflater().inflate(R.layout.popup_options, null);
+                popupOptions = new PopupWindow(popUpView, LayoutParams.WRAP_CONTENT,
+                        LayoutParams.WRAP_CONTENT, true); //Creation of popup
+                popupOptions.setAnimationStyle(android.R.style.Animation_Dialog);
+                popupOptions.showAtLocation(popUpView, Gravity.TOP, 0, 30);    // Displaying popup
+                btnCancelOptions=(Button)popUpView.findViewById(R.id.btnCancelOptions);
+                btnOkOptions = (Button)popUpView.findViewById(R.id.btnOKOptions);
+                dir_modes =(RadioGroup)popUpView.findViewById(R.id.dir_modes);
+                rbFromCurrentPos=(RadioButton)popUpView.findViewById(R.id.rb_fromMyCurrentPos);
+                rbFromSpecifiedPos=(RadioButton)popUpView.findViewById(R.id.rb_frmSpecifiedPos);
+                rbFromCurrentPos.setChecked(boolFromCurrentPos);
+                rbFromSpecifiedPos.setChecked(boolFromSpecifiedPos);
+                dir_modes.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    }
+                });
+                Button btnOk = (Button) popUpView.findViewById(R.id.btnOKOptions);
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolFromCurrentPos=rbFromCurrentPos.isChecked();
+                        boolFromSpecifiedPos=rbFromSpecifiedPos.isChecked();
+                        setMapOnClickListener();
+                        popupOptions.dismiss();  //dismissing the popup
+                    }
+                });
+
+                Button btnCancel = (Button) popUpView.findViewById(R.id.btnCancelOptions);
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupOptions.dismiss(); //dismissing the popup
+                    }
+                });
+            }
+        });
+    }
+
+
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        gpsRequest=false;
+        //On resume from popup window
+    }
+
+
+    /**
+     *  Setting onclick event listener for the map
+     */
+    public void setMapOnClickListener() {
+        if (boolFromCurrentPos) googleMap.setOnMapClickListener(null);
+        if(boolFromSpecifiedPos) {
+            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+                @Override
+                public void onMapClick(LatLng point) {
+
+                    // Already two locations
+                    if (markerPoints.size() > 1) {
+                        markerPoints.remove(1);
+                        googleMap.clear();
+                        drawStartStopMarkers();
+                    }
+
+                    // Adding new item to the ArrayList
+                    markerPoints.add(point);
+
+                    // Draws Start and Stop markers on the Google Map
+                    drawStartStopMarkers();
+
+                    downloadAndDrawPath();
+
+                }
+            });
+   }
+    }
+
+    /**
+     *
+     */
+    private void createMapView(){
+        /**
+         * Catch the null pointer exception that
+         * may be thrown when initialising the activity_map
+         */
+
+		// Getting reference to SupportMapFragment of the activity
+		SupportMapFragment fm = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
+
+
+        try {
+            if(null == googleMap){
+                // Getting Map for the SupportMapFragment
+                googleMap = fm.getMap();
+
+                // Enable MyLocation Button in the Map
+                googleMap.setMyLocationEnabled(true);
+                googleMap.getUiSettings().setCompassEnabled(true);
+                googleMap.getUiSettings().setMapToolbarEnabled(true);
+                googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+                /**
+                 * If the activity_map is still null after attempted initialisation,
+                 * show an error to the user
+                 */
+                if(null == googleMap) {
+                    Toast.makeText(getApplicationContext(),
+                            "Error creating map", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } catch (NullPointerException exception){
+            Log.e("Geolocalisation", exception.toString());
+        }
+    }
+    private void showGPSDisabledAlertToUser(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("GPS est desactivé. Veuillez l'activer pour plus de précision?")
+                .setCancelable(false)
+                .setPositiveButton("Activer GPS",
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){
+                                Intent callGPSSettingIntent = new Intent(
+                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(callGPSSettingIntent);
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Continuer sans GPS",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+
+
+    /**
+     * Download json data and draw the path on the map.
+     */
+    private void downloadAndDrawPath() {
+        googleMap.clear();
+        // Checks, whether start and end locations are captured
+        if(markerPoints.size() == 2){
+            LatLng dest = markerPoints.get(0);
+            LatLng origin = markerPoints.get(1);
+            drawStartStopMarkers();
+
+            // Getting URL to the Google Directions API
+            String url = getDirectionsUrl(origin, dest);
+
+            DownloadTask downloadTask = new DownloadTask();
+
+            // Start downloading json data from Google Directions API
+            downloadTask.execute(url);
+        }
+    }
+
+    private LatLng getMyCurrentLocation() {
+        //Enable MyLocation Layer of Google Map
+        googleMap.setMyLocationEnabled(true);
+
+        LocationProvider locationProvider = new LocationProvider();
+
+        //Get LocationManager object from System Service LOCATION_SERVICE
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        currentPosition=locationProvider.getLocation();
+        return currentPosition;
+    }
 
     private void retrieveLieuPassed() {
        String nameLieu="FAILED_TO_PASS_NAME";
@@ -176,13 +327,14 @@ public class MapDrawerActivity extends FragmentActivity {
     //Zoom to a location passed as a parameter
     public void zoomToAPoint(LatLng pos){
         cameraPosition = new CameraPosition.Builder().target(pos)
-                .zoom(17).build();
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                .zoom(15).build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
 
     // Drawing Start and Stop locations
 	private void drawStartStopMarkers(){
+        googleMap.clear();
 		int lastlyAdded=0;
 		for(int i=0;i<markerPoints.size();i++){
 		
@@ -204,7 +356,7 @@ public class MapDrawerActivity extends FragmentActivity {
 			}			
 			lastlyAdded=i;
 			// Add new marker to the Google Map Android API V2
-			map.addMarker(options);
+			googleMap.addMarker(options);
 		}
         zoomToAPoint(markerPoints.get(lastlyAdded));
 	}
@@ -250,7 +402,7 @@ public class MapDrawerActivity extends FragmentActivity {
 	}
 	
 	/** A method to download json data from url */
-    private String downloadUrl(String strUrl) throws IOException{
+    private String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
@@ -385,12 +537,12 @@ public class MapDrawerActivity extends FragmentActivity {
 			}
 			
 			if(result.size()<1){
-				Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getBaseContext(), "Pas de Schemin ", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			
 			// Drawing polyline in the Google Map for the i-th route
-			map.addPolyline(lineOptions);
+            googleMap.addPolyline(lineOptions);
 			
 		}			
     }   
@@ -401,4 +553,103 @@ public class MapDrawerActivity extends FragmentActivity {
 		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
+    /**
+     *A Class to Manage current location using GPS.
+     */
+    private class LocationProvider implements LocationListener {
+        private double latitude, longitude;
+        private String providerName;
+        private final int TIME_INTERVAL=15000;
+        private final String NETWORK_PROV=LocationManager.NETWORK_PROVIDER;
+        private final String GPS_PROV=LocationManager.GPS_PROVIDER;
+
+        public LocationProvider() {
+            LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            if (!lm.isProviderEnabled(GPS_PROV) && !gpsRequest){
+                showGPSDisabledAlertToUser();
+            }
+
+            if (lm.isProviderEnabled(GPS_PROV)){
+                providerName=GPS_PROV;
+            }
+            else
+                providerName=NETWORK_PROV;
+
+
+            Location lastLocation = lm.getLastKnownLocation(providerName);
+            if (lastLocation != null) {
+                latitude = lastLocation.getLatitude();
+                longitude = lastLocation.getLongitude();
+            }
+            lm.requestLocationUpdates(providerName, TIME_INTERVAL, 0, this);
+
+        }
+
+        public LatLng getLocation(){
+            currentLocation= googleMap.getMyLocation();
+            if(currentLocation!=null)
+                currentPosition=new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+            else
+                   currentPosition= new LatLng(latitude,longitude);
+
+            return currentPosition;
+        }
+
+        @Override
+        public void onLocationChanged(Location location) {
+            if (location != null) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                googleMap.clear();
+                if(!boolFromSpecifiedPos) {
+                    markerPoints.remove(1);
+                    markerPoints.add(getLocation());
+                }
+                drawStartStopMarkers();
+                downloadAndDrawPath();
+            }
+
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            googleMap.clear();
+            drawStartStopMarkers();
+            downloadAndDrawPath();
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            //if GPS has been activated, use it a provider
+            if(provider.equals(GPS_PROV)) providerName = GPS_PROV;
+            LocationManager lm=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            Location location=lm.getLastKnownLocation(providerName);
+            if(location!=null){
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                googleMap.clear();
+                if(!boolFromSpecifiedPos) {
+                    markerPoints.remove(1);
+                    markerPoints.add(getLocation());
+                }
+                drawStartStopMarkers();
+                downloadAndDrawPath();
+            }
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+        if(provider.equals(GPS_PROV))
+            providerName = NETWORK_PROV;
+            googleMap.clear();
+            if(!boolFromSpecifiedPos) {
+                markerPoints.remove(1);
+                markerPoints.add(getMyCurrentLocation());
+            }
+            drawStartStopMarkers();
+            downloadAndDrawPath();
+        }
+    }
 }
