@@ -10,7 +10,8 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by vince_000 on 25/02/2015.
  */
 public class Utilisateur {
-    int identifiant;
+    int identifiant,duree;
+    boolean partagePos;
     String pseudo;
     String mdp;
     String statut;
@@ -38,7 +39,7 @@ public class Utilisateur {
     }
 
     public void setPseudo(String prenom) {
-        this.pseudo = pseudo;
+        this.pseudo = prenom;
     }
 
     public String getMdp() {
@@ -58,12 +59,22 @@ public class Utilisateur {
         this.identifiant = identifiant;
     }
 
+    public void setDuree(int duree){ this.duree = duree;}
+
+    public int getDuree(){ return this.duree;}
+
+    public boolean getPartagePos(){ return this.partagePos;}
+
+    public void setPartagePos(boolean b){ this.partagePos = b;}
+
     public Utilisateur() {
         this.identifiant = -1;
         this.pseudo = "";
         this.mdp = "";
         this.statut = "";
         this.position = null;
+        this.duree = -1;
+        this.partagePos = false;
     }
 
     public Utilisateur( int identifiant, String pseudo, String mdp, String statut, LatLng position) {
@@ -97,6 +108,8 @@ public class Utilisateur {
         editor.putString("statut",this.statut);
         editor.putFloat("latitude", (float)this.position.latitude);
         editor.putFloat("longitude",(float)this.position.longitude);
+        editor.putInt("duree",this.getDuree());
+        editor.putBoolean("partagePos",this.getPartagePos());
         editor.commit();
     }
 
@@ -107,5 +120,7 @@ public class Utilisateur {
         this.setMdp(preferences.getString("mdp", ""));
         this.setStatut(preferences.getString("statut", ""));
         this.setPosition(new LatLng(preferences.getFloat("latitude",0.f),preferences.getFloat("longitude",0.f)));
+        this.setDuree(preferences.getInt("duree",-1));
+        this.setPartagePos(preferences.getBoolean("partagePos",false));
     }
 }

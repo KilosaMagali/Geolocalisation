@@ -121,6 +121,10 @@
             android:name="com.manhattanproject.geolocalisation.Activity_Search"
             android:label="@string/title_activity_activity__search" >
         </activity>
+        <activity
+            android:name="com.manhattanproject.geolocalisation.Activity_profil"
+            android:label="@string/title_activity_activity_profil" >
+        </activity>
     </application>
 
 </manifest>

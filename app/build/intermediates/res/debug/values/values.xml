@@ -2,6 +2,15 @@
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
     <!-- From: file:/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string-array name="DureeCategory">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>240</item>
+    </string-array>
     <string-array name="locationCategory">
         <item>Parking</item>
         <item>Restaurant</item>
@@ -279,6 +288,7 @@
     <string name="title_activity_activity__search">Activity_Search</string>
     <string name="title_activity_activity_list_ami">Activity_list_ami</string>
     <string name="title_activity_activity_list_utilisateur">Activity_list_utilisateur</string>
+    <string name="title_activity_activity_profil">Activity_profil</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_register">RegisterActivity</string>

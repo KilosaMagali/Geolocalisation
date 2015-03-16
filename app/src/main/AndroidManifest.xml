@@ -115,6 +115,10 @@
             android:name=".Activity_Search"
             android:label="@string/title_activity_activity__search" >
         </activity>
+        <activity
+            android:name=".Activity_profil"
+            android:label="@string/title_activity_activity_profil" >
+        </activity>
     </application>
 
 </manifest>
