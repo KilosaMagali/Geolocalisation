@@ -176,8 +176,8 @@
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
     <!-- From: file:/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">1dp</dimen>
+    <dimen name="activity_vertical_margin">1dp</dimen>
     <!-- From: file:/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="dialog_fixed_height_major" type="dimen">80%</item>
@@ -262,9 +262,11 @@
     <string name="decline">Decline</string>
     <!-- From: file:/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="depuisMaposition">Depuis ma position courrante</string>
     <string name="error_field_required">\"This field is requiered\"</string>
     <string name="hello_world">Hello world!</string>
     <string name="labelCheckBoxPartager">Partager ce lieu avec mes amis</string>
+    <string name="specifierDepart">Specifier l\'endroit de depart</string>
     <!-- From: file:/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
@@ -274,6 +276,7 @@
     <string name="str_rb_bicycling">Vélo</string>
     <string name="str_rb_driving">Voiture</string>
     <string name="str_rb_walking">A pied</string>
+    <string name="title_activity_activity__search">Activity_Search</string>
     <string name="title_activity_activity_list_ami">Activity_list_ami</string>
     <string name="title_activity_activity_list_utilisateur">Activity_list_utilisateur</string>
     <string name="title_activity_login">LoginActivity</string>

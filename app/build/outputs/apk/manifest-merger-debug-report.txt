@@ -58,142 +58,150 @@ ADDED from AndroidManifest.xml:15:5
 	android:name
 		ADDED from AndroidManifest.xml:15:22
 permission#com.manhattanproject.geolocalisation.permission.C2D_MESSAGE
-ADDED from AndroidManifest.xml:16:5
+ADDED from AndroidManifest.xml:17:5
 	android:protectionLevel
+		ADDED from AndroidManifest.xml:19:9
+	android:name
 		ADDED from AndroidManifest.xml:18:9
-	android:name
-		ADDED from AndroidManifest.xml:17:9
 uses-permission#com.manhattanproject.geolocalisation.permission.C2D_MESSAGE
-ADDED from AndroidManifest.xml:20:5
-	android:name
-		ADDED from AndroidManifest.xml:20:22
-permission#com.manhattanproject.geolocalisation.permission.MAPS_RECEIVE
 ADDED from AndroidManifest.xml:21:5
+	android:name
+		ADDED from AndroidManifest.xml:21:22
+permission#com.manhattanproject.geolocalisation.permission.MAPS_RECEIVE
+ADDED from AndroidManifest.xml:23:5
 	android:protectionLevel
-		ADDED from AndroidManifest.xml:23:9
+		ADDED from AndroidManifest.xml:25:9
 	android:name
-		ADDED from AndroidManifest.xml:22:9
+		ADDED from AndroidManifest.xml:24:9
 uses-permission#com.manhattanproject.geolocalisation.permission.MAPS_RECEIVE
-ADDED from AndroidManifest.xml:24:5
+ADDED from AndroidManifest.xml:27:5
 	android:name
-		ADDED from AndroidManifest.xml:24:22
+		ADDED from AndroidManifest.xml:27:22
 application
-ADDED from AndroidManifest.xml:26:5
+ADDED from AndroidManifest.xml:29:5
 MERGED from com.android.support:appcompat-v7:21.0.3:16:5
 MERGED from com.android.support:support-v4:21.0.3:16:5
 MERGED from com.google.android.gms:play-services:6.5.87:20:5
 MERGED from com.android.support:support-v4:21.0.3:16:5
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:33:9
 	android:label
-		ADDED from AndroidManifest.xml:29:9
+		ADDED from AndroidManifest.xml:32:9
 	android:allowBackup
-		ADDED from AndroidManifest.xml:27:9
-	android:icon
-		ADDED from AndroidManifest.xml:28:9
-	android:theme
 		ADDED from AndroidManifest.xml:30:9
+	android:icon
+		ADDED from AndroidManifest.xml:31:9
+	android:theme
+		ADDED from AndroidManifest.xml:34:9
 activity#com.manhattanproject.geolocalisation.Map
-ADDED from AndroidManifest.xml:31:9
+ADDED from AndroidManifest.xml:35:9
 	android:label
-		ADDED from AndroidManifest.xml:33:13
+		ADDED from AndroidManifest.xml:37:13
 	android:name
-		ADDED from AndroidManifest.xml:32:13
+		ADDED from AndroidManifest.xml:36:13
 meta-data#com.google.android.gms.version
-ADDED from AndroidManifest.xml:36:9
+ADDED from AndroidManifest.xml:40:9
 MERGED from com.google.android.gms:play-services:6.5.87:21:9
 	android:name
-		ADDED from AndroidManifest.xml:37:13
-	android:value
-		ADDED from AndroidManifest.xml:38:13
-meta-data#com.google.android.maps.v2.API_KEY
-ADDED from AndroidManifest.xml:39:9
-	android:name
-		ADDED from AndroidManifest.xml:40:13
-	android:value
 		ADDED from AndroidManifest.xml:41:13
-activity#com.manhattanproject.geolocalisation.Activity_list_ami
-ADDED from AndroidManifest.xml:46:9
-	android:label
-		ADDED from AndroidManifest.xml:48:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:49:13
-	android:name
-		ADDED from AndroidManifest.xml:47:13
-meta-data#android.support.PARENT_ACTIVITY
-ADDED from AndroidManifest.xml:50:13
-	android:name
-		ADDED from AndroidManifest.xml:51:17
 	android:value
-		ADDED from AndroidManifest.xml:52:17
+		ADDED from AndroidManifest.xml:42:13
+meta-data#com.google.android.maps.v2.API_KEY
+ADDED from AndroidManifest.xml:43:9
+	android:name
+		ADDED from AndroidManifest.xml:44:13
+	android:value
+		ADDED from AndroidManifest.xml:45:13
+activity#com.manhattanproject.geolocalisation.Activity_list_ami
+ADDED from AndroidManifest.xml:50:9
+	android:label
+		ADDED from AndroidManifest.xml:52:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:53:13
+	android:name
+		ADDED from AndroidManifest.xml:51:13
+meta-data#android.support.PARENT_ACTIVITY
+ADDED from AndroidManifest.xml:54:13
+	android:name
+		ADDED from AndroidManifest.xml:55:17
+	android:value
+		ADDED from AndroidManifest.xml:56:17
 activity#com.manhattanproject.geolocalisation.Activity_list_lieu
-ADDED from AndroidManifest.xml:54:9
+ADDED from AndroidManifest.xml:58:9
 	android:label
-		ADDED from AndroidManifest.xml:56:13
+		ADDED from AndroidManifest.xml:60:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:57:13
+		ADDED from AndroidManifest.xml:61:13
 	android:name
-		ADDED from AndroidManifest.xml:55:13
+		ADDED from AndroidManifest.xml:59:13
 activity#com.manhattanproject.geolocalisation.Activity_list_utilisateur
-ADDED from AndroidManifest.xml:62:9
+ADDED from AndroidManifest.xml:66:9
 	android:label
-		ADDED from AndroidManifest.xml:64:13
+		ADDED from AndroidManifest.xml:68:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:65:13
+		ADDED from AndroidManifest.xml:69:13
 	android:name
-		ADDED from AndroidManifest.xml:63:13
+		ADDED from AndroidManifest.xml:67:13
 activity#com.manhattanproject.geolocalisation.MainActivity
-ADDED from AndroidManifest.xml:70:9
+ADDED from AndroidManifest.xml:74:9
 	android:label
-		ADDED from AndroidManifest.xml:72:13
+		ADDED from AndroidManifest.xml:76:13
 	android:name
-		ADDED from AndroidManifest.xml:71:13
+		ADDED from AndroidManifest.xml:75:13
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:73:13
+ADDED from AndroidManifest.xml:77:13
 action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:74:17
+ADDED from AndroidManifest.xml:78:17
 	android:name
-		ADDED from AndroidManifest.xml:74:25
+		ADDED from AndroidManifest.xml:78:25
 category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:76:17
+ADDED from AndroidManifest.xml:80:17
 	android:name
-		ADDED from AndroidManifest.xml:76:27
+		ADDED from AndroidManifest.xml:80:27
 activity#com.manhattanproject.geolocalisation.LoginActivity
-ADDED from AndroidManifest.xml:79:9
-	android:label
-		ADDED from AndroidManifest.xml:81:13
-	android:name
-		ADDED from AndroidManifest.xml:80:13
-activity#com.manhattanproject.geolocalisation.RegisterActivity
 ADDED from AndroidManifest.xml:83:9
 	android:label
 		ADDED from AndroidManifest.xml:85:13
 	android:name
 		ADDED from AndroidManifest.xml:84:13
-activity#com.manhattanproject.geolocalisation.MapDrawerActivity
+activity#com.manhattanproject.geolocalisation.RegisterActivity
 ADDED from AndroidManifest.xml:87:9
 	android:label
 		ADDED from AndroidManifest.xml:89:13
 	android:name
 		ADDED from AndroidManifest.xml:88:13
-receiver#com.manhattanproject.geolocalisation.GcmBroadcastReceiver
+activity#com.manhattanproject.geolocalisation.MapDrawerActivity
 ADDED from AndroidManifest.xml:91:9
-	android:permission
+	android:label
 		ADDED from AndroidManifest.xml:93:13
 	android:name
 		ADDED from AndroidManifest.xml:92:13
+receiver#com.manhattanproject.geolocalisation.GcmBroadcastReceiver
+ADDED from AndroidManifest.xml:96:9
+	android:permission
+		ADDED from AndroidManifest.xml:98:13
+	android:name
+		ADDED from AndroidManifest.xml:97:13
 intent-filter#com.google.android.c2dm.intent.RECEIVE+com.google.android.c2dm.intent.REGISTRATION+com.manhattanproject.geolocalisation
-ADDED from AndroidManifest.xml:94:13
+ADDED from AndroidManifest.xml:99:13
 action#com.google.android.c2dm.intent.RECEIVE
-ADDED from AndroidManifest.xml:97:17
+ADDED from AndroidManifest.xml:102:17
 	android:name
-		ADDED from AndroidManifest.xml:97:25
+		ADDED from AndroidManifest.xml:102:25
 action#com.google.android.c2dm.intent.REGISTRATION
-ADDED from AndroidManifest.xml:99:17
+ADDED from AndroidManifest.xml:104:17
 	android:name
-		ADDED from AndroidManifest.xml:99:25
+		ADDED from AndroidManifest.xml:104:25
 category#com.manhattanproject.geolocalisation
-ADDED from AndroidManifest.xml:101:17
+ADDED from AndroidManifest.xml:106:17
 	android:name
-		ADDED from AndroidManifest.xml:101:27
+		ADDED from AndroidManifest.xml:106:27
+activity#com.manhattanproject.geolocalisation.Activity_Search
+ADDED from AndroidManifest.xml:114:9
+	android:label
+		ADDED from AndroidManifest.xml:116:13
+	android:name
+		ADDED from AndroidManifest.xml:115:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:appcompat-v7:21.0.3:15:5
