@@ -90,7 +90,8 @@
         </activity>
         <activity
             android:name=".MapDrawerActivity"
-            android:label="SeRendreAunLiuDonne" >
+            android:label="SeRendreAunLiuDonne"
+            android:noHistory="true">
         </activity>
 
         <receiver

@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -62,7 +64,7 @@ public class MapDrawerActivity extends FragmentActivity {
     private Intent intent;
     private CameraPosition cameraPosition;
     private Location currentLocation;
-    private static boolean gpsRequest=false;
+    private static boolean gpsRequest=false,internetOff=false;
     private Button btnShowPopUp,btnOkOptions,btnCancelOptions;
     private RadioButton rbFromCurrentPos;
     private RadioButton rbFromSpecifiedPos;
@@ -78,7 +80,7 @@ public class MapDrawerActivity extends FragmentActivity {
         intent=getIntent();
 		// Getting reference to rb_driving
 		rbDriving = (RadioButton) findViewById(R.id.rb_driving);
-		
+        internetOff=false;
 		// Getting reference to rb_bicylcing
 		rbBiCycling = (RadioButton) findViewById(R.id.rb_bicycling);
 		
@@ -93,8 +95,8 @@ public class MapDrawerActivity extends FragmentActivity {
 		
 			
 			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) {				
-				
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+
 		        downloadAndDrawPath();
 			}
 		});
@@ -113,7 +115,8 @@ public class MapDrawerActivity extends FragmentActivity {
             markerPoints.add(currentPosition);
             googleMap.clear();
             drawStartStopMarkers();
-            downloadAndDrawPath();
+
+                downloadAndDrawPath();
         }
 
         //Options button
@@ -277,20 +280,39 @@ public class MapDrawerActivity extends FragmentActivity {
      * Download json data and draw the path on the map.
      */
     private void downloadAndDrawPath() {
+        if(isNetworkAvailable()) {
         googleMap.clear();
-        // Checks, whether start and end locations are captured
-        if(markerPoints.size() == 2){
-            LatLng dest = markerPoints.get(0);
-            LatLng origin = markerPoints.get(1);
-            drawStartStopMarkers();
 
-            // Getting URL to the Google Directions API
-            String url = getDirectionsUrl(origin, dest);
+            // Checks, whether start and end locations are captured
+            if (markerPoints.size() == 2) {
+                LatLng dest = markerPoints.get(0);
+                LatLng origin = markerPoints.get(1);
+                drawStartStopMarkers();
 
-            DownloadTask downloadTask = new DownloadTask();
+                // Getting URL to the Google Directions API
+                String url = getDirectionsUrl(origin, dest);
 
-            // Start downloading json data from Google Directions API
-            downloadTask.execute(url);
+                DownloadTask downloadTask = new DownloadTask();
+
+                // Start downloading json data from Google Directions API
+                downloadTask.execute(url);
+            }
+        } else{
+            if(!internetOff) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Attention!")
+                        .setMessage("Pas de Connexion Internet")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                internetOff=true;
+                                dialog.dismiss();
+                                finish();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+
         }
     }
 
@@ -406,38 +428,40 @@ public class MapDrawerActivity extends FragmentActivity {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
-        try{
-                URL url = new URL(strUrl);
 
-                // Creating an http connection to communicate with url 
+
+        try {
+            URL url = new URL(strUrl);
+                // Creating an http connection to communicate with url
                 urlConnection = (HttpURLConnection) url.openConnection();
 
-                // Connecting to url 
+                // Connecting to url
                 urlConnection.connect();
 
-                // Reading data from url 
+                // Reading data from url
                 iStream = urlConnection.getInputStream();
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
 
-                StringBuffer sb  = new StringBuffer();
+                StringBuffer sb = new StringBuffer();
 
                 String line = "";
-                while( ( line = br.readLine())  != null){
-                        sb.append(line);
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
                 }
-                
+
                 data = sb.toString();
 
                 br.close();
 
-        }catch(Exception e){
+            }catch(Exception e){
                 Log.d("Exception while downloading url", e.toString());
-        }finally{
+            }finally{
                 iStream.close();
                 urlConnection.disconnect();
-        }
-        return data;
+            }
+            return data;
+
      }
 
 	
@@ -652,4 +676,43 @@ public class MapDrawerActivity extends FragmentActivity {
             downloadAndDrawPath();
         }
     }
+
+    /**
+     * Checking internet connexion
+     * @param
+     * @return boolean:true if has intenet connection
+     * boolean:false otherwise
+     */
+    public   boolean hasInternetAccess() {
+        if (isNetworkAvailable()) {
+            try {
+                HttpURLConnection urlc = (HttpURLConnection)
+                        (new URL("http://www.google.com")
+                                .openConnection());
+                urlc.setRequestProperty("User-Agent", "Android");
+                urlc.setRequestProperty("Connection", "close");
+                urlc.setConnectTimeout(1500*30);
+                urlc.connect();
+                return (urlc.getResponseCode() == 200);
+            } catch (IOException e) {
+                Log.e("TAG_INTERNET_ERR", "Error checking internet connection", e);
+            }
+        } else {
+            Log.d("TAG_INTERNET_ERR", "No network available!");
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @return boolean: true if wifi or mobile data is activated
+     * and boolean:false otherwise
+     */
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
 }

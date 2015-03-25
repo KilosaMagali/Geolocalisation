@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    tools:context=".AddLieuDialog"
+    android:id="@+id/addlieu">
+
+    <EditText
+        android:id="@+id/oldMdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Ancien mot de passe" />
+    <EditText
+        android:id="@+id/newMdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/oldMdp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif"
+        android:hint="Nouveau mot de passe" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifier"
+        android:id="@+id/btnModif"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="33dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/newMdp"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Annuler"
+        android:id="@+id/btnAnnule"
+        android:layout_toEndOf="@+id/btnModif"
+        android:layout_alignTop="@+id/btnModif"
+        />
+
+</RelativeLayout><!-- From: file:/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/src/main/res/layout/change_mdp.xml -->

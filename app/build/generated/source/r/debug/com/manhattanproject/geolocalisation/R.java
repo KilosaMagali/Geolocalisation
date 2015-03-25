@@ -20,6 +20,7 @@ public final class R {
         public static final int DureeCategory=0x7f070000;
         public static final int locationCategory=0x7f070001;
         public static final int menuLieuLongClick=0x7f070002;
+        public static final int menuSearchLongClick=0x7f070003;
     }
     public static final class attr {
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
