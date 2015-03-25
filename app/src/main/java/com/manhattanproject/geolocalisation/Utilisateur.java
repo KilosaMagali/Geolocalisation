@@ -2,9 +2,14 @@ package com.manhattanproject.geolocalisation;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by vince_000 on 25/02/2015.
@@ -16,6 +21,7 @@ public class Utilisateur {
     String mdp;
     String statut;
     LatLng position;
+    Bitmap image;
 
     public LatLng getPosition() {
         return position;
@@ -67,6 +73,10 @@ public class Utilisateur {
 
     public void setPartagePos(boolean b){ this.partagePos = b;}
 
+    public Bitmap getImage(){ return this.image;}
+
+    public void setImage(Bitmap b){this.image = b;}
+
     public Utilisateur() {
         this.identifiant = -1;
         this.pseudo = "";
@@ -106,10 +116,28 @@ public class Utilisateur {
         editor.putString("pseudo", this.pseudo);
         editor.putString("mdp", this.mdp);
         editor.putString("statut",this.statut);
-        editor.putFloat("latitude", (float)this.position.latitude);
+        editor.putFloat("latitude", (float) this.position.latitude);
         editor.putFloat("longitude",(float)this.position.longitude);
-        editor.putInt("duree",this.getDuree());
-        editor.putBoolean("partagePos",this.getPartagePos());
+        editor.putInt("duree", this.getDuree());
+        editor.putBoolean("partagePos", this.getPartagePos());
+
+
+        if(this.image != null) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            this.image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] b = baos.toByteArray();
+            String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+            editor.putString("image", encodedImage);
+        }
+        else{
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            Bitmap no = BitmapFactory.decodeResource(c.getResources(), R.mipmap.nobody);
+            no.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] b = baos.toByteArray();
+            String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+            editor.putString("image", encodedImage);
+        }
+
         editor.commit();
     }
 
@@ -122,5 +150,14 @@ public class Utilisateur {
         this.setPosition(new LatLng(preferences.getFloat("latitude",0.f),preferences.getFloat("longitude",0.f)));
         this.setDuree(preferences.getInt("duree",-1));
         this.setPartagePos(preferences.getBoolean("partagePos",false));
+
+        String previouslyEncodedImage = preferences.getString("image", "");
+
+        if( !previouslyEncodedImage.equalsIgnoreCase("") ){
+            byte[] b = Base64.decode(previouslyEncodedImage, Base64.DEFAULT);
+            this.setImage(BitmapFactory.decodeByteArray(b, 0, b.length));
+        }
+        else
+            this.setImage(BitmapFactory.decodeResource(c.getResources(), R.mipmap.nobody));
     }
 }

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="white">#FFFFFF</color>
     <string name="app_name">Geolocalisation</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -41,6 +41,9 @@
         <item>Supprimer</item>
     </string-array>
     <string name="title_activity_activity__search">Chercher</string>
+    <string-array name="menuSearchLongClick">
+        <item>Envoyer une demande d\'ami</item>
+    </string-array>
     <string name="specifierDepart">Specifier l\'endroit de depart</string>
     <string name="depuisMaposition">Depuis ma position courante</string>
     <string name="title_activity_activity_profil">Mon Profil</string>

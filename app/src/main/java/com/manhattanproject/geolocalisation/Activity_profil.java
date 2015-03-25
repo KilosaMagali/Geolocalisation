@@ -1,28 +1,44 @@
 package com.manhattanproject.geolocalisation;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class Activity_profil extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
     Button boutonModif;
-    Button boutonApp;
-    EditText pseudo;
-    EditText mdp;
-    EditText statut;
+    Button boutonApp,modif,cancel;
+    TextView pseudo;
+    ImageButton imagebtn;
+    Button mdp;
+    Dialog modifMdp;
+    EditText statut,oldMdp,newMdp;
+    Bitmap imageChange;
     String dureeSelected;
     CheckBox partagePos;
     private Spinner dureeCategory;
@@ -36,23 +52,28 @@ public class Activity_profil extends ActionBarActivity implements AdapterView.On
         setContentView(R.layout.activity_profil);
         boutonModif = (Button)findViewById(R.id.btnmod);
         boutonApp = (Button)findViewById(R.id.btnapp);
-        pseudo = (EditText)findViewById(R.id.pseudo);
-        mdp = (EditText)findViewById(R.id.mdp);
+        pseudo = (TextView)findViewById(R.id.pseudo);
+        mdp = (Button)findViewById(R.id.mdp);
         statut = (EditText)findViewById(R.id.Statut);
         dureeCategory = (Spinner)findViewById(R.id.SpinnerDuree);
         partagePos = (CheckBox)findViewById(R.id.checkBoxPartagePos);
+        imagebtn = (ImageButton)findViewById(R.id.imageButton);
 
         user.recup(getApplicationContext());
         if(!user.getPseudo().equals(""))
             pseudo.setText(user.getPseudo());
-        if(!user.getMdp().equals(""))
-            mdp.setText(user.getMdp());
+        if(!user.getMdp().equals("")) {
+            String code = "";
+            for(int i = 0;i < user.getMdp().length();++i)
+                code = code+"*";
+            mdp.setText(code);
+        }
         if(!user.getStatut().equals(""))
             statut.setText(user.getStatut());
         if(user.getPartagePos())
             partagePos.setChecked(user.getPartagePos());
-        System.out.println("ok"+dureeCategory.getSelectedItemPosition());
         populateCategoryCheckBox();
+        imagebtn.setImageBitmap(user.getImage());
 
         partagePos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -67,12 +88,11 @@ public class Activity_profil extends ActionBarActivity implements AdapterView.On
             }
         });
 
-        pseudo.setEnabled(false);
-        mdp.setEnabled(false);
         boutonApp.setEnabled(false);
         statut.setEnabled(false);
         dureeCategory.setEnabled(false);
         partagePos.setEnabled(false);
+        imagebtn.setEnabled(false);
     }
 
     public int dureeToInd(int duree){
@@ -118,10 +138,6 @@ public class Activity_profil extends ActionBarActivity implements AdapterView.On
         return super.onOptionsItemSelected(item);
     }
 
-    public void gestionFichier(View view){
-        Toast.makeText(getApplicationContext(),"Ouverture de selection image",Toast.LENGTH_LONG).show();
-    }
-
     public void populateCategoryCheckBox(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -146,19 +162,32 @@ public class Activity_profil extends ActionBarActivity implements AdapterView.On
     }
 
     public void modif(View view){
-        pseudo.setEnabled(true);
-        mdp.setEnabled(true);
-        boutonApp.setEnabled(true);
-        statut.setEnabled(true);
-        partagePos.setEnabled(true);
-        if(partagePos.isChecked())
-            dureeCategory.setEnabled(true);
-        boutonModif.setEnabled(false);
+        if((boutonModif.getText()).equals("Modifier")) {
+            boutonApp.setEnabled(true);
+            statut.setEnabled(true);
+            partagePos.setEnabled(true);
+            if (partagePos.isChecked())
+                dureeCategory.setEnabled(true);
+            boutonModif.setText("Annuler");
+            imagebtn.setEnabled(true);
+        }
+        else {
+            user.recup(getApplicationContext());
+            imagebtn.setImageBitmap(Bitmap.createScaledBitmap(user.getImage(), imagebtn.getWidth(), imagebtn.getHeight(), false));
+            imageChange = null;
+            statut.setText(user.getStatut());
+            partagePos.setChecked(user.getPartagePos());
+            boutonApp.setEnabled(false);
+            statut.setEnabled(false);
+            dureeCategory.setEnabled(false);
+            partagePos.setEnabled(false);
+            boutonModif.setText("Modifier");
+            imagebtn.setEnabled(false);
+            populateCategoryCheckBox();
+        }
     }
 
     public void appliquerModif(View view){
-        user.setPseudo(pseudo.getText().toString());
-        user.setMdp(mdp.getText().toString());
         user.setStatut(statut.getText().toString());
         user.setPartagePos(partagePos.isChecked());
         if(user.getPartagePos()) {
@@ -166,13 +195,120 @@ public class Activity_profil extends ActionBarActivity implements AdapterView.On
         }
         else
             user.setDuree(-1);
+        if(imageChange != null)
+            user.setImage(imageChange);
         user.save(getApplicationContext());
-        pseudo.setEnabled(false);
-        mdp.setEnabled(false);
         boutonApp.setEnabled(false);
         statut.setEnabled(false);
         dureeCategory.setEnabled(false);
         partagePos.setEnabled(false);
-        boutonModif.setEnabled(true);
+        boutonModif.setText("Modifier");
+        imagebtn.setEnabled(false);
+    }
+
+    public void selectImage(View view){
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        photoPickerIntent.setType("image/*");
+        photoPickerIntent.putExtra("crop", "true");
+        photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+        photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        startActivityForResult(photoPickerIntent, 1);
+    }
+
+
+
+
+    private Uri getTempUri() {
+        return Uri.fromFile(getTempFile());
+    }
+
+    private File getTempFile() {
+        if (isSDCARDMounted()) {
+
+            File f = new File(Environment.getExternalStorageDirectory(),"temporary_holder.jpg");
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+
+            }
+            return f;
+        } else {
+            return null;
+        }
+    }
+
+    private boolean isSDCARDMounted(){
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_MOUNTED))
+            return true;
+        return false;
+    }
+
+    public void changeMdp(View view){
+        modifMdp=new Dialog(this,android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth);
+        modifMdp.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        modifMdp.setCancelable(true);
+        modifMdp.setContentView(R.layout.change_mdp);
+        oldMdp=(EditText)modifMdp.findViewById(R.id.oldMdp);
+        newMdp=(EditText)modifMdp.findViewById(R.id.newMdp);
+        modif=(Button)modifMdp.findViewById(R.id.btnModif);
+        cancel=(Button)modifMdp.findViewById(R.id.btnAnnule);
+
+        modif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ancien = oldMdp.getText().toString();
+                String nouveau = newMdp.getText().toString();
+                Utilisateur user = new Utilisateur();
+                user.recup(getApplicationContext());
+                if (ancien.equals(user.getMdp())) {
+                    user.setMdp(nouveau);
+                    user.save(getApplicationContext());
+                    String code = "";
+                    for(int i = 0;i < nouveau.length();++i)
+                        code = code+"*";
+                    mdp.setText(code);
+                    Toast.makeText(getApplicationContext(),
+                            "Mot de passe correct\nChangement reussi",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Mot de passe incorrect", Toast.LENGTH_LONG).show();
+                }
+                modifMdp.dismiss();
+            }
+        });
+        cancel=(Button)modifMdp.findViewById(R.id.btnAnnule);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                modifMdp.dismiss();
+            }
+        });
+        modifMdp.show();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    if (imageReturnedIntent != null) {
+
+
+                        File tempFile = getTempFile();
+
+                        String filePath = Environment.getExternalStorageDirectory()
+                                + "/temporary_holder.jpg";
+                        System.out.println("path " + filePath);
+
+
+                        Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
+                        imagebtn = (ImageButton) findViewById(R.id.imageButton);
+                        imagebtn.setImageBitmap(Bitmap.createScaledBitmap(selectedImage,imagebtn.getWidth(),imagebtn.getHeight(), false));
+                        imageChange = Bitmap.createScaledBitmap(selectedImage,imagebtn.getWidth(),imagebtn.getHeight(), false);
+                    }
+                }
+        }
     }
 }
