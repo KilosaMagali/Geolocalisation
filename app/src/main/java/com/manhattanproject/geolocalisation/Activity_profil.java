@@ -261,6 +261,7 @@ public class Activity_profil extends ActionBarActivity implements AdapterView.On
                 String nouveau = newMdp.getText().toString();
                 Utilisateur user = new Utilisateur();
                 user.recup(getApplicationContext());
+                //Si le mot de passe est correct
                 if (ancien.equals(user.getMdp())) {
                     user.setMdp(nouveau);
                     user.save(getApplicationContext());
