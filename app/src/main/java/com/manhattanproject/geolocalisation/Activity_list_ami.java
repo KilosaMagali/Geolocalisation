@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -25,6 +24,8 @@ public class Activity_list_ami extends ActionBarActivity {
     private AdapterListAmi adaptor;
     private ArrayList<Ami> listeAmi=new ArrayList<>();
     private DataBase db;
+    public static ArrayList<Ami> listeA;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,16 @@ public class Activity_list_ami extends ActionBarActivity {
         //System.out.println(listeAmi.get(0));
         Utilisateur courant = new Utilisateur();
         courant.recup(getApplicationContext());
+        listeAmi=recupereAmi(courant);
+        adaptor = new AdapterListAmi(this, listeAmi);
+        expandableList.setAdapter(adaptor);
+
+    }
+
+    public static ArrayList<Ami> recupereAmi(Utilisateur courant){
         final String[] params={"selectUsersFriends.php","pseudo","4rrrrrr"};
         //String[] params={"selectUsersFriends.php","pseudo",courant.getPseudo()};
+        listeA=new ArrayList<>();
         Requete r = new Requete();
         r.execute(params);
         try {
@@ -54,14 +63,12 @@ public class Activity_list_ami extends ActionBarActivity {
             for(int i=0;i<jArray.length();i++){
                 JSONObject json_data = jArray.getJSONObject(i);
                 System.out.println("Donnée de l'ami : "+json_data.getString("pseudo"));
-                listeAmi.add(i,new Ami(i,new LatLng(json_data.getDouble("positionx"),json_data.getDouble("positionx")), json_data.getString("pseudo"), json_data.getString("statut")));
+                listeA.add(i,new Ami(i,new LatLng(json_data.getDouble("positionx"),json_data.getDouble("positionx")), json_data.getString("pseudo"), json_data.getString("statut")));
             }
         }catch(JSONException e){
             Log.e("log_tag", "Error parsing data " + e.toString());
         }
-        adaptor = new AdapterListAmi(this, listeAmi);
-        expandableList.setAdapter(adaptor);
-
+        return listeA;
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar

@@ -57,7 +57,7 @@
         </activity>
         <activity
             android:name=".Activity_list_lieu"
-            android:label="activity list lieu"
+            android:label="Mes Lieux"
             android:parentActivityName=".Map" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

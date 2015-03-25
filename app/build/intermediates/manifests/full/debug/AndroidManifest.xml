@@ -63,7 +63,7 @@
         </activity>
         <activity
             android:name="com.manhattanproject.geolocalisation.Activity_list_lieu"
-            android:label="activity list lieu"
+            android:label="Mes Lieux"
             android:parentActivityName="com.manhattanproject.geolocalisation.Map" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

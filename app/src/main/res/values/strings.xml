@@ -4,11 +4,11 @@
     <string name="app_name">Geolocalisation</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_activity_list_ami">Activity_list_ami</string>
-    <string name="title_activity_activity_list_utilisateur">Activity_list_utilisateur</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_activity_list_ami">Mes Amis</string>
+    <string name="title_activity_activity_list_utilisateur">Les Utilisateurs</string>
+    <string name="title_activity_main">Geolocalisation</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_register">Register</string>
     <string name="error_field_required">\"This field is requiered\"</string>
     <string name="labelCheckBoxPartager">Partager ce lieu avec mes amis</string>
     <string name="addCurrentLoc">Je suis sur place</string>
@@ -40,9 +40,9 @@
         <item>M\'y rendre</item>
         <item>Supprimer</item>
     </string-array>
-    <string name="title_activity_activity__search">Activity_Search</string>
+    <string name="title_activity_activity__search">Chercher</string>
     <string name="specifierDepart">Specifier l\'endroit de depart</string>
-    <string name="depuisMaposition">Depuis ma position courrante</string>
-    <string name="title_activity_activity_profil">Activity_profil</string>
+    <string name="depuisMaposition">Depuis ma position courante</string>
+    <string name="title_activity_activity_profil">Mon Profil</string>
 
 </resources>
