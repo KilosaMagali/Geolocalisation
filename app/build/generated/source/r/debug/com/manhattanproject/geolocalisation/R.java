@@ -19,6 +19,7 @@ public final class R {
     public static final class array {
         public static final int locationCategory=0x7f060000;
         public static final int menuLieuLongClick=0x7f060001;
+        public static final int menuSearchLongClick=0x7f060002;
     }
     public static final class attr {
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1850,28 +1851,30 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030015;
         public static final int abc_simple_dropdown_hint=0x7f030016;
         public static final int activity__search=0x7f030017;
-        public static final int activity_list_ami=0x7f030018;
-        public static final int activity_list_lieu=0x7f030019;
-        public static final int activity_list_utilisateur=0x7f03001a;
-        public static final int activity_login=0x7f03001b;
-        public static final int activity_main=0x7f03001c;
-        public static final int activity_map=0x7f03001d;
-        public static final int activity_map_drawer=0x7f03001e;
-        public static final int activity_register=0x7f03001f;
-        public static final int add_lieu=0x7f030020;
-        public static final int button_modifier=0x7f030021;
-        public static final int lieu_detail=0x7f030022;
-        public static final int list_item=0x7f030023;
-        public static final int support_simple_spinner_dropdown_item=0x7f030024;
+        public static final int activity_activity_test=0x7f030018;
+        public static final int activity_list_ami=0x7f030019;
+        public static final int activity_list_lieu=0x7f03001a;
+        public static final int activity_list_utilisateur=0x7f03001b;
+        public static final int activity_login=0x7f03001c;
+        public static final int activity_main=0x7f03001d;
+        public static final int activity_map=0x7f03001e;
+        public static final int activity_map_drawer=0x7f03001f;
+        public static final int activity_register=0x7f030020;
+        public static final int add_lieu=0x7f030021;
+        public static final int button_modifier=0x7f030022;
+        public static final int lieu_detail=0x7f030023;
+        public static final int list_item=0x7f030024;
+        public static final int support_simple_spinner_dropdown_item=0x7f030025;
     }
     public static final class menu {
         public static final int menu_activity__search=0x7f0e0000;
         public static final int menu_activity_list_ami=0x7f0e0001;
         public static final int menu_activity_list_lieu=0x7f0e0002;
         public static final int menu_activity_list_utilisateur=0x7f0e0003;
-        public static final int menu_login=0x7f0e0004;
-        public static final int menu_main=0x7f0e0005;
-        public static final int menu_register=0x7f0e0006;
+        public static final int menu_activity_test=0x7f0e0004;
+        public static final int menu_login=0x7f0e0005;
+        public static final int menu_main=0x7f0e0006;
+        public static final int menu_register=0x7f0e0007;
     }
     public static final class raw {
         public static final int gtm_analytics=0x7f050000;

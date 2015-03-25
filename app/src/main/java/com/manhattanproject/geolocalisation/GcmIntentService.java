@@ -61,7 +61,7 @@ public class GcmIntentService extends IntentService {
                 }
                 Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
-                sendNotification("Received: " + extras.toString());
+                sendNotification(extras.toString());
                 Log.i(TAG, "Received: " + extras.toString());
             }
         }
@@ -76,8 +76,8 @@ public class GcmIntentService extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        /*PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, CBCM.class), 0);*/
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, Map.class), 0);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -87,7 +87,7 @@ public class GcmIntentService extends IntentService {
                                 .bigText(msg))
                         .setContentText(msg);
 
-        //mBuilder.setContentIntent(contentIntent);
+        mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }
