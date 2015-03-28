@@ -23,6 +23,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -64,13 +65,15 @@ public class MapDrawerActivity extends FragmentActivity {
     private Intent intent;
     private CameraPosition cameraPosition;
     private Location currentLocation;
-    private static boolean gpsRequest=false,internetOff=false;
+    private static boolean gpsRequest=false;
     private Button btnShowPopUp,btnOkOptions,btnCancelOptions;
     private RadioButton rbFromCurrentPos;
     private RadioButton rbFromSpecifiedPos;
     private RadioGroup dir_modes;
     private PopupWindow popupOptions;
     private boolean  boolFromSpecifiedPos, boolFromCurrentPos;
+    private TextView tvDistanceDuration;
+    private DownloadTask downloadTask;
 
 
     @Override
@@ -80,7 +83,13 @@ public class MapDrawerActivity extends FragmentActivity {
         intent=getIntent();
 		// Getting reference to rb_driving
 		rbDriving = (RadioButton) findViewById(R.id.rb_driving);
-        internetOff=false;
+        // Restoring the markers on configuration changes
+        if(savedInstanceState!=null){
+            if(savedInstanceState.containsKey("gpsRequest")){
+                gpsRequest=savedInstanceState.getBoolean("gpsRequest");
+            }
+
+        }
 		// Getting reference to rb_bicylcing
 		rbBiCycling = (RadioButton) findViewById(R.id.rb_bicycling);
 		
@@ -89,6 +98,9 @@ public class MapDrawerActivity extends FragmentActivity {
 		
 		// Getting Reference to rg_modes
 		rgModes = (RadioGroup) findViewById(R.id.rg_modes);
+
+        //Getting Reference to TextField displaying distance and time
+        tvDistanceDuration=(TextView)findViewById(R.id.tv_distance_time);
 		
 		rgModes.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
@@ -109,23 +121,37 @@ public class MapDrawerActivity extends FragmentActivity {
 		retrieveLieuPassed();
         //add destination in the list
         markerPoints.add(lieuDestination.getPosition());
-        currentPosition=getMyCurrentLocation();
-        //drawStartStopMarkers();
-        if(currentPosition!=null) {
-            markerPoints.add(currentPosition);
-            googleMap.clear();
-            drawStartStopMarkers();
+        //If no network ->alert
+        if(!isNetworkAvailable()) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Attention!")
+                    .setMessage("Pas de Connexion Internet")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        } else {
+            currentPosition = getMyCurrentLocation();
+            //drawStartStopMarkers();
+            if (currentPosition != null) {
+                markerPoints.add(currentPosition);
+                googleMap.clear();
+                drawStartStopMarkers();
 
                 downloadAndDrawPath();
+            }
+
+            //Options button
+            btnShowPopUp = (Button) findViewById(R.id.btnOptions);
+            setUpPopup();
+            boolFromCurrentPos = true;
+            boolFromSpecifiedPos = false;
+            //setMapOnClickListener();
         }
-
-        //Options button
-        btnShowPopUp=(Button)findViewById(R.id.btnOptions);
-        setUpPopup();
-        boolFromCurrentPos=true;
-        boolFromSpecifiedPos=false;
-        //setMapOnClickListener();
-
 	}
 
     /**
@@ -177,12 +203,6 @@ public class MapDrawerActivity extends FragmentActivity {
     }
 
 
-    @Override
-    protected  void onResume(){
-        super.onResume();
-        gpsRequest=false;
-        //On resume from popup window
-    }
 
 
     /**
@@ -248,6 +268,7 @@ public class MapDrawerActivity extends FragmentActivity {
                     Toast.makeText(getApplicationContext(),
                             "Error creating map", Toast.LENGTH_SHORT).show();
                 }
+                googleMap.clear();
             }
         } catch (NullPointerException exception){
             Log.e("Geolocalisation", exception.toString());
@@ -292,26 +313,25 @@ public class MapDrawerActivity extends FragmentActivity {
                 // Getting URL to the Google Directions API
                 String url = getDirectionsUrl(origin, dest);
 
-                DownloadTask downloadTask = new DownloadTask();
+                downloadTask = new DownloadTask();
 
                 // Start downloading json data from Google Directions API
                 downloadTask.execute(url);
             }
         } else{
-            if(!internetOff) {
+
                 new AlertDialog.Builder(this)
                         .setTitle("Attention!")
                         .setMessage("Pas de Connexion Internet")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                internetOff=true;
                                 dialog.dismiss();
                                 finish();
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-            }
+
 
         }
     }
@@ -325,7 +345,10 @@ public class MapDrawerActivity extends FragmentActivity {
         //Get LocationManager object from System Service LOCATION_SERVICE
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         currentPosition=locationProvider.getLocation();
-        return currentPosition;
+        Location loc= googleMap.getMyLocation();
+        if(loc!=null) return new LatLng(loc.getLatitude(),loc.getLongitude());
+        else
+            return currentPosition;
     }
 
     private void retrieveLieuPassed() {
@@ -527,6 +550,8 @@ public class MapDrawerActivity extends FragmentActivity {
 			ArrayList<LatLng> points = null;
 			PolylineOptions lineOptions = null;
 			MarkerOptions markerOptions = new MarkerOptions();
+            String distance = "";
+            String duration = "";
 			
 			// Traversing through all the routes
 			for(int i=0;i<result.size();i++){
@@ -538,7 +563,15 @@ public class MapDrawerActivity extends FragmentActivity {
 				
 				// Fetching all the points in i-th route
 				for(int j=0;j<path.size();j++){
-					HashMap<String,String> point = path.get(j);					
+					HashMap<String,String> point = path.get(j);
+
+                    if(j==0){    // Get distance from the list
+                        distance = (String)point.get("distance");
+                        continue;
+                    }else if(j==1){ // Get duration from the list
+                        duration = (String)point.get("duration");
+                        continue;
+                    }
 					
 					double lat = Double.parseDouble(point.get("lat"));
 					double lng = Double.parseDouble(point.get("lng"));
@@ -564,7 +597,8 @@ public class MapDrawerActivity extends FragmentActivity {
 				Toast.makeText(getBaseContext(), "Pas de Schemin ", Toast.LENGTH_SHORT).show();
 				return;
 			}
-			
+            //Display distance and duration to destination
+            tvDistanceDuration.setText("Distance: "+distance + ", Durée: "+duration);
 			// Drawing polyline in the Google Map for the i-th route
             googleMap.addPolyline(lineOptions);
 			
@@ -714,5 +748,34 @@ public class MapDrawerActivity extends FragmentActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
+
+    // A callback method, which is invoked on configuration is changed
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // Adding the gsp and network variables
+
+        outState.putBoolean("gpsRequest",gpsRequest);
+        outState.putBoolean("boolFromCurrentPos",boolFromCurrentPos);
+        outState.putBoolean("boolFromSpecifiedPos",boolFromSpecifiedPos);
+
+        // Saving the bundle
+        super.onSaveInstanceState(outState);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+       if(downloadTask!=null){
+           if(!downloadTask.isCancelled())
+                 downloadTask.cancel(true);
+       }
+
+    }
+
 
 }

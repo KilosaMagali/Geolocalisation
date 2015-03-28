@@ -47,5 +47,6 @@
     <string name="specifierDepart">Specifier l\'endroit de depart</string>
     <string name="depuisMaposition">Depuis ma position courante</string>
     <string name="title_activity_activity_profil">Mon Profil</string>
+    <string name="tvDistanceTime">En cours......</string>
 
 </resources>

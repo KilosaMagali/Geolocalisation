@@ -52,6 +52,7 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
     private Location currentLocation;
     private static LatLng staticCurrentPosition;
     private static boolean gpsRequest=false;
+    private ArrayList<Ami> listeAmi;
 
 
     @Override
@@ -66,6 +67,9 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         setOnCheckedChanged();
         db = new DataBase(getApplicationContext(),"base de donne",null,4);
         listeLieu = db.recupLieuBD();
+        Utilisateur courant = new Utilisateur();
+        courant.recup(getApplicationContext());
+        listeAmi=Activity_list_ami.recupereAmi(courant);
         addMarkerLieu();
         currentPosition=getMyCurrentLocation();
         if(currentPosition!=null) { //zoom to my current location
@@ -165,6 +169,9 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         //Get LocationManager object from System Service LOCATION_SERVICE
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         currentPosition=locationProvider.getLocation();
+        Location loc= googleMap.getMyLocation();
+        if(loc!=null) return new LatLng(loc.getLatitude(),loc.getLongitude());
+        else
         return currentPosition;
     }
 
@@ -235,11 +242,27 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                                 .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description) );
                 }
             }
-            else{   //remove all markers and re-add the checked ones
+           else{   //remove all markers and re-add the checked ones
                 googleMap.clear();
-                //addMarkerSuggestion()   à coder
-                //addMarkerAmis();         à coder
+                //addMarkerSuggestion();
+                if(checkBoxAmis.isChecked()){
+                    addMarkerAmis();
+                }
             }
+        }
+    }
+
+    private void addMarkerAmis() {
+        if(null != googleMap && latLong!=null){
+            if(listeAmi.size()!=0 && checkBoxAmis.isChecked()) {
+                for (int i = 0; i < listeAmi.size(); i++) {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(listeAmi.get(i).getPosition())
+                            .title(listeAmi.get(i).pseudo));
+                }
+
+            }
+
         }
     }
 
@@ -279,7 +302,15 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         checkBoxAmis.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                        if(isChecked) {
+                            addMarkerAmis();
+                        } else googleMap.clear();
+                if(checkBoxLieu.isChecked()){
+                    addMarkerLieu();
+                }
+                if(checkBoxSuggestion.isChecked()) {
+                    //addMarkerSugg();
+                }
             }
         });
         checkBoxLieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
