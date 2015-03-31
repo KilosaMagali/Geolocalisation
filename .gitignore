@@ -10,3 +10,4 @@ Geolocalisation.iml
 app/build/generated/source/r/debug/com/manhattanproject/geolocalisation/R.java
 app/build/generated/source/r/debug/android/support/v7/appcompat/R.java
 app/src/main/res/values/strings.xml
+*.class

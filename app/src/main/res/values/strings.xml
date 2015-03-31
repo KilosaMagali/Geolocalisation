@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="white">#FFFFFF</color>
+
     <string name="app_name">Geolocalisation</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -48,5 +50,13 @@
     <string name="depuisMaposition">Depuis ma position courante</string>
     <string name="title_activity_activity_profil">Mon Profil</string>
     <string name="tvDistanceTime">En cours......</string>
+    <string-array name="menuDemandesLongClick">
+        <item>Accepter la demande</item>
+        <item>Refuser la demande</item>
+    </string-array>
+
+    <string name="title_activity_activity__search">Activity_Search</string>
+    <string name="title_activity_activity_profil">Activity_profil</string>
+    <string name="title_activity_activity__list__demandes">Activity_List_Demandes</string>
 
 </resources>
