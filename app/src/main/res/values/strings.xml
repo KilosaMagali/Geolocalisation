@@ -54,9 +54,6 @@
         <item>Accepter la demande</item>
         <item>Refuser la demande</item>
     </string-array>
-
-    <string name="title_activity_activity__search">Activity_Search</string>
-    <string name="title_activity_activity_profil">Activity_profil</string>
     <string name="title_activity_activity__list__demandes">Activity_List_Demandes</string>
 
 </resources>

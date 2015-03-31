@@ -1,4 +1,4 @@
-﻿package com.manhattanproject.geolocalisation;
+package com.manhattanproject.geolocalisation;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
