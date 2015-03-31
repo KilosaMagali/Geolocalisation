@@ -80,7 +80,7 @@ public class Activity_Search extends ActionBarActivity implements AdapterView.On
         }catch(JSONException e){
             Log.e("log_tag", "Error parsing data " + e.toString());
         }
-        expandableList.deferNotifyDataSetChanged();
+        adaptor.notifyDataSetChanged();
 
     }
 
@@ -110,6 +110,7 @@ public class Activity_Search extends ActionBarActivity implements AdapterView.On
             case 0: //envoyer une demande
                 String rid = null;
                 final String[] params={"selectUser.php","pseudo",uClicked.getPseudo()};
+                System.out.println(uClicked.getPseudo());
                 Requete r = new Requete();
                 r.execute(params);
                 try {
@@ -123,8 +124,9 @@ public class Activity_Search extends ActionBarActivity implements AdapterView.On
                 try{
                     JSONArray jArray = new JSONArray(response);
                     System.out.println("Donnée de la réponse : "+jArray);
-                        JSONObject json_data = jArray.getJSONObject(0);
-                        rid=json_data.getString("rid");
+                    JSONObject json_data = jArray.getJSONObject(0);
+                    rid=json_data.getString("rid");
+                    System.out.println(rid);
                 }catch(JSONException e){
                     Log.e("log_tag", "Error parsing data " + e.toString());
                 }

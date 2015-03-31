@@ -126,8 +126,8 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             }
             p[params.length]="rid";
             p[params.length+1]=regid;
-            /*Requete r = new Requete();
-            r.LancerRequete(p);*/
+            Requete r = new Requete();
+            r.execute(p);
             Utilisateur u;
             u = new Utilisateur(1,params[2],"",params[4],new LatLng(1.2344444444444444,4.567777777777777));
             u.save(c);

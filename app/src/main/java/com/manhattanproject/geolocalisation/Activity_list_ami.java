@@ -1,12 +1,16 @@
 package com.manhattanproject.geolocalisation;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -25,6 +29,7 @@ public class Activity_list_ami extends ActionBarActivity {
     private AdapterListAmi adaptor;
     private ArrayList<Ami> listeAmi=new ArrayList<>();
     private DataBase db;
+    Button notifCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,21 +71,43 @@ public class Activity_list_ami extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_activity_list_lieu, menu);
+        inflater.inflate(R.menu.menu_activity_list_ami, menu);
+        MenuItem item = menu.findItem(R.id.demandes);
+        MenuItemCompat.setActionView(item, R.layout.action_bar_notification_icon);
+        notifCount = (Button) MenuItemCompat.getActionView(item);
+        SharedPreferences settings = getSharedPreferences("DemandesNonLues", getApplicationContext().MODE_PRIVATE);
+        notifCount.setText(String.valueOf(settings.getInt("nb",0)));
+        notifCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    lancerDemandes(v);
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
+        System.out.println("yala : "+item.getItemId());
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.add:
                 //Toast.makeText(getApplicationContext(), "Ouverture d'ajout message", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, Activity_Search.class);
+                intent = new Intent(this, Activity_Search.class);
                 startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void lancerDemandes (View v){
+        Intent intent = new Intent(this, Activity_list_utilisateur.class);
+        startActivity(intent);
+    }
+
+    public void supprimerAmi(String pseudoAmi){
+        //suppression d'un ami et maj de la liste des amis
     }
 }

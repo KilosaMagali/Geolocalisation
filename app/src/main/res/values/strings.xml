@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="white">#FFFFFF</color>
+
     <string name="app_name">Geolocalisation</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -43,9 +45,15 @@
     <string-array name="menuSearchLongClick">
         <item>Envoyer une demande d\'ami</item>
     </string-array>
+    <string-array name="menuDemandesLongClick">
+        <item>Accepter la demande</item>
+        <item>Refuser la demande</item>
+    </string-array>
+
     <string name="title_activity_activity__search">Activity_Search</string>
     <string name="specifierDepart">Specifier l\'endroit de depart</string>
     <string name="depuisMaposition">Depuis ma position courrante</string>
     <string name="title_activity_activity_profil">Activity_profil</string>
+    <string name="title_activity_activity__list__demandes">Activity_List_Demandes</string>
 
 </resources>
