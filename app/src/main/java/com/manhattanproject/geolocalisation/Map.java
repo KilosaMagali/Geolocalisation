@@ -230,6 +230,7 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         if(null != googleMap && latLong!=null){
             if(listeLieu.size()!=0 && checkBoxLieu.isChecked()) {
                 for (int i = 0; i < listeLieu.size(); i++) {
+                    //Traitement des icones
                     if(listeLieu.get(i).getCategorie()==Categorie_lieu.Parking)
                         googleMap.addMarker(new MarkerOptions()
                                         .position(listeLieu.get(i).getPosition())
