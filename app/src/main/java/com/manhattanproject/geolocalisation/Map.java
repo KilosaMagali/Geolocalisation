@@ -236,6 +236,36 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                                         .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description).
                                                 icon(BitmapDescriptorFactory.fromResource(R.drawable.parking))
                         );
+                    else if(listeLieu.get(i).getCategorie()==Categorie_lieu.Bar)
+                        googleMap.addMarker(new MarkerOptions()
+                                        .position(listeLieu.get(i).getPosition())
+                                        .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description).
+                                                icon(BitmapDescriptorFactory.fromResource(R.drawable.bar))
+                        );
+                    else if(listeLieu.get(i).getCategorie()==Categorie_lieu.Restaurant)
+                        googleMap.addMarker(new MarkerOptions()
+                                        .position(listeLieu.get(i).getPosition())
+                                        .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description).
+                                                icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant))
+                        );
+                    else if(listeLieu.get(i).getCategorie()==Categorie_lieu.Cinema)
+                        googleMap.addMarker(new MarkerOptions()
+                                        .position(listeLieu.get(i).getPosition())
+                                        .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description).
+                                                icon(BitmapDescriptorFactory.fromResource(R.drawable.cinema))
+                        );
+                    else if(listeLieu.get(i).getCategorie()==Categorie_lieu.Magasin)
+                        googleMap.addMarker(new MarkerOptions()
+                                        .position(listeLieu.get(i).getPosition())
+                                        .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description).
+                                                icon(BitmapDescriptorFactory.fromResource(R.drawable.magasin))
+                        );
+                    else if(listeLieu.get(i).getCategorie()==Categorie_lieu.Home)
+                        googleMap.addMarker(new MarkerOptions()
+                                        .position(listeLieu.get(i).getPosition())
+                                        .title(listeLieu.get(i).designation).snippet(listeLieu.get(i).description).
+                                                icon(BitmapDescriptorFactory.fromResource(R.drawable.home))
+                        );
                     else
                         googleMap.addMarker(new MarkerOptions()
                                 .position(listeLieu.get(i).getPosition())
