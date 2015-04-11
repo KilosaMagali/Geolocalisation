@@ -48,8 +48,8 @@ public class Activity_list_ami extends ActionBarActivity {
     }
 
     public static ArrayList<Ami> recupereAmi(Utilisateur courant){
-        final String[] params={"selectUsersFriends.php","pseudo","4rrrrrr"};
-        //String[] params={"selectUsersFriends.php","pseudo",courant.getPseudo()};
+        //final String[] params={"selectUsersFriends.php","pseudo","4rrrrrr"};
+        final String[] params={"selectUsersFriends.php","pseudo",courant.getPseudo()};
         listeA=new ArrayList<>();
         Requete r = new Requete();
         r.execute(params);

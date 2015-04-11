@@ -97,7 +97,7 @@ public class GcmIntentService extends IntentService {
         }
         Utilisateur courant = new Utilisateur();
         courant.recup(getApplicationContext());
-        final String[] p={"selectUser.php","pseudo","4rrrrrr"};
+        final String[] p={"selectUser.php","pseudo",courant.getPseudo()};
         r = new Requete();
         r.execute(p);
         try {

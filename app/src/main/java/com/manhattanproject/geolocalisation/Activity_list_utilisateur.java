@@ -47,7 +47,9 @@ public class Activity_list_utilisateur extends ActionBarActivity implements Adap
     }
 
     private void majListUtilisateur(){
-        final String[] params={"selectUsersWaitingDemands.php","pseudo","4rrrrrr"};
+        Utilisateur courant = new Utilisateur();
+        courant.recup(getApplicationContext());
+        final String[] params={"selectUsersWaitingDemands.php","pseudo",courant.getPseudo()};
         Requete r = new Requete();
         r.execute(params);
         try {
@@ -68,6 +70,9 @@ public class Activity_list_utilisateur extends ActionBarActivity implements Adap
         }catch(JSONException e){
             Log.e("log_tag", "Error parsing data " + e.toString());
         }
+        //listeUser.remove(courant);
+        //ArrayList<Ami> listeA = Activity_list_ami.recupereAmi(courant);
+        //listeUser.removeAll(listeA);
     }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -90,8 +95,9 @@ public class Activity_list_utilisateur extends ActionBarActivity implements Adap
     public boolean onContextItemSelected(MenuItem item) {
         int menuItemIndex=item.getItemId();
         String [] menuItems=getResources().getStringArray(R.array.menuDemandesLongClick);
-        final String[] params={"selectADemand.php","user","4rrrrrr","ami",uClicked.getPseudo()};
-        //String[] params={"selectUsersFriends.php","pseudo",courant.getPseudo()};
+        Utilisateur courant = new Utilisateur();
+        courant.recup(getApplicationContext());
+        final String[] params={"selectADemand.php","user",courant.getPseudo(),"ami",uClicked.getPseudo()};
         String iduser = null;
         String idami = null;
         Requete r = new Requete();
