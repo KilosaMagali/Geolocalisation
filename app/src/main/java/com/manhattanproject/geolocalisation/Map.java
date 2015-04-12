@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -310,8 +312,16 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                 Toast.makeText(getApplicationContext(),"Go to Suggestion screen",Toast.LENGTH_LONG).show();
                 break;
             case R.id.btnAmis:
-                intent=new Intent(getApplicationContext(),Activity_list_ami.class);
-                startActivity(intent);
+                ConnectivityManager connMgr = (ConnectivityManager)
+                        getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    intent=new Intent(getApplicationContext(),Activity_list_ami.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(),"Vous ne disposez pas de connection de données",Toast.LENGTH_LONG).show();
+                }
+
                 break;
 
 

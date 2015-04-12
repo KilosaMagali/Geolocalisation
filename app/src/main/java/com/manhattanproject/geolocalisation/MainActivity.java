@@ -19,20 +19,31 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button profil_btn = (Button) findViewById(R.id.profil_button);
+        Button register_btn = (Button) findViewById(R.id.register_button);
         Context c=getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-        /*if(preferences.getInt("identifiant",-1)==-1) {
+        if(preferences.getInt("identifiant",-1)==-1) {
             profil_btn.setEnabled(false);
-        }*/
+            register_btn.setEnabled(true);
+        }
+        else{
+            profil_btn.setEnabled(true);
+            register_btn.setEnabled(false);
+        }
+
     }
 
     public void onActivityReenter(int resultCode, Intent data){
         Context c=getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-        /*if(preferences.getInt("identifiant",-1)==-1) {
+        if(preferences.getInt("identifiant",-1)==-1) {
             Button profil_btn = (Button) findViewById(R.id.profil_button);
             profil_btn.setEnabled(false);
-        }*/
+        }
+        else{
+            Button register_btn = (Button) findViewById(R.id.register_button);
+            register_btn.setEnabled(false);
+        }
     }
 
     @Override
