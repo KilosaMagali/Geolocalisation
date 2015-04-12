@@ -8,7 +8,6 @@
     tools:context="com.manhattanproject.geolocalisation.MainActivity">
 
 
-
     <Button
         android:layout_width="140dp"
         android:layout_height="120dp"
