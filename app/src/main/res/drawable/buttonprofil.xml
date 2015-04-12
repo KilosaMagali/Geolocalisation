@@ -3,5 +3,5 @@
     <item android:state_window_focused="false" android:state_enabled="true" android:drawable="@drawable/profil" />
     <item android:state_pressed="true" android:drawable="@drawable/profilpressed" />
     <item android:state_enabled="true" android:drawable="@drawable/profil" />
-    <item android:state_enabled="false" android:drawable="@drawable/profildisabled" />
+    <item android:state_disabled="false" android:drawable="@drawable/profildisabled" />
 </selector>
