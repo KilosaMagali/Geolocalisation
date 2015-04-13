@@ -2,5 +2,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.manhattanproject.geolocalisation.Activity_list_ami">
+    <item
+        android:id="@+id/demandes"
+        android:actionLayout="@layout/action_bar_notification_icon"
+        android:icon="@drawable/rounded_square"
+        app:showAsAction="ifRoom"
+        android:title="demandes" />
+    <item
+        android:id="@+id/add"
+        app:showAsAction ="ifRoom"
+        android:title="add..."/>
 </menu>
 <!-- From: file:/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/src/main/res/menu/menu_activity_list_ami.xml -->

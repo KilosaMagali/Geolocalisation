@@ -99,6 +99,11 @@
             android:label="SeRendreAunLiuDonne"
             android:noHistory="true" >
         </activity>
+        <activity
+            android:name="com.manhattanproject.geolocalisation.MapDrawerActivityAmi"
+            android:label="SeRendreChezUnAmi"
+            android:noHistory="true" >
+        </activity>
 
         <receiver
             android:name="com.manhattanproject.geolocalisation.GcmBroadcastReceiver"
@@ -113,6 +118,8 @@
                 <category android:name="com.manhattanproject.geolocalisation" />
             </intent-filter>
         </receiver>
+
+        <service android:name="com.manhattanproject.geolocalisation.GcmIntentService" />
 
         <meta-data
             android:name="com.google.android.gms.version"

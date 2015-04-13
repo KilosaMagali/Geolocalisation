@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="menuAmiLongClick">
+        <item>Consulter son Profil</item>
+        <item>Demande sa Position</item>
+        <item>Me rendre à sa position</item>
+        <item>Supprimer de ma liste</item>
+    </string-array>
+</resources>

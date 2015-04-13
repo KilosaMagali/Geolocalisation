@@ -20,6 +20,20 @@
         <item>Home</item>
         <item>Autre</item>
     </string-array>
+    <!-- From: file:/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/src/main/res/values/arrays.xml -->
+    <eat-comment/>
+    <string-array name="menuAmiLongClick">
+        <item>Consulter son Profil</item>
+        <item>Demande sa Position</item>
+        <item>Me rendre à sa position</item>
+        <item>Supprimer de ma liste</item>
+    </string-array>
+    <!-- From: file:/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string-array name="menuDemandesLongClick">
+        <item>Accepter la demande</item>
+        <item>Refuser la demande</item>
+    </string-array>
     <string-array name="menuLieuLongClick">
         <item>Partager</item>
         <item>Modifier</item>
@@ -291,6 +305,7 @@
     <string name="str_rb_bicycling">Vélo</string>
     <string name="str_rb_driving">Voiture</string>
     <string name="str_rb_walking">A pied</string>
+    <string name="title_activity_activity__list__demandes">Activity_List_Demandes</string>
     <string name="title_activity_activity__search">Chercher</string>
     <string name="title_activity_activity_list_ami">Mes Amis</string>
     <string name="title_activity_activity_list_utilisateur">Les Utilisateurs</string>

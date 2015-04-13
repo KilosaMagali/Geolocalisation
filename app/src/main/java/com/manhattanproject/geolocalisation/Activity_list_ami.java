@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -30,6 +32,7 @@ public class Activity_list_ami extends ActionBarActivity {
     private DataBase db;
     public static ArrayList<Ami> listeA;
     Button notifCount;
+    private Ami amiClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class Activity_list_ami extends ActionBarActivity {
         listeAmi=recupereAmi(courant);
         adaptor = new AdapterListAmi(this, listeAmi);
         expandableList.setAdapter(adaptor);
+        registerForContextMenu(expandableList);
 
     }
 
@@ -115,5 +119,60 @@ public class Activity_list_ami extends ActionBarActivity {
 
     public void supprimerAmi(String pseudoAmi){
         //suppression d'un ami et maj de la liste des amis
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        ExpandableListView.ExpandableListContextMenuInfo
+                info=(ExpandableListView.ExpandableListContextMenuInfo)menuInfo;
+        if(ExpandableListView.getPackedPositionType(info.packedPosition)
+                == ExpandableListView.PACKED_POSITION_TYPE_GROUP){
+            amiClicked=listeAmi.get((int)info.id);
+            menu.setHeaderTitle("Options: "+amiClicked.getPseudo());
+            String [] menuItems=getResources().getStringArray(R.array.menuAmiLongClick);
+            for(int i=0; i<menuItems.length; i++){
+                menu.add(Menu.NONE,i,i,menuItems[i]);
+            } }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int menuItemIndex=item.getItemId();
+        String [] menuItems=getResources().getStringArray(R.array.menuAmiLongClick);
+
+        switch(menuItemIndex){
+            case 0:  //Consulter son profil
+                break;
+            case 1:  //Demander sa position
+                break;
+            case 2: //Me rendre à sa position partagé
+                Intent intentParser=new Intent(getApplicationContext(),MapDrawerActivityAmi.class);
+                intentParser.putExtra("pseudoAmi",amiClicked.getPseudo());
+                intentParser.putExtra("idAmi",amiClicked.getId());
+                intentParser.putExtra("latitudeAmi",amiClicked.getPosition().latitude);
+                intentParser.putExtra("longitudeAmi",amiClicked.getPosition().longitude);
+                startActivity(intentParser);
+
+                break;
+            case 3: //Supprimer
+                if(db.supprAmi(amiClicked)!=-1) {
+                    listeAmi.remove(amiClicked);
+                    Toast.makeText(getApplicationContext(), "SUPPRESSION AVEC SUCCES", Toast.LENGTH_LONG)
+                            .show();
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"SUPPRESSION ECHOUEE",Toast.LENGTH_LONG)
+                            .show();
+                break;
+            default:
+
+        }
+        /*String menuItemName=menuItems[menuItemIndex];
+        Toast.makeText(getApplicationContext(), menuItemName + "  " + "Clicked", Toast.LENGTH_LONG).show();*/
+        adaptor = new AdapterListAmi(this, listeAmi);
+        expandableList.setAdapter(adaptor);
+        return true;
     }
 }
