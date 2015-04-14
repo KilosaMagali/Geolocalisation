@@ -424,8 +424,13 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         }
 
         public  LatLng getLocation(){
-            //Get current location as indicated on the map
-            currentLocation=googleMap.getMyLocation();
+            //Get current location as indicated on the map if the map is initialised
+            try {
+                if (googleMap != null)
+                    currentLocation = googleMap.getMyLocation();
+            }  catch (NullPointerException exception){
+            Log.e("mapApp", exception.toString());
+        }
             if(currentLocation!=null)
                 currentPosition=new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
             else {
