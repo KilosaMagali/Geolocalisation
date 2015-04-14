@@ -36,6 +36,7 @@ public class Activity_list_ami extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_ami);
         expandableList = (ExpandableListView) findViewById(R.id.expandableListAmi);
+        registerForContextMenu(expandableList);
         /*db = new DataBase(getApplicationContext(),"base de donne",null,4);
         listeAmi = db.recupAmiBD();*/
         //System.out.println(listeAmi.get(0));
@@ -115,5 +116,11 @@ public class Activity_list_ami extends ActionBarActivity {
 
     public void supprimerAmi(String pseudoAmi){
         //suppression d'un ami et maj de la liste des amis
+        Utilisateur courant = new Utilisateur();
+        courant.recup(getApplicationContext());
+        final String[] params={"deleteFriend","iduser",courant.getPseudo(),"idami",pseudoAmi};
+        Requete r = new Requete();
+        r.execute(params);
+        listeAmi=recupereAmi(courant);
     }
 }
