@@ -1,11 +1,13 @@
 package com.manhattanproject.geolocalisation;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -25,6 +27,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.File;
 import java.io.IOException;
@@ -204,6 +208,37 @@ public class Activity_profil extends ActionBarActivity implements AdapterView.On
         partagePos.setEnabled(false);
         boutonModif.setText("Modifier");
         imagebtn.setEnabled(false);
+        new registrationIdSetter(getApplicationContext()).execute();
+    }
+
+    public class registrationIdSetter extends AsyncTask<String,Void,Boolean> {
+
+        Context c;
+
+        public registrationIdSetter(Context c) {
+            this.c = c;
+        }
+
+        @Override
+        protected Boolean doInBackground(String... p) {
+            GoogleCloudMessaging gcm = null;
+            Context context = getApplicationContext();
+            String SENDER_ID = "590360343154";
+            String regid = null;
+            int i;
+            if (gcm == null) {
+                gcm = GoogleCloudMessaging.getInstance(context);
+            }
+            try {
+                regid = gcm.register(SENDER_ID);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            final String[] params = {"updateUser.php", "pseudo", user.getPseudo(), "mdp", user.getMdp(), "rid", regid, "etat", Integer.toString(0), "statut", user.getStatut()};
+            Requete r = new Requete();
+            r.execute(params);
+            return true;
+        }
     }
 
     public void selectImage(View view){
