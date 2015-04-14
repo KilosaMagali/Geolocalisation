@@ -39,6 +39,7 @@ public class Activity_list_ami extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_ami);
         expandableList = (ExpandableListView) findViewById(R.id.expandableListAmi);
+        registerForContextMenu(expandableList);
         /*db = new DataBase(getApplicationContext(),"base de donne",null,4);
         listeAmi = db.recupAmiBD();*/
         //System.out.println(listeAmi.get(0));
@@ -119,6 +120,53 @@ public class Activity_list_ami extends ActionBarActivity {
 
     public void supprimerAmi(String pseudoAmi){
         //suppression d'un ami et maj de la liste des amis
+        Utilisateur courant = new Utilisateur();
+        courant.recup(getApplicationContext());
+        int ami = -1;
+        int user = -1;
+        final String[] params={"selectUser.php","pseudo",pseudoAmi};
+        Requete r = new Requete();
+        r.execute(params);
+        try {
+            r.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        String response=r.getResult();
+        try{
+            JSONArray jArray = new JSONArray(response);
+            System.out.println("Donnée de la réponse : "+jArray);
+            JSONObject json_data = jArray.getJSONObject(0);
+            ami=json_data.getInt("id");
+        }catch(JSONException e){
+            Log.e("log_tag", "Error parsing data " + e.toString());
+        }
+        final String[] p={"selectUser.php","pseudo",courant.getPseudo()};
+        r = new Requete();
+        r.execute(p);
+        try {
+            r.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        response=r.getResult();
+        try{
+            JSONArray jArray = new JSONArray(response);
+            System.out.println("Donnée de la réponse : "+jArray);
+            JSONObject json_data = jArray.getJSONObject(0);
+            user=json_data.getInt("id");
+        }catch(JSONException e){
+            Log.e("log_tag", "Error parsing data " + e.toString());
+        }
+        System.out.println("ami : "+Integer.toString(ami)+"   user : "+Integer.toString(user));
+        final String[] ps={"deleteFriend.php","iduser",Integer.toString(user),"idami",Integer.toString(ami)};
+        r = new Requete();
+        r.execute(ps);
+        listeAmi=recupereAmi(courant);
     }
 
     @Override
@@ -148,23 +196,18 @@ public class Activity_list_ami extends ActionBarActivity {
             case 1:  //Demander sa position
                 break;
             case 2: //Me rendre à sa position partagé
-                Intent intentParser=new Intent(getApplicationContext(),MapDrawerActivityAmi.class);
+                /*Intent intentParser=new Intent(getApplicationContext(),MapDrawerActivityAmi.class);
                 intentParser.putExtra("pseudoAmi",amiClicked.getPseudo());
                 intentParser.putExtra("idAmi",amiClicked.getId());
                 intentParser.putExtra("latitudeAmi",amiClicked.getPosition().latitude);
                 intentParser.putExtra("longitudeAmi",amiClicked.getPosition().longitude);
-                startActivity(intentParser);
+                startActivity(intentParser);*/
 
                 break;
             case 3: //Supprimer
-                if(db.supprAmi(amiClicked)!=-1) {
-                    listeAmi.remove(amiClicked);
-                    Toast.makeText(getApplicationContext(), "SUPPRESSION AVEC SUCCES", Toast.LENGTH_LONG)
-                            .show();
-                }
-                else
-                    Toast.makeText(getApplicationContext(),"SUPPRESSION ECHOUEE",Toast.LENGTH_LONG)
-                            .show();
+                supprimerAmi(amiClicked.getPseudo());
+                adaptor.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(),"Ami supprimé",Toast.LENGTH_LONG).show();
                 break;
             default:
 
