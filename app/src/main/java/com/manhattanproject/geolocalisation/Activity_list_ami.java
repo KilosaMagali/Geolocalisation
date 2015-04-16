@@ -1,10 +1,10 @@
 package com.manhattanproject.geolocalisation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 
-public class Activity_list_ami extends ActionBarActivity {
+public class Activity_list_ami extends Activity {
     private ExpandableListView expandableList;
     private AdapterListAmi adaptor;
     private ArrayList<Ami> listeAmi=new ArrayList<>();

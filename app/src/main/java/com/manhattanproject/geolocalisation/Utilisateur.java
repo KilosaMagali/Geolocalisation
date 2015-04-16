@@ -19,6 +19,7 @@ public class Utilisateur {
     boolean partagePos;
     String pseudo;
     String mdp;
+    boolean onligne = true;
     String statut;
     LatLng position;
     Bitmap image;
@@ -114,6 +115,7 @@ public class Utilisateur {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("identifiant", this.identifiant);
         editor.putString("pseudo", this.pseudo);
+        editor.putBoolean("onligne",this.onligne);
         editor.putString("mdp", this.mdp);
         editor.putString("statut",this.statut);
         editor.putFloat("latitude", (float) this.position.latitude);
@@ -149,6 +151,7 @@ public class Utilisateur {
         this.setStatut(preferences.getString("statut", ""));
         this.setPosition(new LatLng(preferences.getFloat("latitude",0.f),preferences.getFloat("longitude",0.f)));
         this.setDuree(preferences.getInt("duree",-1));
+        this.onligne = preferences.getBoolean("onligne",true);
         this.setPartagePos(preferences.getBoolean("partagePos",false));
 
         String previouslyEncodedImage = preferences.getString("image", "");

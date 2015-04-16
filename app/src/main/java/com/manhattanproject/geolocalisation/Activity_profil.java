@@ -1,5 +1,6 @@
 package com.manhattanproject.geolocalisation;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +13,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +25,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +35,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class Activity_profil extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
+public class Activity_profil extends Activity implements AdapterView.OnItemSelectedListener{
     Button boutonModif;
     Button boutonApp,modif,cancel;
     TextView pseudo;
@@ -52,8 +53,8 @@ public class Activity_profil extends ActionBarActivity implements AdapterView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = new Utilisateur();
         setContentView(R.layout.activity_profil);
+        user = new Utilisateur();
         boutonModif = (Button)findViewById(R.id.btnmod);
         boutonApp = (Button)findViewById(R.id.btnapp);
         pseudo = (TextView)findViewById(R.id.pseudo);
@@ -64,6 +65,8 @@ public class Activity_profil extends ActionBarActivity implements AdapterView.On
         imagebtn = (ImageButton)findViewById(R.id.imageButton);
 
         user.recup(getApplicationContext());
+        Switch on = (Switch)findViewById(R.id.OnOff);
+        on.setChecked(user.onligne);
         if(!user.getPseudo().equals(""))
             pseudo.setText(user.getPseudo());
         if(!user.getMdp().equals("")) {
@@ -188,6 +191,22 @@ public class Activity_profil extends ActionBarActivity implements AdapterView.On
             boutonModif.setText("Modifier");
             imagebtn.setEnabled(false);
             populateCategoryCheckBox();
+        }
+    }
+
+    public void online(View view){
+        Switch on = (Switch)findViewById(R.id.OnOff);
+        Utilisateur user = new Utilisateur();
+        user.recup(getApplicationContext());
+        if(on.isChecked()) {
+            user.onligne = true;
+            user.save(getApplicationContext());
+            Toast.makeText(getApplicationContext(), "Vous êtes maintenant en ligne", Toast.LENGTH_LONG).show();
+        }
+        else{
+            user.onligne = false;
+            user.save(getApplicationContext());
+            Toast.makeText(getApplicationContext(), "Vous êtes maintenant hors ligne", Toast.LENGTH_LONG).show();
         }
     }
 
