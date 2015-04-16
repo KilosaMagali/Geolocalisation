@@ -196,12 +196,12 @@ public class Activity_list_ami extends Activity {
             case 1:  //Demander sa position
                 break;
             case 2: //Me rendre à sa position partagé
-                /*Intent intentParser=new Intent(getApplicationContext(),MapDrawerActivityAmi.class);
+                Intent intentParser=new Intent(getApplicationContext(),MapDrawerActivityAmi.class);
                 intentParser.putExtra("pseudoAmi",amiClicked.getPseudo());
                 intentParser.putExtra("idAmi",amiClicked.getId());
                 intentParser.putExtra("latitudeAmi",amiClicked.getPosition().latitude);
                 intentParser.putExtra("longitudeAmi",amiClicked.getPosition().longitude);
-                startActivity(intentParser);*/
+                startActivity(intentParser);
 
                 break;
             case 3: //Supprimer

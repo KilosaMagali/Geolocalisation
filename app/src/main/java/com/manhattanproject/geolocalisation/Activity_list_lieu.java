@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,12 +23,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by kilosakeyrocker on 22/02/15.
  */
-public class Activity_list_lieu extends Activity implements AdapterView.OnItemSelectedListener  {
+public class Activity_list_lieu extends ActionBarActivity implements AdapterView.OnItemSelectedListener  {
     private ExpandableListView expandableList;
     private AdapterListLieu adaptor;
     private ArrayList<Lieu> listeLieu;
@@ -85,6 +92,7 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
 
         switch(menuItemIndex){
             case 0: //Partager
+                newOnlineLieu(lieuClicked);
                 break;
             case 1: //Modifier
                       modifyLieu();
@@ -119,6 +127,23 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
         expandableList.setAdapter(adaptor);
         return true;
     }
+
+    public void newOnlineLieu(Lieu l){
+        final String[] params={"newLieu.php","px",Double.toString(l.getPosition().latitude),"py",Double.toString(l.getPosition().longitude),"des",l.getDesignation(),"descr",l.getDescription(),"cat",l.getCategorie().name()};
+        Requete r = new Requete();
+        r.execute(params);
+        try {
+            r.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        String response=r.getResult();
+        System.out.println("rep : "+response);
+    }
+
+
     public void modifyLieu(){
         modifyLieuDialog=new Dialog(this,android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth);
         modifyLieuDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
