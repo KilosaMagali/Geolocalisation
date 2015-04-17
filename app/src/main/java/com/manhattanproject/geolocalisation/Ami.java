@@ -1,5 +1,7 @@
 package com.manhattanproject.geolocalisation;
 
+import android.graphics.Bitmap;
+
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -10,6 +12,7 @@ public class Ami {
     LatLng position;
     String pseudo;
     String statut;
+    Bitmap image;
     boolean connect;
 
     public Ami(LatLng position, String pseudo, String statut) {
@@ -34,6 +37,14 @@ public class Ami {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setImage(Bitmap im) {
+        image = im;
+    }
+
+    public Bitmap getImage(){
+        return this.image;
     }
 
     public LatLng getPosition() {
