@@ -1,5 +1,7 @@
 package com.manhattanproject.geolocalisation;
 
+import android.graphics.Bitmap;
+
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -74,5 +76,9 @@ public class Ami {
         if (this.connect)
             s = s+"position : "+this.position;
         return s;
+    }
+
+    public Bitmap getImage() {
+        return null;
     }
 }

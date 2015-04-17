@@ -192,6 +192,15 @@ public class Activity_list_ami extends ActionBarActivity {
 
         switch(menuItemIndex){
             case 0:  //Consulter son profil
+                Intent intentParser=new Intent(getApplicationContext(),Activity_profil_Utilisateur.class);
+                intentParser.putExtra("BitmapImageAmi", amiClicked.getImage());
+                intentParser.putExtra("pseudoAmi",amiClicked.getPseudo());
+                intentParser.putExtra("idAmi",amiClicked.getId());
+                intentParser.putExtra("latitudeAmi",amiClicked.getPosition().latitude);
+                intentParser.putExtra("longitudeAmi",amiClicked.getPosition().longitude);
+                intentParser.putExtra("connectStatus",amiClicked.isConnect());
+                intentParser.putExtra("Statut",amiClicked.getStatut());
+                startActivity(intentParser);
                 break;
             case 1:  //Demander sa position
                 break;
