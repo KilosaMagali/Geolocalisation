@@ -1,11 +1,9 @@
 package com.manhattanproject.geolocalisation;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,15 +21,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Created by kilosakeyrocker on 23/02/15.
+ * Created by kilosakeyrocker on 22/02/15.
  */
 public class Activity_list_lieu extends ActionBarActivity implements AdapterView.OnItemSelectedListener  {
     private ExpandableListView expandableList;
