@@ -42,7 +42,7 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
     private Dialog addLieuDialog;
     private EditText locationName;
     private Spinner locationCategory;
-    private Button btnSugg, btnLieu,btnAmis,btnAjouter,btnAnnule;
+    private Button btnLieu,btnAmis,btnAjouter,btnAnnule;
     private LatLng currentPosition;
     private CameraPosition cameraPosition;
     private EditText locationDescription;
@@ -64,7 +64,6 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         createMapView();
         checkBoxAmis=(CheckBox)findViewById(R.id.checkAmis);
         checkBoxLieu=(CheckBox)findViewById(R.id.checkLieu);
-        checkBoxSuggestion=(CheckBox)findViewById(R.id.checkSugg);
         checkBoxLieu.setChecked(true);
         setOnCheckedChanged();
         db = new DataBase(getApplicationContext(),"base de donne",null,4);
@@ -90,10 +89,8 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
 
 
 
-        btnSugg=(Button)findViewById(R.id.btnSugg);
         btnLieu=(Button)findViewById(R.id.btnLieu);
         btnAmis=(Button)findViewById(R.id.btnAmis);
-        btnSugg.setOnClickListener(this);
         btnAmis.setOnClickListener(this);
         btnLieu.setOnClickListener(this);
 
@@ -308,9 +305,6 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                 intent=new Intent(getApplicationContext(),Activity_list_lieu.class);
                 startActivity(intent);
                 break;
-            case R.id.btnSugg:
-                Toast.makeText(getApplicationContext(),"Go to Suggestion screen",Toast.LENGTH_LONG).show();
-                break;
             case R.id.btnAmis:
                 ConnectivityManager connMgr = (ConnectivityManager)
                         getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -349,21 +343,12 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                 if(checkBoxLieu.isChecked()){
                     addMarkerLieu();
                 }
-                if(checkBoxSuggestion.isChecked()) {
-                    //addMarkerSugg();
-                }
             }
         });
         checkBoxLieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 addMarkerLieu();
-            }
-        });
-        checkBoxSuggestion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
             }
         });
     }

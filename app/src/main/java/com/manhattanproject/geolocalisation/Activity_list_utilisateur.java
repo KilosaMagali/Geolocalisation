@@ -1,9 +1,8 @@
 package com.manhattanproject.geolocalisation;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 
-public class Activity_list_utilisateur extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
+public class Activity_list_utilisateur extends Activity implements AdapterView.OnItemSelectedListener{
     private ExpandableListView expandableList;
     private AdapterListUtilisateur adaptor;
     private ArrayList<Utilisateur> listeUser=new ArrayList<>();
