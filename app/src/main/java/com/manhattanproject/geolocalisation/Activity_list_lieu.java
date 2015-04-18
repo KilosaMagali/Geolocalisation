@@ -86,9 +86,11 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
 
         switch(menuItemIndex){
             case 0: //Partager
+                Intent intent=new Intent(getApplicationContext(),Activity_choix_amis.class);
+                startActivityForResult(intent,1);
                 newOnlineLieu(lieuClicked);
                 break;
-            case 1: //Modifier
+            case 1: //Modifie
                       modifyLieu();
                 break;
             case 2: //M'y rendre
@@ -120,6 +122,10 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
         adaptor = new AdapterListLieu(this, listeLieu);
         expandableList.setAdapter(adaptor);
         return true;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+
     }
 
     public void newOnlineLieu(Lieu l){

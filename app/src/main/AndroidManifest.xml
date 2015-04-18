@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.manhattanproject.geolocalisation" >
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -90,13 +91,12 @@
         <activity
             android:name=".MapDrawerActivity"
             android:label="SeRendreAunLiuDonne"
-            android:noHistory="true">
+            android:noHistory="true" >
         </activity>
-
         <activity
             android:name=".MapDrawerActivityAmi"
             android:label="SeRendreChezUnAmi"
-            android:noHistory="true">
+            android:noHistory="true" >
         </activity>
 
         <receiver
@@ -112,7 +112,9 @@
                 <category android:name="com.manhattanproject.geolocalisation" />
             </intent-filter>
         </receiver>
+
         <service android:name=".GcmIntentService" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -124,6 +126,14 @@
         <activity
             android:name=".Activity_profil"
             android:label="@string/title_activity_activity_profil" >
+        </activity>
+        <activity
+            android:name=".Activity_choix_amis"
+            android:label="@string/title_activity_activity_choix_amis" >
+        </activity>
+        <activity
+            android:name=".Activity_profil_Utilisateur"
+            android:label="@string/title_activity_activity_profil__utilisateur" >
         </activity>
     </application>
 
