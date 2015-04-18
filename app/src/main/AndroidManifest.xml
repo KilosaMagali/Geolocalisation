@@ -128,10 +128,6 @@
             android:label="@string/title_activity_activity_profil" >
         </activity>
         <activity
-            android:name=".ActivityChosenAmis"
-            android:label="@string/title_activity_activity_chosen_amis" >
-        </activity>
-        <activity
             android:name=".Activity_choix_amis"
             android:label="@string/title_activity_activity_choix_amis" >
         </activity>
