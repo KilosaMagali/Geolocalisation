@@ -87,7 +87,5 @@ public class Ami {
         return s;
     }
 
-    public Bitmap getImage() {
-        return null;
-    }
+
 }

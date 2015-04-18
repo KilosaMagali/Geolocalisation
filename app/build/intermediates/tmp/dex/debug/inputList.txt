@@ -1,6 +1,6 @@
-C:\Users\vince_000\AndroidStudioProjects\Geolocalisation\app\build\intermediates\classes\debug
-C:\Users\vince_000\AndroidStudioProjects\Geolocalisation\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-ffcd6b18a919fa75413906985e3e7a3e5de82004.jar
-C:\Users\vince_000\AndroidStudioProjects\Geolocalisation\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-f7c16f03cfb7cf6379063d8c51315ed447f84217.jar
-C:\Users\vince_000\AndroidStudioProjects\Geolocalisation\app\build\intermediates\pre-dexed\debug\classes-b1c1c015b83a55f3f337ba6e09c46f2d80a42076.jar
-C:\Users\vince_000\AndroidStudioProjects\Geolocalisation\app\build\intermediates\pre-dexed\debug\classes-8063e65af4a55e863e728be99d5b06226b164a98.jar
-C:\Users\vince_000\AndroidStudioProjects\Geolocalisation\app\build\intermediates\pre-dexed\debug\classes-e09dbeafde5133c6250fb31aa091493346e67d78.jar
+/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/build/intermediates/classes/debug
+/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-440133404b2b54a0df6ebaeefeaa6f16c0c8e200.jar
+/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-cb2aa435c9ca2687e3635a0df5f3588d46b8fa0f.jar
+/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/build/intermediates/pre-dexed/debug/classes-5ede48db74c22aac6b440f184d05396bff8b9fe9.jar
+/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/build/intermediates/pre-dexed/debug/classes-5ca09e2322a0b4de08a1eb825f77a4b1a086ab7d.jar
+/home/kilosakeyrocker/AndroidStudioProjects/Geolocalisation/app/build/intermediates/pre-dexed/debug/classes-914a44c20eeac4d9f6272d95c0fa313b0fe96d2d.jar

@@ -425,7 +425,11 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                  */
                 currentPosition = new LatLng(latitude, longitude);
             }
-             //updte staticCurrentPosition
+            //if in all cases the position is null pick a position around Toulouse Centre (capitole)
+            if(currentPosition==null) {
+                currentPosition = new LatLng(43.6045, 1.4440);
+            }
+            //update staticCurrentPosition
             staticCurrentPosition=currentPosition;
             return currentPosition;
         }
@@ -436,9 +440,25 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
                 currentLocation=location;
-
+                currentPosition=new LatLng(location.getLatitude(),location.getLongitude());
+                staticCurrentPosition = currentPosition;
+            } else {
+                //if GPS has been activated, use it a provider
+                if(providerName.equals(GPS_PROV)) {
+                LocationManager lm=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+                 location=lm.getLastKnownLocation(providerName);
+                if(location!=null) {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    currentLocation = location;
+                    currentPosition = new LatLng(latitude, longitude);
+                    staticCurrentPosition = currentPosition;
+                }
+                }
+                if(currentPosition==null)
+                    currentPosition=getLocation();   //updates staticCurrent also
             }
-            currentPosition=getLocation();
+
 
         }
 
@@ -457,8 +477,11 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
                 currentLocation=location;
+                currentPosition=new LatLng(latitude,longitude);
+                staticCurrentPosition=currentPosition;
 
             }
+            if(currentPosition==null)
             currentPosition=getLocation();
         }
 

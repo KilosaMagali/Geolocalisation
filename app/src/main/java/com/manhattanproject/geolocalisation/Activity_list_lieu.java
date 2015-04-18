@@ -1,9 +1,9 @@
 package com.manhattanproject.geolocalisation;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by kilosakeyrocker on 22/02/15.
  */
-public class Activity_list_lieu extends ActionBarActivity implements AdapterView.OnItemSelectedListener  {
+public class Activity_list_lieu extends Activity implements AdapterView.OnItemSelectedListener  {
     private ExpandableListView expandableList;
     private AdapterListLieu adaptor;
     private ArrayList<Lieu> listeLieu;

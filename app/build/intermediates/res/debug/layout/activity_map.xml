@@ -12,45 +12,47 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/checkSugg"
-        android:layout_alignParentTop="true" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Suggestion"
-        android:id="@+id/btnSugg"
-        android:layout_toRightOf="@+id/checkSugg"
-        android:layout_alignParentTop="true"
-        android:textSize="10sp" />
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/checkLieu"
-        android:layout_toRightOf="@+id/btnSugg"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_alignBottom="@+id/btnLieu"
         android:layout_alignParentTop="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:text="Lieu"
+        android:background="@drawable/buttons"
+        android:text="Lieux"
         android:id="@+id/btnLieu"
+        android:textColor="@color/white"
         android:layout_toRightOf="@+id/checkLieu"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="15dp"
         android:layout_alignParentTop="true" />
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkAmis"
         android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/btnLieu"
+        android:layout_marginTop="2dp"
         android:layout_toRightOf="@+id/btnLieu"
+        android:layout_marginLeft="30dp"
         android:checked="false" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
+        android:textColor="@color/white"
         android:text="Amis"
         android:id="@+id/btnAmis"
         android:layout_above="@+id/mapView"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="15dp"
         android:layout_toRightOf="@+id/checkAmis"
         android:layout_alignParentTop="true"
          />

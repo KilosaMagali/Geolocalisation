@@ -189,10 +189,10 @@ public class Activity_list_ami extends Activity {
     public boolean onContextItemSelected(MenuItem item) {
         int menuItemIndex=item.getItemId();
         String [] menuItems=getResources().getStringArray(R.array.menuAmiLongClick);
-
+        Intent intentParser;
         switch(menuItemIndex){
             case 0:  //Consulter son profil
-                Intent intentParser=new Intent(getApplicationContext(),Activity_profil_Utilisateur.class);
+                intentParser=new Intent(getApplicationContext(),Activity_profil_Utilisateur.class);
                 intentParser.putExtra("BitmapImageAmi", amiClicked.getImage());
                 intentParser.putExtra("pseudoAmi",amiClicked.getPseudo());
                 intentParser.putExtra("idAmi",amiClicked.getId());
@@ -205,7 +205,7 @@ public class Activity_list_ami extends Activity {
             case 1:  //Demander sa position
                 break;
             case 2: //Me rendre à sa position partagé
-                Intent intentParser=new Intent(getApplicationContext(),MapDrawerActivityAmi.class);
+                intentParser=new Intent(getApplicationContext(),MapDrawerActivityAmi.class);
                 intentParser.putExtra("pseudoAmi",amiClicked.getPseudo());
                 intentParser.putExtra("idAmi",amiClicked.getId());
                 intentParser.putExtra("latitudeAmi",amiClicked.getPosition().latitude);
