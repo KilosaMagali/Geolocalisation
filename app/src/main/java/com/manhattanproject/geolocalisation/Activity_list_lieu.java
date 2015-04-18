@@ -90,7 +90,7 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
                 startActivityForResult(intent,1);
                 newOnlineLieu(lieuClicked);
                 break;
-            case 1: //Modif
+            case 1: //Modifier
                       modifyLieu();
                 break;
             case 2: //M'y rendre
