@@ -32,6 +32,7 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
     private AdapterListLieu adaptor;
     private ArrayList<Lieu> listeLieu;
     private DataBase db;
+    private Lieu lieuAPartager;
     private LatLng latLong=new LatLng(0,0);
     private Lieu lieuClicked;  //lieu selectionné au longclick d'un lieu
     private Bundle savedInstanceState;
@@ -86,9 +87,10 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
 
         switch(menuItemIndex){
             case 0: //Partager
-                Intent intent=new Intent(getApplicationContext(),Activity_choix_amis.class);
+                Intent intent=new Intent(getApplicationContext(),CheckActivity.class);
+                lieuAPartager = lieuClicked;
+                /*lieu qui sera partager dans onActivityResult*/
                 startActivityForResult(intent,1);
-                newOnlineLieu(lieuClicked);
                 break;
             case 1: //Modifie
                       modifyLieu();
@@ -125,7 +127,10 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-
+        ArrayList<String> amis = data.getStringArrayListExtra("amis");
+        /*LLLLLLLLUUUUUUUCCCCCCCIIIIIIIIEEEEEEEENNNNNNN : Envoyer le lieu partager aux amis (dont le pseudo est dans la liste amis)
+        * ATTENTION, verifie resultCode, si ça vaut RESULT_CANCElED, alors pas de truc à envoyer (le mec a fait annuler)
+        * Si ça vaut RESULT_OK, la faut envoyer*/
     }
 
     public void newOnlineLieu(Lieu l){

@@ -79,6 +79,7 @@ public class Activity_list_ami extends Activity {
         }
         return listeA;
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();

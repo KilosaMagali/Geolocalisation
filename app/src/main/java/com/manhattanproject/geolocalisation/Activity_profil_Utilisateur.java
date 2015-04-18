@@ -1,8 +1,8 @@
 package com.manhattanproject.geolocalisation;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -13,7 +13,7 @@ import android.widget.ToggleButton;
 import com.google.android.gms.maps.model.LatLng;
 
 
-public class Activity_profil_Utilisateur extends ActionBarActivity{
+public class Activity_profil_Utilisateur extends Activity {
     TextView pseudo;
     ImageButton imagebtn;
     //CheckBox partagePos;

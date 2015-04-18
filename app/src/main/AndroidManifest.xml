@@ -64,6 +64,14 @@
                 android:value=".Map" />
         </activity>
         <activity
+            android:name=".CheckActivity"
+            android:label="Choix des amis"
+            android:parentActivityName=".Activity_list_lieu" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity_list_lieu" />
+        </activity>
+        <activity
             android:name=".Activity_list_utilisateur"
             android:label="@string/title_activity_activity_list_utilisateur"
             android:parentActivityName=".Map" >

@@ -14,8 +14,8 @@ import java.util.List;
  * Created by vince_000 on 18/04/2015.
  */
 public class AdapterListAmiPartage extends BaseAdapter{
-    List<Ami> person;
-    LayoutInflater inflater;
+    List<Ami>		person;
+    LayoutInflater	inflater;
 
     public AdapterListAmiPartage (Context context, List<Ami> person)
     {
@@ -59,7 +59,7 @@ public class AdapterListAmiPartage extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag ();
         }
         holder.position = person.get (position).getPos();
-        holder.pseudo.setText(person.get(position).getPseudo());
+        holder.pseudo.setText (person.get (position).getPseudo());
         holder.checked.setChecked (person.get (position).isChecked ());
         holder.checked.setClickable (false);
         holder.checked.setEnabled (true);
@@ -72,6 +72,6 @@ public class AdapterListAmiPartage extends BaseAdapter{
     {
         TextView	pseudo;
         CheckBox	checked;
-        int			position;
+        public int position;
     }
 }
