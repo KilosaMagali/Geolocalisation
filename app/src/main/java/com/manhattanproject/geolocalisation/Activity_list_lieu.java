@@ -1,9 +1,9 @@
 package com.manhattanproject.geolocalisation;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by kilosakeyrocker on 22/02/15.
  */
-public class Activity_list_lieu extends ActionBarActivity implements AdapterView.OnItemSelectedListener  {
+public class Activity_list_lieu extends Activity implements AdapterView.OnItemSelectedListener  {
     private ExpandableListView expandableList;
     private AdapterListLieu adaptor;
     private ArrayList<Lieu> listeLieu;
@@ -86,6 +86,8 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
 
         switch(menuItemIndex){
             case 0: //Partager
+                Intent intent=new Intent(getApplicationContext(),Activity_choix_amis.class);
+                startActivityForResult(intent,1);
                 newOnlineLieu(lieuClicked);
                 break;
             case 1: //Modifier
@@ -120,6 +122,10 @@ public class Activity_list_lieu extends ActionBarActivity implements AdapterView
         adaptor = new AdapterListLieu(this, listeLieu);
         expandableList.setAdapter(adaptor);
         return true;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+
     }
 
     public void newOnlineLieu(Lieu l){

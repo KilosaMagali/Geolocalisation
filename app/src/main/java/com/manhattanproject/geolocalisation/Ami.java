@@ -7,13 +7,38 @@ import com.google.android.gms.maps.model.LatLng;
 /**
  * Created by vince_000 on 25/02/2015.
  */
-public class Ami {
+public class Ami implements java.lang.Comparable{
     long id;
     LatLng position;
     String pseudo;
     String statut;
     Bitmap image;
     boolean connect;
+
+    int pos;
+    boolean checked = false;
+
+    public int getPos() {
+        return pos;
+    }
+
+    public int compareTo(Object other) {
+        return this.pseudo.compareTo (((Ami)other).getPseudo ());
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+
 
     public Ami(LatLng position, String pseudo, String statut) {
         this.position = position;

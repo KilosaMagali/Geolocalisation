@@ -109,7 +109,9 @@ public class Activity_list_ami extends Activity {
                 startActivity(intent);
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                intent = new Intent(this, Activity_list_utilisateur.class);
+                startActivity(intent);
+                return true;
         }
     }
 
