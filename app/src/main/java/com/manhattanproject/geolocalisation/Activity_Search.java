@@ -126,7 +126,9 @@ public class Activity_Search extends Activity implements AdapterView.OnItemSelec
                 }catch(JSONException e){
                     Log.e("log_tag", "Error parsing data " + e.toString());
                 }
-                final String[] p={"push.php","pseudo",uClicked.getPseudo(),"rid",rid};
+                Utilisateur courant = new Utilisateur();
+                courant.recup(getApplicationContext());
+                final String[] p={"push.php","pseudo",courant.getPseudo(),"rid",rid};
                 r = new Requete();
                 r.execute(p);
                 break;
