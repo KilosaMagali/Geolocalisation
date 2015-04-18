@@ -24,26 +24,28 @@ public class MainActivity extends Activity {
         Context c=getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
         if(preferences.getInt("identifiant",-1)==-1) {
-            profil_btn.setEnabled(false);
-            register_btn.setEnabled(true);
+            profil_btn.setVisibility(View.GONE);
+            register_btn.setVisibility(View.VISIBLE);
         }
         else{
-            profil_btn.setEnabled(true);
-            register_btn.setEnabled(false);
+            profil_btn.setVisibility(View.VISIBLE);
+            register_btn.setVisibility(View.GONE);
         }
 
     }
 
-    public void onActivityReenter(int resultCode, Intent data){
+    public void onResume(){
+        super.onResume();
         Context c=getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+        Button profil_btn = (Button) findViewById(R.id.profil_button);
         if(preferences.getInt("identifiant",-1)==-1) {
-            Button profil_btn = (Button) findViewById(R.id.profil_button);
-            profil_btn.setEnabled(false);
+            profil_btn.setVisibility(View.GONE);
         }
         else{
             Button register_btn = (Button) findViewById(R.id.register_button);
-            register_btn.setEnabled(false);
+            register_btn.setVisibility(View.GONE);
+            profil_btn.setVisibility(View.VISIBLE);
         }
     }
 
