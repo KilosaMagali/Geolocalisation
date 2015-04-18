@@ -127,7 +127,9 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        ArrayList<String> amis = data.getStringArrayListExtra("amis");
+        ArrayList<String> amis;
+        if(resultCode == RESULT_OK)
+            amis = data.getStringArrayListExtra("amis");
         /*LLLLLLLLUUUUUUUCCCCCCCIIIIIIIIEEEEEEEENNNNNNN : Envoyer le lieu partager aux amis (dont le pseudo est dans la liste amis)
         * ATTENTION, verifie resultCode, si ça vaut RESULT_CANCElED, alors pas de truc à envoyer (le mec a fait annuler)
         * Si ça vaut RESULT_OK, la faut envoyer*/
@@ -309,5 +311,4 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
         locationCategory.setAdapter(adapterLocationCategories);
         locationCategory.setOnItemSelectedListener(this);
     }
-
 }

@@ -70,7 +70,6 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         listeLieu = db.recupLieuBD();
         Utilisateur courant = new Utilisateur();
         courant.recup(getApplicationContext());
-        listeAmi=Activity_list_ami.recupereAmi(courant);
         addMarkerLieu();
         currentPosition=getMyCurrentLocation();
         if(currentPosition!=null) { //zoom to my current location

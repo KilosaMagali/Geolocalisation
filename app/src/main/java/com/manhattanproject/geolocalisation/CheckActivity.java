@@ -35,7 +35,6 @@ public class CheckActivity extends ListActivity
         courant.recup(getApplicationContext());
         System.out.println(courant.getPseudo());
         person = new ArrayList<Ami>();
-        person=Activity_list_ami.recupereAmi(courant);
         System.out.println(person.size());
         Collections.sort(person);
 

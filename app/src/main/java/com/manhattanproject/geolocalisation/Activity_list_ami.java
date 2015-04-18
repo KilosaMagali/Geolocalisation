@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -25,14 +26,25 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 
-public class Activity_list_ami extends Activity {
+public class Activity_list_ami extends Activity implements AdapterView.OnItemSelectedListener{
     private ExpandableListView expandableList;
     private AdapterListAmi adaptor;
     private ArrayList<Ami> listeAmi=new ArrayList<>();
     private DataBase db;
+    private String categorySelected;
     public static ArrayList<Ami> listeA;
     Button notifCount;
     private Ami amiClicked;
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        categorySelected=parent.getSelectedItem().toString();
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        categorySelected=(String)parent.getItemAtPosition(position);
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +104,11 @@ public class Activity_list_ami extends Activity {
         notifCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    lancerDemandes(v);
+                lancerDemandes(v);
             }
         });
         return super.onCreateOptionsMenu(menu);
     }
-
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
@@ -106,18 +117,20 @@ public class Activity_list_ami extends Activity {
         switch (item.getItemId()) {
             case R.id.add:
                 //Toast.makeText(getApplicationContext(), "Ouverture d'ajout message", Toast.LENGTH_LONG).show();
-                intent = new Intent(this, Activity_Search.class);
+                intent = new Intent(getApplicationContext(), Activity_Search.class);
+                startActivity(intent);
+                return true;
+            case R.id.demandes:
+                intent = new Intent(getApplicationContext(), Activity_list_utilisateur.class);
                 startActivity(intent);
                 return true;
             default:
-                intent = new Intent(this, Activity_list_utilisateur.class);
-                startActivity(intent);
-                return true;
+                return super.onOptionsItemSelected(item);
         }
     }
 
     public void lancerDemandes (View v){
-        Intent intent = new Intent(this, Activity_list_utilisateur.class);
+        Intent intent = new Intent(getApplicationContext(), Activity_list_utilisateur.class);
         startActivity(intent);
     }
 

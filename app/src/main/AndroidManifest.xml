@@ -42,7 +42,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAUmaxAZ5Bn-pzI4kKeeHYvHEvTTOigeJM" />
+            android:value="AIzaSyD2Fqbyhj4e74izwcaIpbAe7TieFrWt4Fk" />
         <!-- cle Vincent : AIzaSyD2Fqbyhj4e74izwcaIpbAe7TieFrWt4Fk -->
         <!-- cle lucien : AIzaSyA4hdAZGC6pUZ6LpZ_uMEOWCvNYZMAHQkM -->
         <!-- cle Kilosa : AIzaSyAUmaxAZ5Bn-pzI4kKeeHYvHEvTTOigeJM -->
@@ -77,7 +77,7 @@
             android:parentActivityName=".Map" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Map" />
+                android:value=".Activity_list_ami" />
         </activity>
         <activity
             android:name=".MainActivity"
@@ -134,10 +134,6 @@
         <activity
             android:name=".Activity_profil"
             android:label="@string/title_activity_activity_profil" >
-        </activity>
-        <activity
-            android:name=".Activity_choix_amis"
-            android:label="@string/title_activity_activity_choix_amis" >
         </activity>
         <activity
             android:name=".Activity_profil_Utilisateur"

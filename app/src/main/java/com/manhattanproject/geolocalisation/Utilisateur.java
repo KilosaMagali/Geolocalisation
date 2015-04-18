@@ -151,7 +151,7 @@ public class Utilisateur {
         this.setStatut(preferences.getString("statut", ""));
         this.setPosition(new LatLng(preferences.getFloat("latitude",0.f),preferences.getFloat("longitude",0.f)));
         this.setDuree(preferences.getInt("duree",-1));
-        this.onligne = preferences.getBoolean("onligne",true);
+        this.onligne = preferences.getBoolean("onligne",false);
         this.setPartagePos(preferences.getBoolean("partagePos",false));
 
         String previouslyEncodedImage = preferences.getString("image", "");
