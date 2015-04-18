@@ -184,7 +184,9 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            String[] params={"newUser.php","pseudo",pseudo,"mdp",password};
+            Position p =new Position(getApplicationContext());
+            LatLng l = p.recupCoord();
+            String[] params={"newUser.php","pseudo",pseudo,"mdp",password,"px",Double.toString(l.latitude),"py",Double.toString(l.longitude)};
             // A new account must be created
             registration = new registrationIdSetter(getApplicationContext());
             registration.execute(params);
