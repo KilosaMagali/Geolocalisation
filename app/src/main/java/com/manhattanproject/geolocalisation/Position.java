@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 package com.manhattanproject.geolocalisation;
 
 import android.content.Context;
-=======
->>>>>>> origin/master
 import android.location.Location;
 import android.location.LocationManager;
 
