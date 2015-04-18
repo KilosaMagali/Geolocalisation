@@ -18,15 +18,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be25b347-a8b0-4fb5-a058-9ad635262631" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\vince_000\AndroidStudioProjects\Geolocalisation\app\src\main\res\layout\activity_choix_amis.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_ami.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_ami.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_lieu.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_lieu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_utilisateur.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_utilisateur.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/CheckActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/CheckActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Map.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Map.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Utilisateur.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Utilisateur.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_list_lieu.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_list_lieu.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/carte.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/carte.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/cartedisabled.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/cartedisabled.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/cartepressed.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/cartepressed.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/profil.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/profil.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/profildisabled.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/profildisabled.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/profilpressed.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/profilpressed.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Geolocalisation.iws" />
@@ -73,16 +70,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdapterListAmi.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/AdapterListAmi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1581">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CheckActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/CheckActivity.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -121,10 +108,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Activity_list_ami.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Activity_list_ami.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_ami.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21328671" vertical-offset="1894" max-vertical-offset="4284">
+            <state vertical-scroll-proportion="-2.1785715" vertical-offset="1894" max-vertical-offset="4284">
               <caret line="115" column="22" selection-start-line="115" selection-start-column="22" selection-end-line="115" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -132,6 +119,19 @@
                 <element signature="e#4210#4211#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_main.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.21" vertical-offset="663" max-vertical-offset="969">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -1287,12 +1287,20 @@
       <created>1429378697202</created>
       <updated>1429378697202</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Choix des amis à qui partager lieu (esthetique inachevée)">
+      <created>1429390969078</created>
+      <updated>1429390969078</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Choix des amis à qui partager lieu (esthetique inachevée)">
+      <created>1429392649028</created>
+      <updated>1429392649028</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1303,14 +1311,14 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2344932" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2344932" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39523" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24962178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24962178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1850,7 +1858,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_ami.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21328671" vertical-offset="1894" max-vertical-offset="4284">
+        <state vertical-scroll-proportion="-2.1785715" vertical-offset="1894" max-vertical-offset="4284">
           <caret line="115" column="22" selection-start-line="115" selection-start-column="22" selection-end-line="115" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1858,6 +1866,17 @@
             <element signature="e#4210#4211#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.21" vertical-offset="663" max-vertical-offset="969">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>
