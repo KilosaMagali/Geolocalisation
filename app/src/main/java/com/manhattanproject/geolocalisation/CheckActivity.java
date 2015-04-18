@@ -96,4 +96,7 @@ public class CheckActivity extends ListActivity
         finish();
     }
 
+    public void allSelect(View view){
+
+    }
 }

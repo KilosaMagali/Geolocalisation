@@ -5,23 +5,40 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-
-    <Button
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Envoyer"
-        android:background="@drawable/buttons"
-        android:onClick="send"
-        android:id="@+id/envoyer"/>
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="Envoyer"
+            android:background="@drawable/buttons"
+            android:onClick="send"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/annuler"
+            android:id="@+id/envoyer" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Annuler"
-        android:onClick="retour"
-        android:id="@+id/annuler"
-        android:layout_toLeftOf="@+id/envoyer"
-        android:background="@drawable/buttons"/>
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="Annuler"
+            android:onClick="retour"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/annuler"
+            android:background="@drawable/buttons"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tout cocher"
+            android:id="@+id/all"
+            android:onClick="allSelect"
+            android:layout_marginLeft="10dp"
+            android:layout_alignBottom="@+id/envoyer"
+            android:layout_toRightOf="@+id/envoyer"/>
+
+    </RelativeLayout>
+
 
     <ListView android:id="@android:id/list"
         android:layout_width="fill_parent"
