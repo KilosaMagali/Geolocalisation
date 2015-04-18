@@ -114,7 +114,7 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             Requete r = new Requete();
             r.execute(p);
             Utilisateur u;
-            u = new Utilisateur(1,params[2],"",params[4],new LatLng(1.2344444444444444,4.567777777777777));
+            u = new Utilisateur(1,params[2],params[4],"Ceci est mon statut",new LatLng(1.2344444444444444,4.567777777777777));
             u.save(c);
             registration = null;
             return true;
