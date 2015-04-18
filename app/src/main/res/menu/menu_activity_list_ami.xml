@@ -7,9 +7,9 @@
         android:actionLayout="@layout/action_bar_notification_icon"
         android:icon="@drawable/rounded_square"
         app:showAsAction="ifRoom"
-        android:title="demandes d'amis" />
+        android:title="Demandes en attente" />
     <item
         android:id="@+id/add"
         app:showAsAction ="ifRoom"
-        android:title="add..."/>
+        android:title="Ajouter"/>
 </menu>
