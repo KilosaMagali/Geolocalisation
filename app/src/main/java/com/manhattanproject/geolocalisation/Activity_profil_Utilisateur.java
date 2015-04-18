@@ -3,8 +3,6 @@ package com.manhattanproject.geolocalisation;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -25,7 +23,7 @@ public class Activity_profil_Utilisateur extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         retrieveDataPassed();
-        setContentView(R.layout.activity_profil);
+        setContentView(R.layout.activity_profil_utilisateur);
         pseudo = (TextView)findViewById(R.id.pseudo);
         statut = (EditText)findViewById(R.id.Statut);
         //partagePos = (CheckBox)findViewById(R.id.checkBoxPartagePos);
@@ -47,7 +45,7 @@ public class Activity_profil_Utilisateur extends Activity {
    public void retrieveDataPassed() {
        String pseudoAmi="";
        if(getIntent().hasExtra("pseudoAmi"))
-           pseudoAmi=getIntent().getStringExtra("nameLieu");
+           pseudoAmi=getIntent().getStringExtra("pseudoAmi");
        long idAmi=-1;
        if(getIntent().hasExtra("idAmi"))
             idAmi=getIntent().getLongExtra("idAmi",-1);

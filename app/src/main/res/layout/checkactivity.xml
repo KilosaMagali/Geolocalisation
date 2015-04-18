@@ -16,6 +16,8 @@
             android:onClick="send"
             android:layout_marginLeft="30dp"
             android:layout_toRightOf="@+id/annuler"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:id="@+id/envoyer" />
 
         <Button
@@ -25,6 +27,8 @@
             android:onClick="retour"
             android:layout_marginLeft="10dp"
             android:id="@+id/annuler"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/buttons"/>
 
         <CheckBox
@@ -41,6 +45,7 @@
 
 
     <ListView android:id="@android:id/list"
+        android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"

@@ -35,6 +35,7 @@ public class CheckActivity extends ListActivity
         courant.recup(getApplicationContext());
         System.out.println(courant.getPseudo());
         person = new ArrayList<Ami>();
+        person=Activity_list_ami.recupereAmi(courant);
         System.out.println(person.size());
         Collections.sort(person);
 
@@ -53,6 +54,7 @@ public class CheckActivity extends ListActivity
             public void onItemClick (AdapterView<?> parentView,
                                      View selectedItemView, int position, long id)
             {
+                System.out.println(""+selectedItemView+" "+id+" "+R.id.checkbox);
                 CheckBox c = (CheckBox) selectedItemView
                         .findViewById (R.id.checkbox);
 //On recupere le tag
@@ -67,7 +69,6 @@ public class CheckActivity extends ListActivity
                     c.setChecked(false);
                     person.get(view.position).setChecked(false);
                     Log.v("Checked", "false" + position);
-                    System.out.println("green green potatoe");
                 }
 //On replace la liste à la bonne position
                 int pos = parentView.getFirstVisiblePosition ();
@@ -76,7 +77,6 @@ public class CheckActivity extends ListActivity
         });
     }
     public void send(View view){
-        CheckBox c;
         ArrayList<String> amisChecked= new ArrayList<String>();
         for(int i = 0;i < person.size();++i){
             if(person.get(i).isChecked())
@@ -96,6 +96,12 @@ public class CheckActivity extends ListActivity
     }
 
     public void allSelect(View view){
+        //On recupere le tag
 
+        System.out.println("ok"+personList.getItemAtPosition(0));
+        //CheckBox c = (CheckBox) v.findViewById(R.id.checkbox);
+        //c.setChecked(true);
+        person.get(0).setChecked(true);
+        Log.v("Checked ", "true" + 0);
     }
 }
