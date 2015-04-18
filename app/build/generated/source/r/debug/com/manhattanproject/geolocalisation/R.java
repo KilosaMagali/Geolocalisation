@@ -1743,9 +1743,8 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0b0042;
         public static final int action_mode_bar_stub=0x7f0b0041;
         public static final int action_mode_close_button=0x7f0b0034;
-        public static final int action_settings=0x7f0b008f;
         public static final int activity_chooser_view_content=0x7f0b0035;
-        public static final int add=0x7f0b0091;
+        public static final int add=0x7f0b0090;
         public static final int addlieu=0x7f0b007a;
         public static final int adjust_height=0x7f0b0016;
         public static final int adjust_width=0x7f0b0017;
@@ -1778,7 +1777,7 @@ containing a value of this type.
         public static final int collapseActionView=0x7f0b001c;
         public static final int decor_content_parent=0x7f0b0043;
         public static final int default_activity_button=0x7f0b0038;
-        public static final int demandes=0x7f0b0090;
+        public static final int demandes=0x7f0b008f;
         public static final int dialog=0x7f0b0020;
         public static final int dir_modes=0x7f0b008a;
         public static final int disableHome=0x7f0b000c;
