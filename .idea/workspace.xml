@@ -18,9 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be25b347-a8b0-4fb5-a058-9ad635262631" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_profil_Utilisateur.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_profil_Utilisateur.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/CheckActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/CheckActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/checkactivity.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/checkactivity.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Geolocalisation.iws" />
@@ -57,6 +55,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Activity_profil.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_profil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="22.571428" vertical-offset="4916" max-vertical-offset="5355">
+              <caret line="291" column="38" selection-start-line="291" selection-start-column="34" selection-end-line="291" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="checkactivity.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/checkactivity.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -70,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CheckActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CheckActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/CheckActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1305" max-vertical-offset="1717">
-              <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="65" />
+            <state vertical-scroll-proportion="0.42813456" vertical-offset="1390" max-vertical-offset="1717">
+              <caret line="102" column="19" selection-start-line="102" selection-start-column="19" selection-end-line="102" selection-end-column="19" />
               <folding>
                 <element signature="e#1537#2694#0" expanded="true" />
                 <element signature="e#2683#2684#0" expanded="true" />
@@ -137,10 +145,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Activity_profil_Utilisateur.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Activity_profil_Utilisateur.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_profil_Utilisateur.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.675841" vertical-offset="204" max-vertical-offset="1241">
+            <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1241">
               <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -159,18 +167,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Activity_list_utilisateur.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_utilisateur.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2168" max-vertical-offset="2686">
-              <caret line="149" column="12" selection-start-line="149" selection-start-column="12" selection-end-line="149" selection-end-column="12" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -179,6 +175,7 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="REBASE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -875,8 +872,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_profil.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_ami.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/checkactivity.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/CheckActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_profil_Utilisateur.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/CheckActivity.java" />
       </list>
     </option>
   </component>
@@ -1290,7 +1287,11 @@
       <created>1429392993534</created>
       <updated>1429392993534</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Choix des amis à qui partager lieu (esthetique inachevée)">
+      <created>1429396815186</created>
+      <updated>1429396815186</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1765,14 +1766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_profil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.392857" vertical-offset="2523" max-vertical-offset="5355">
-          <caret line="189" column="111" selection-start-line="189" selection-start-column="12" selection-end-line="189" selection-end-column="111" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_list_utilisateur.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2168" max-vertical-offset="2686">
@@ -1858,24 +1851,32 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/CheckActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_profil_Utilisateur.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1305" max-vertical-offset="1717">
-          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="65" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1241">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
           <folding>
-            <element signature="e#1537#2694#0" expanded="true" />
-            <element signature="e#2683#2684#0" expanded="true" />
-            <element signature="e#2788#2796#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_profil_Utilisateur.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/Activity_profil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.675841" vertical-offset="204" max-vertical-offset="1241">
-          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+        <state vertical-scroll-proportion="22.571428" vertical-offset="4916" max-vertical-offset="5355">
+          <caret line="291" column="38" selection-start-line="291" selection-start-column="34" selection-end-line="291" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/manhattanproject/geolocalisation/CheckActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42813456" vertical-offset="1390" max-vertical-offset="1717">
+          <caret line="102" column="19" selection-start-line="102" selection-start-column="19" selection-end-line="102" selection-end-column="19" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1537#2694#0" expanded="true" />
+            <element signature="e#2683#2684#0" expanded="true" />
+            <element signature="e#2788#2796#0" expanded="true" />
           </folding>
         </state>
       </provider>

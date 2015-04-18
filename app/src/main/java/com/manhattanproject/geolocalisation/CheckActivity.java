@@ -101,7 +101,7 @@ public class CheckActivity extends ListActivity
         System.out.println("ok"+personList.getItemAtPosition(0));
         //CheckBox c = (CheckBox) v.findViewById(R.id.checkbox);
         //c.setChecked(true);
-        person.get(0).setChecked(true);
+        ((CheckBox)findViewById(R.id.checkbox)).setChecked(true);
         Log.v("Checked ", "true" + 0);
     }
 }
