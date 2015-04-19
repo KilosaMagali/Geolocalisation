@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -21,12 +23,23 @@ public class MainActivity extends Activity {
         Button register_btn = (Button) findViewById(R.id.register_button);
         Context c=getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if(preferences.getInt("identifiant",-1)==-1) {
             profil_btn.setVisibility(View.GONE);
-            register_btn.setVisibility(View.VISIBLE);
+            if (networkInfo != null && networkInfo.isConnected()) {
+                register_btn.setVisibility(View.VISIBLE);
+            }else{
+                register_btn.setVisibility(View.GONE);
+            }
         }
         else{
-            profil_btn.setVisibility(View.VISIBLE);
+            if (networkInfo != null && networkInfo.isConnected()) {
+                profil_btn.setVisibility(View.VISIBLE);
+            }else{
+                profil_btn.setVisibility(View.GONE);
+            }
             register_btn.setVisibility(View.GONE);
         }
     }
@@ -36,13 +49,20 @@ public class MainActivity extends Activity {
         Context c=getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
         Button profil_btn = (Button) findViewById(R.id.profil_button);
-        if(preferences.getInt("identifiant",-1)==-1) {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if(preferences.getInt("identifiant",-1)==-1 || !(networkInfo != null && networkInfo.isConnected())) {
             profil_btn.setVisibility(View.GONE);
         }
         else{
             Button register_btn = (Button) findViewById(R.id.register_button);
             register_btn.setVisibility(View.GONE);
-            profil_btn.setVisibility(View.VISIBLE);
+            if((networkInfo != null && networkInfo.isConnected())) {
+                profil_btn.setVisibility(View.VISIBLE);
+            }else{
+                profil_btn.setVisibility(View.GONE);
+            }
         }
     }
 

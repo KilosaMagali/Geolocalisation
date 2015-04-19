@@ -2,7 +2,10 @@ package com.manhattanproject.geolocalisation;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -101,10 +104,18 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
 
         switch(menuItemIndex){
             case 0: //Partager
-                Intent intent=new Intent(getApplicationContext(),CheckActivity.class);
-                lieuAPartager = lieuClicked;
-                /*lieu qui sera partager dans onActivityResult*/
-                startActivityForResult(intent,1);
+                ConnectivityManager connMgr = (ConnectivityManager)
+                        getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    Intent intent = new Intent(getApplicationContext(), CheckActivity.class);
+                    lieuAPartager = lieuClicked;
+                    /*lieu qui sera partager dans onActivityResult*/
+                    startActivityForResult(intent, 1);
+                }else {
+                    Toast.makeText(getApplicationContext(), "Vous ne disposez pas de connection de données", Toast.LENGTH_LONG)
+                            .show();
+                }
                 break;
             case 1: //Modifie
                       modifyLieu();

@@ -56,28 +56,32 @@ public class GcmIntentService extends IntentService {
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.
                     MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-                if (extras.getString("type").equalsIgnoreCase("0")) {
-                    registerDemand(extras.getString("pseudo"));
-                    sendNotification0(extras.getString("message"));
-                }else if(extras.getString("type").equalsIgnoreCase("1")) {
-                    sendNotification1(extras.getString("message"));
-                    DataBase db = new DataBase(getApplicationContext(),"base de donne",null,4);
-                    Lieu l = new Lieu(-1,Categorie_lieu.valueOf(extras.getString("cat")), extras.getString("des"), extras.getString("descr"), false, new LatLng(Double.parseDouble(extras.getString("positionx")),Double.parseDouble(extras.getString("positiony"))),true);
-                    db.ajoutLieu(l);
-                }else if (extras.getString("type").equalsIgnoreCase("2")){
-                    sendNotification2(extras.getString("message"));
-                    System.out.println("rout");
+                if  (extras.containsKey("type")) {
+                    if (extras.getString("type").equalsIgnoreCase("0")) {
+                        registerDemand(extras.getString("pseudo"));
+                        sendNotification0(extras.getString("message"));
+                    } else if (extras.getString("type").equalsIgnoreCase("1")) {
+                        sendNotification1(extras.getString("message"));
+                        DataBase db = new DataBase(getApplicationContext(), "base de donne", null, 4);
+                        Lieu l = new Lieu(-1, Categorie_lieu.valueOf(extras.getString("cat")), extras.getString("des"), extras.getString("descr"), false, new LatLng(Double.parseDouble(extras.getString("positionx")), Double.parseDouble(extras.getString("positiony"))), true);
+                        db.ajoutLieu(l);
+                    } else if (extras.getString("type").equalsIgnoreCase("2")) {
+                        sendNotification2(extras.getString("message"));
+                        System.out.println("rout");
+                    }
                 }
             }
             Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
             // Post notification of received message.
-            if (extras.getString("type").equalsIgnoreCase("0")) {
-                //Incrémenter le compteur de demandes non lues
-                SharedPreferences settings = getSharedPreferences("DemandesNonLues", Context.MODE_PRIVATE);
-                int nb = settings.getInt("nb", 0);
-                SharedPreferences.Editor edit = settings.edit();
-                edit.putInt("nb", nb + 1);
-                edit.apply();
+            if  (extras.containsKey("type")) {
+                if (extras.getString("type").equalsIgnoreCase("0")) {
+                    //Incrémenter le compteur de demandes non lues
+                    SharedPreferences settings = getSharedPreferences("DemandesNonLues", Context.MODE_PRIVATE);
+                    int nb = settings.getInt("nb", 0);
+                    SharedPreferences.Editor edit = settings.edit();
+                    edit.putInt("nb", nb + 1);
+                    edit.apply();
+                }
             }
             //affichage test
             Log.i(TAG, "Received: " + extras.toString());
