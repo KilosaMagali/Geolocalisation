@@ -16,6 +16,6 @@ public class PartagePosition extends TimerTask {
     }
 
     public void run() {
-        //Diffusion de la position LUCIEN
+        //Diffusion de la position LUCIENN
     }
 }
