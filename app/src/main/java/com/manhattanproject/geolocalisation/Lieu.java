@@ -12,6 +12,16 @@ public class Lieu {
     String designation;
     String description;
     Categorie_lieu categorie;
+    boolean propose;
+
+    public boolean isPropose() {
+        return propose;
+    }
+
+    public void setPropose(boolean propose) {
+        this.propose = propose;
+    }
+
     boolean partage;
 
     public Lieu(Categorie_lieu categorie, String designation, String description, boolean partage, LatLng position) {
@@ -30,6 +40,16 @@ public class Lieu {
         this.designation = designation;
         this.partage = partage;
         this.position = position;
+    }
+
+    public Lieu(long id,Categorie_lieu categorie, String designation, String description, boolean partage, LatLng position,boolean propose) {
+        this.id = id;
+        this.categorie = categorie;
+        this.description = description;
+        this.designation = designation;
+        this.partage = partage;
+        this.position = position;
+        this.propose = propose;
     }
 
     public LatLng getPosition() {

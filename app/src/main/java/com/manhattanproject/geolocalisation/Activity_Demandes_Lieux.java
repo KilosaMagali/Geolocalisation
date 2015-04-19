@@ -3,9 +3,7 @@ package com.manhattanproject.geolocalisation;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,13 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.concurrent.ExecutionException;
 
 
 public class Activity_Demandes_Lieux extends Activity implements AdapterView.OnItemSelectedListener  {
@@ -59,7 +51,7 @@ public class Activity_Demandes_Lieux extends Activity implements AdapterView.OnI
         setContentView(R.layout.activity_list_lieu);
         expandableList = (ExpandableListView) findViewById(R.id.expandableListLieu);
         db = new DataBase(getApplicationContext(),"base de donne",null,4);
-        listeLieu = db.recupLieuBD();
+        listeLieu = db.recupLieuProposeBD();
         adaptor = new AdapterListLieu(this, listeLieu);
         expandableList.setAdapter(adaptor);
         registerForContextMenu(expandableList);
@@ -92,8 +84,12 @@ public class Activity_Demandes_Lieux extends Activity implements AdapterView.OnI
 
         switch(menuItemIndex){
             case 0: //Accepter
+                Lieu l = new Lieu(-1,lieuClicked.getCategorie(),lieuClicked.getDesignation(),lieuClicked.getDescription(),lieuClicked.isPartage(),lieuClicked.getPosition(),false);
+                db.supprLieu(lieuClicked);
+                db.ajoutLieu(l);
                 break;
             case 1: //Refuser
+                db.supprLieu(lieuClicked);
                 break;
             default:
 
@@ -134,6 +130,7 @@ public class Activity_Demandes_Lieux extends Activity implements AdapterView.OnI
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.add:
                 //Toast.makeText(getApplicationContext(),"Ouverture d'ajout message",Toast.LENGTH_LONG).show();

@@ -6,4 +6,8 @@
         android:id="@+id/add"
         app:showAsAction ="ifRoom"
         android:title="add..."/>
+    <item
+        android:id="@+id/partage"
+        app:showAsAction ="ifRoom"
+        android:title="lieux partagés"/>
 </menu>

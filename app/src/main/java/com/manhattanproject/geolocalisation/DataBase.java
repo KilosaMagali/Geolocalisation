@@ -22,6 +22,7 @@ public class DataBase extends SQLiteOpenHelper {
     public static final String LIEU_PARTAGE = "partage";
     public static final String LIEU_LATITUDE = "latitude";
     public static final String LIEU_LONGITUDE = "longitude";
+    public static final String LIEU_PROPOSE = "propose";
 
     public static final String AMI_ID = "id";
     public static final String AMI_PSEUDO = "pseudo";
@@ -38,7 +39,8 @@ public class DataBase extends SQLiteOpenHelper {
                     LIEU_CATEGORIE + " TEXT, " +
                     LIEU_LATITUDE + " REAL, " +
                     LIEU_LONGITUDE + " REAL, " +
-                    LIEU_PARTAGE + " INTEGER);";
+                    LIEU_PARTAGE + " INTEGER, " +
+                    LIEU_PROPOSE + " INTEGER);";
 
     public static final String AMI_TABLE_NAME = "Ami";
     public static final String AMI_TABLE_CREATE =
@@ -101,6 +103,32 @@ public class DataBase extends SQLiteOpenHelper {
         return res;
     }
 
+    public ArrayList<Lieu> recupLieuProposeBD(){
+        ArrayList<Lieu> res = new ArrayList();
+        Lieu l;
+        SQLiteDatabase bd = this.getWritableDatabase();
+        Cursor c = bd.rawQuery("select " + "*" + " from " + LIEU_TABLE_NAME + " where propose = 1", null);
+        while (c.moveToNext()) {
+            l = new Lieu(c.getLong(0),Categorie_lieu.valueOf(c.getString(3)),c.getString(1),c.getString(2),c.getInt(6) == 1,new LatLng(c.getDouble(4),c.getDouble(5)),c.getInt(7) == 1);
+            res.add(l);
+        }
+        c.close();
+        return res;
+    }
+
+    public ArrayList<Lieu> recupLieuPersoBD(){
+        ArrayList<Lieu> res = new ArrayList();
+        Lieu l;
+        SQLiteDatabase bd = this.getWritableDatabase();
+        Cursor c = bd.rawQuery("select " + "*" + " from " + LIEU_TABLE_NAME + " where propose = 0", null);
+        while (c.moveToNext()) {
+            l = new Lieu(c.getLong(0),Categorie_lieu.valueOf(c.getString(3)),c.getString(1),c.getString(2),c.getInt(6) == 1,new LatLng(c.getDouble(4),c.getDouble(5)),c.getInt(7) == 1);
+            res.add(l);
+        }
+        c.close();
+        return res;
+    }
+
     public ArrayList<Ami> recupAmiBD(){
         ArrayList<Ami> res = new ArrayList();
         Ami a;
@@ -127,6 +155,7 @@ public class DataBase extends SQLiteOpenHelper {
         value.put(LIEU_PARTAGE, (l.isPartage()) ? 1 : 0);
         value.put(LIEU_LATITUDE, l.getPosition().latitude);
         value.put(LIEU_LONGITUDE, l.getPosition().longitude);
+        value.put(LIEU_PROPOSE,(l.isPropose()) ? 1 : 0);
         l.setId(bd.insert(LIEU_TABLE_NAME, null, value));
         return l.getId();
     }
@@ -147,6 +176,7 @@ public class DataBase extends SQLiteOpenHelper {
         value.put(LIEU_DESCRIPTION, l.getDescription());
         value.put(LIEU_CATEGORIE, l.getCategorie().toString());
         value.put(LIEU_PARTAGE, l.isPartage());
+        value.put(LIEU_PROPOSE, l.isPropose());
         value.put(LIEU_LATITUDE, l.getPosition().latitude);
         value.put(LIEU_LONGITUDE, l.getPosition().longitude);
         return bd.update(LIEU_TABLE_NAME, value, LIEU_ID  + " = ?", new String[] {String.valueOf(l.getId())});

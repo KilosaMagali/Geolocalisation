@@ -60,7 +60,7 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
         setContentView(R.layout.activity_list_lieu);
         expandableList = (ExpandableListView) findViewById(R.id.expandableListLieu);
         db = new DataBase(getApplicationContext(),"base de donne",null,4);
-        listeLieu = db.recupLieuBD();
+        listeLieu = db.recupLieuPersoBD();
         adaptor = new AdapterListLieu(this, listeLieu);
         expandableList.setAdapter(adaptor);
         registerForContextMenu(expandableList);
@@ -278,10 +278,15 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.add:
                 //Toast.makeText(getApplicationContext(),"Ouverture d'ajout message",Toast.LENGTH_LONG).show();
                 addLieu();
+                return true;
+            case R.id.partage:
+                intent = new Intent(getApplicationContext(),Activity_Demandes_Lieux.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
