@@ -68,7 +68,7 @@ public class Activity_profil extends Activity implements AdapterView.OnItemSelec
         user.recup(getApplicationContext());
         diffusion.purge();
         if(user.getPartagePos()) {
-            diffusion.schedule(new partagePosition(getApplicationContext()), (user.getDuree() * 60 * 1000), (user.getDuree() * 60 * 1000));
+            diffusion.schedule(new PartagePosition(getApplicationContext()), (user.getDuree() * 60 * 1000), (user.getDuree() * 60 * 1000));
         }
         Switch on = (Switch)findViewById(R.id.OnOff);
         on.setChecked(user.onligne);
@@ -218,7 +218,7 @@ public class Activity_profil extends Activity implements AdapterView.OnItemSelec
             user.setDuree(-1);
         diffusion.purge();
         if(user.getPartagePos()) {
-            diffusion.schedule(new partagePosition(getApplicationContext()), (user.getDuree() * 60 * 1000), (user.getDuree() * 60 * 1000));
+            diffusion.schedule(new PartagePosition(getApplicationContext()), (user.getDuree() * 60 * 1000), (user.getDuree() * 60 * 1000));
         }
         if(imageChange != null)
             user.setImage(imageChange);
