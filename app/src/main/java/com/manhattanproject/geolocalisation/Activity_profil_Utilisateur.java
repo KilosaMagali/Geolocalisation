@@ -1,9 +1,12 @@
 package com.manhattanproject.geolocalisation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -11,12 +14,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 
 public class Activity_profil_Utilisateur extends Activity {
@@ -59,8 +68,19 @@ public class Activity_profil_Utilisateur extends Activity {
        if(getIntent().hasExtra("idAmi"))
             idAmi=getIntent().getLongExtra("idAmi",-1);
        Bitmap bitmapImageAmi=null;
-       if(getIntent().hasExtra("BitmapImageAmi"))
-            bitmapImageAmi =(Bitmap) getIntent().getParcelableExtra("BitmapImageAmi");
+       if(getIntent().hasExtra("BitmapImageAmi")) {
+           String [] p = {pseudoAmi};
+           loadImg l = new loadImg();
+           l.execute(p);
+           try {
+               l.get();
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           } catch (ExecutionException e) {
+               e.printStackTrace();
+           }
+           bitmapImageAmi=l.getResult();
+       }
        double latitudeAmi=getIntent().getDoubleExtra("latitudeAmi",0);
        double longitudeAmi=getIntent().getDoubleExtra("longitudeAmi", 0);
        boolean connect=getIntent().getBooleanExtra("connectStatus",false);
@@ -70,10 +90,42 @@ public class Activity_profil_Utilisateur extends Activity {
        if(bitmapImageAmi!=null)
        user.setImage(bitmapImageAmi);
        user.setConnect(connect);
-
-
-
    }
+
+    public class loadImg extends AsyncTask<String,Void,Boolean> {
+
+
+        Bitmap result;
+
+        public Bitmap getResult() {
+            return result;
+        }
+
+        public loadImg(){}
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String url = "http://lmahot.hd.free.fr/img/" + params[0];
+            System.out.println("url : " + url);
+            final URLConnection conn;
+            try {
+                conn = new URL(url).openConnection();
+                conn.connect();
+                final InputStream is = conn.getInputStream();
+
+                final BufferedInputStream bis = new BufferedInputStream(is, 100000);
+
+                result = BitmapFactory.decodeStream(bis);
+                bis.close();
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+    }
+
+
     public String getAddress(LatLng location) {
         Geocoder geocoder;
         List<Address> addresses=new ArrayList<>();
