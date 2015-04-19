@@ -7,11 +7,11 @@ import java.util.TimerTask;
 /**
  * Created by vince_000 on 19/04/2015.
  */
-public class partagePosition extends TimerTask {
+public class PartagePosition extends TimerTask {
     Context c;
 
 
-    public partagePosition(Context c) {
+    public PartagePosition(Context c) {
         this.c = c;
     }
 
