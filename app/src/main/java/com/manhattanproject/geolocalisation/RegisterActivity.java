@@ -304,4 +304,5 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
         mPseudoView.setAdapter(adapter);
     }
 
+
 }

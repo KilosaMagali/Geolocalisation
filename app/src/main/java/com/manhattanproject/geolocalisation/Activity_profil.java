@@ -32,6 +32,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
 
 
 public class Activity_profil extends Activity implements AdapterView.OnItemSelectedListener{
@@ -47,6 +48,7 @@ public class Activity_profil extends Activity implements AdapterView.OnItemSelec
     CheckBox partagePos;
     private Spinner dureeCategory;
     private ArrayAdapter<CharSequence> adapterDureeCategories;
+    Timer diffusion = new Timer("toto",true);
     Utilisateur user;
 
     @Override
@@ -64,6 +66,10 @@ public class Activity_profil extends Activity implements AdapterView.OnItemSelec
         imagebtn = (ImageButton)findViewById(R.id.imageButton);
 
         user.recup(getApplicationContext());
+        diffusion.purge();
+        if(user.getPartagePos()) {
+            diffusion.schedule(new partagePosition(getApplicationContext()), (user.getDuree() * 60 * 1000), (user.getDuree() * 60 * 1000));
+        }
         Switch on = (Switch)findViewById(R.id.OnOff);
         on.setChecked(user.onligne);
         if(!user.getPseudo().equals(""))
@@ -210,6 +216,10 @@ public class Activity_profil extends Activity implements AdapterView.OnItemSelec
         }
         else
             user.setDuree(-1);
+        diffusion.purge();
+        if(user.getPartagePos()) {
+            diffusion.schedule(new partagePosition(getApplicationContext()), (user.getDuree() * 60 * 1000), (user.getDuree() * 60 * 1000));
+        }
         if(imageChange != null)
             user.setImage(imageChange);
         user.save(getApplicationContext());

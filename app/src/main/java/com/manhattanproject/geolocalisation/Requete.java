@@ -44,7 +44,7 @@ public class Requete extends AsyncTask<String, Void, String>{
         int i;
         InputStream is=null;
         String [] p=params;
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         HttpResponse response;
         BufferedReader reader = null;
         for (i=1;i<params.length;i=i+2) {

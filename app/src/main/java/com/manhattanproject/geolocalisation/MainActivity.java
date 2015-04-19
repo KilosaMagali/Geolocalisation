@@ -29,8 +29,6 @@ public class MainActivity extends Activity {
             profil_btn.setVisibility(View.VISIBLE);
             register_btn.setVisibility(View.GONE);
         }
-        Intent intent = new Intent(this, Timer.class);
-        startActivity(intent);
     }
 
     public void onResume(){
