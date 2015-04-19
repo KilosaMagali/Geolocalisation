@@ -139,6 +139,10 @@
             android:name=".Activity_profil_Utilisateur"
             android:label="@string/title_activity_activity_profil__utilisateur" >
         </activity>
+        <activity
+            android:name=".AcceptRefuseLocalisation"
+            android:label="@string/title_activity_accept_refuse_localisation" >
+        </activity>
     </application>
 
 </manifest>
