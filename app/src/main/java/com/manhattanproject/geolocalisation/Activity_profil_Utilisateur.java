@@ -10,8 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -32,7 +32,7 @@ public class Activity_profil_Utilisateur extends Activity {
     //CheckBox partagePos;
     Ami user;
     EditText statut;
-    ToggleButton toggleButton;
+    Switch toggleButton;
     TextView addressZone;
 
     @Override
@@ -43,7 +43,7 @@ public class Activity_profil_Utilisateur extends Activity {
         pseudo = (TextView)findViewById(R.id.pseudo);
         statut = (EditText)findViewById(R.id.Statut);
         imagebtn = (ImageView)findViewById(R.id.imageButton);
-        toggleButton=(ToggleButton)findViewById(R.id.toggleButton);
+        toggleButton=(Switch)findViewById(R.id.toggleButton);
         addressZone=(TextView)findViewById(R.id.addressZone);
         if(!user.getPseudo().equals(""))
             pseudo.setText(user.getPseudo());
