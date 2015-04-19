@@ -48,7 +48,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAUmaxAZ5Bn-pzI4kKeeHYvHEvTTOigeJM" />
+            android:value="AIzaSyD2Fqbyhj4e74izwcaIpbAe7TieFrWt4Fk" />
         <!-- cle Vincent : AIzaSyD2Fqbyhj4e74izwcaIpbAe7TieFrWt4Fk -->
         <!-- cle lucien : AIzaSyA4hdAZGC6pUZ6LpZ_uMEOWCvNYZMAHQkM -->
         <!-- cle Kilosa : AIzaSyAUmaxAZ5Bn-pzI4kKeeHYvHEvTTOigeJM -->
@@ -70,12 +70,20 @@
                 android:value=".Map" />
         </activity>
         <activity
+            android:name="com.manhattanproject.geolocalisation.CheckActivity"
+            android:label="Choix des amis"
+            android:parentActivityName="com.manhattanproject.geolocalisation.Activity_list_lieu" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity_list_lieu" />
+        </activity>
+        <activity
             android:name="com.manhattanproject.geolocalisation.Activity_list_utilisateur"
             android:label="@string/title_activity_activity_list_utilisateur"
             android:parentActivityName="com.manhattanproject.geolocalisation.Map" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Map" />
+                android:value=".Activity_list_ami" />
         </activity>
         <activity
             android:name="com.manhattanproject.geolocalisation.MainActivity"
@@ -93,6 +101,10 @@
         <activity
             android:name="com.manhattanproject.geolocalisation.RegisterActivity"
             android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="com.manhattanproject.geolocalisation.Timer"
+            android:label="Timer" >
         </activity>
         <activity
             android:name="com.manhattanproject.geolocalisation.MapDrawerActivity"
@@ -132,6 +144,10 @@
         <activity
             android:name="com.manhattanproject.geolocalisation.Activity_profil"
             android:label="@string/title_activity_activity_profil" >
+        </activity>
+        <activity
+            android:name="com.manhattanproject.geolocalisation.Activity_profil_Utilisateur"
+            android:label="@string/title_activity_activity_profil__utilisateur" >
         </activity>
     </application>
 

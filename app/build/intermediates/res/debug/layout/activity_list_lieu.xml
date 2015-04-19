@@ -5,7 +5,6 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
     android:paddingBottom="16dp"
     >
 

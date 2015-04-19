@@ -313,9 +313,12 @@
     <string name="str_rb_walking">A pied</string>
     <string name="title_activity_activity__list__demandes">Activity_List_Demandes</string>
     <string name="title_activity_activity__search">Chercher</string>
+    <string name="title_activity_activity_choix_amis">Activity_choix_amis</string>
+    <string name="title_activity_activity_chosen_amis">ActivityChosenAmis</string>
     <string name="title_activity_activity_list_ami">Mes Amis</string>
-    <string name="title_activity_activity_list_utilisateur">Les Utilisateurs</string>
+    <string name="title_activity_activity_list_utilisateur">Demandes d\'amis</string>
     <string name="title_activity_activity_profil">Mon Profil</string>
+    <string name="title_activity_activity_profil__utilisateur">Profil</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_main">Céhou?</string>
     <string name="title_activity_register">Register</string>

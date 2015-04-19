@@ -60,6 +60,6 @@
     <string name="title_activity_activity__list__demandes">Activity_List_Demandes</string>
     <string name="title_activity_activity_chosen_amis">ActivityChosenAmis</string>
     <string name="title_activity_activity_choix_amis">Activity_choix_amis</string>
-    <string name="title_activity_activity_profil__utilisateur">Activity_profil_Utilisateur</string>
+    <string name="title_activity_activity_profil__utilisateur">Profil</string>
 
 </resources>
