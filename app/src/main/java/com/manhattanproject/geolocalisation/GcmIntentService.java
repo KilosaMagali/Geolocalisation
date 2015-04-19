@@ -46,25 +46,31 @@ public class GcmIntentService extends IntentService {
              */
             if (GoogleCloudMessaging.
                     MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-                sendNotification("Send error: " + extras.toString());
+                sendNotification0("Send error: " + extras.toString());
             } else if (GoogleCloudMessaging.
                     MESSAGE_TYPE_DELETED.equals(messageType)) {
-                sendNotification("Deleted messages on server: " +
+                sendNotification0("Deleted messages on server: " +
                         extras.toString());
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.
                     MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-                registerDemand(extras.getString("pseudo"));
+                if (extras.getString("type").equalsIgnoreCase("0")) {
+                    registerDemand(extras.getString("pseudo"));
+                    sendNotification0(extras.getString("message"));
+                }else if(extras.getString("type").equalsIgnoreCase("1")){
+                            sendNotification1(extras.getString("message"));
+                }
             }
             Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
             // Post notification of received message.
-            sendNotification(extras.getString("message"));
-            //Incrémenter le compteur de demandes non lues
-            SharedPreferences settings = getSharedPreferences("DemandesNonLues", Context.MODE_PRIVATE);
-            int nb = settings.getInt("nb",0);
-            SharedPreferences.Editor edit = settings.edit();
-            edit.putInt("nb", nb+1);
-            edit.apply();
+            if (extras.getString("type").equalsIgnoreCase("0")) {
+                //Incrémenter le compteur de demandes non lues
+                SharedPreferences settings = getSharedPreferences("DemandesNonLues", Context.MODE_PRIVATE);
+                int nb = settings.getInt("nb", 0);
+                SharedPreferences.Editor edit = settings.edit();
+                edit.putInt("nb", nb + 1);
+                edit.apply();
+            }
             //affichage test
             Log.i(TAG, "Received: " + extras.toString());
         }
@@ -124,12 +130,32 @@ public class GcmIntentService extends IntentService {
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
-    private void sendNotification(String msg) {
+    private void sendNotification0(String msg) {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, Activity_list_utilisateur.class), 0);
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setContentTitle("Manhattan Project")
+                        .setAutoCancel(true)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText(msg))
+                        .setContentText(msg);
+
+        mBuilder.setContentIntent(contentIntent);
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+    }
+
+    private void sendNotification1(String msg) {
+        mNotificationManager = (NotificationManager)
+                this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, Activity_Demandes_Lieux.class), 0);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)

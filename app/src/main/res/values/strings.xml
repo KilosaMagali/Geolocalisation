@@ -5,7 +5,6 @@
     <color name="blue">#33B5E5</color>
     <color name="green">#99CC00</color>
 
-
     <string name="app_name">Céhou?</string>
     <string name="carte">Carte</string>
     <string name="hello_world">Hello world!</string>
@@ -46,21 +45,32 @@
         <item>M\'y rendre</item>
         <item>Supprimer</item>
     </string-array>
+
     <string name="title_activity_activity__search">Chercher</string>
+
     <string-array name="menuSearchLongClick">
         <item>Envoyer une demande d\'ami</item>
     </string-array>
+
     <string name="specifierDepart">Specifier l\'endroit de depart</string>
     <string name="depuisMaposition">Depuis ma position courante</string>
     <string name="title_activity_activity_profil">Mon Profil</string>
     <string name="tvDistanceTime">En cours......</string>
+
     <string-array name="menuDemandesLongClick">
         <item>Accepter la demande</item>
         <item>Refuser la demande</item>
     </string-array>
+
+    <string-array name="menuDemandesLieuLongClick">
+        <item>Recupérer le lieu</item>
+        <item>Supprimer le lieu</item>
+    </string-array>
+
     <string name="title_activity_activity__list__demandes">Activity_List_Demandes</string>
     <string name="title_activity_activity_chosen_amis">ActivityChosenAmis</string>
     <string name="title_activity_activity_choix_amis">Activity_choix_amis</string>
     <string name="title_activity_activity_profil__utilisateur">Profil</string>
+    <string name="title_activity_activity__demandes__lieux">Activity_Demandes_Lieux</string>
 
 </resources>
