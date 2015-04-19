@@ -220,8 +220,13 @@ public class Activity_profil extends Activity implements AdapterView.OnItemSelec
         if(user.getPartagePos()) {
             diffusion.schedule(new PartagePosition(getApplicationContext()), (user.getDuree() * 60 * 1000), (user.getDuree() * 60 * 1000));
         }
-        if(imageChange != null)
+        if(imageChange != null) {
             user.setImage(imageChange);
+            //maj bdd externe
+            final Bitmap[] params={imageChange};
+            uploadImg up =new uploadImg(user.getPseudo());
+            up.execute(params);
+        }
         user.save(getApplicationContext());
         boutonApp.setEnabled(false);
         statut.setEnabled(false);
@@ -367,11 +372,6 @@ public class Activity_profil extends Activity implements AdapterView.OnItemSelec
                         imagebtn = (ImageButton) findViewById(R.id.imageButton);
                         imagebtn.setImageBitmap(Bitmap.createScaledBitmap(selectedImage,imagebtn.getWidth(),imagebtn.getHeight(), false));
                         imageChange = Bitmap.createScaledBitmap(selectedImage,imagebtn.getWidth(),imagebtn.getHeight(), false);
-                        //maj bdd externe
-                        final Bitmap[] params={selectedImage};
-                        uploadImg up =new uploadImg(user.getPseudo());
-                        up.execute(params);
-                        System.out.println("okok");
                     }
                 }
         }
