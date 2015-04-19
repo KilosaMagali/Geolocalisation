@@ -1,7 +1,6 @@
 package com.manhattanproject.geolocalisation;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -10,11 +9,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.BufferedInputStream;
@@ -30,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Activity_profil_Utilisateur extends Activity {
     TextView pseudo;
-    ImageButton imagebtn;
+    ImageView imagebtn;
     //CheckBox partagePos;
     Ami user;
     EditText statut;
@@ -40,11 +38,11 @@ public class Activity_profil_Utilisateur extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        retrieveDataPassed();
         setContentView(R.layout.activity_profil_utilisateur);
+        retrieveDataPassed();
         pseudo = (TextView)findViewById(R.id.pseudo);
         statut = (EditText)findViewById(R.id.Statut);
-        imagebtn = (ImageButton)findViewById(R.id.imageButton);
+        imagebtn = (ImageView)findViewById(R.id.imageButton);
         toggleButton=(ToggleButton)findViewById(R.id.toggleButton);
         addressZone=(TextView)findViewById(R.id.addressZone);
         if(!user.getPseudo().equals(""))
@@ -58,6 +56,7 @@ public class Activity_profil_Utilisateur extends Activity {
         statut.setEnabled(false);
         imagebtn.setEnabled(false);
         toggleButton.setEnabled(false);
+        System.out.println(imagebtn.getHeight()+" "+imagebtn.getWidth());
     }
 
    public void retrieveDataPassed() {
@@ -88,7 +87,15 @@ public class Activity_profil_Utilisateur extends Activity {
        LatLng positionAmi=new LatLng(latitudeAmi,longitudeAmi);
        user=new Ami(idAmi,positionAmi,pseudoAmi,statut);
        if(bitmapImageAmi!=null)
-       user.setImage(bitmapImageAmi);
+            user.setImage(bitmapImageAmi);
+       else {
+           Bitmap no = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.mipmap.nobody);
+           imagebtn = (ImageView) findViewById(R.id.imageButton);
+           //Bitmap image = Bitmap.createScaledBitmap(no,imagebtn.getWidth(),imagebtn.getHeight(), false);
+           Bitmap image = Bitmap.createScaledBitmap(no,100,100, false);
+           user.setImage(image);
+
+       }
        user.setConnect(connect);
    }
 
