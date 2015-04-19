@@ -72,5 +72,6 @@
     <string name="title_activity_activity_choix_amis">Activity_choix_amis</string>
     <string name="title_activity_activity_profil__utilisateur">Profil</string>
     <string name="title_activity_activity__demandes__lieux">Activity_Demandes_Lieux</string>
+    <string name="title_activity_accept_refuse_localisation">AcceptRefuseLocalisation</string>
 
 </resources>
