@@ -68,6 +68,7 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
         setOnCheckedChanged();
         db = new DataBase(getApplicationContext(),"base de donne",null,4);
         listeLieu = db.recupLieuBD();
+        listeAmi = db.recupAmiBD();
         Utilisateur courant = new Utilisateur();
         courant.recup(getApplicationContext());
         addMarkerLieu();
@@ -223,7 +224,7 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
      *  Add markers on the map.
      */
     public void addMarkerLieu(){
-
+      Toast.makeText(getApplicationContext(),"FRIENDS"+listeAmi.size(),Toast.LENGTH_LONG).show();
         /** Make sure that the map has been initialised **/
         if(null != googleMap && latLong!=null){
             if(listeLieu.size()!=0 && checkBoxLieu.isChecked()) {
