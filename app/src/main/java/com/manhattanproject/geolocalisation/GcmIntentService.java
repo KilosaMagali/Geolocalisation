@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +61,9 @@ public class GcmIntentService extends IntentService {
                     sendNotification0(extras.getString("message"));
                 }else if(extras.getString("type").equalsIgnoreCase("1")) {
                     sendNotification1(extras.getString("message"));
+                    DataBase db = new DataBase(getApplicationContext(),"base de donne",null,4);
+                    Lieu l = new Lieu(-1,Categorie_lieu.valueOf(extras.getString("cat")), extras.getString("des"), extras.getString("descr"), false, new LatLng(Double.parseDouble(extras.getString("positionx")),Double.parseDouble(extras.getString("positiony"))),true);
+                    db.ajoutLieu(l);
                 }else if (extras.getString("type").equalsIgnoreCase("2")){
                     sendNotification2(extras.getString("message"));
                     System.out.println("rout");

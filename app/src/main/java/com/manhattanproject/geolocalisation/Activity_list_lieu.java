@@ -159,7 +159,8 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
                 } catch (JSONException e) {
                     Log.e("log_tag", "Error parsing data " + e.toString());
                 }
-                String[] p = {"pushLieu.php", "ids", rid};
+                Lieu l = lieuAPartager;
+                String[] p = {"pushLieu.php", "ids", rid,"px",Double.toString(l.getPosition().latitude),"py",Double.toString(l.getPosition().longitude),"des",l.getDesignation(),"descr",l.getDescription(),"cat",l.getCategorie().name()};
                 r = new Requete();
                 r.execute(p);
                 try {
