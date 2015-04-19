@@ -62,10 +62,7 @@ public class GcmIntentService extends IntentService {
                     sendNotification1(extras.getString("message"));
                 }else if (extras.getString("type").equalsIgnoreCase("2")){
                     sendNotification2(extras.getString("message"));
-                }else if (extras.getString("type").equalsIgnoreCase("2")){
-                    DataBase db = new DataBase(getApplicationContext(),"base de donne",null,4);
-                    ArrayList<Ami> listeAmi = db.recupAmiBD();
-                    //maj liste amis
+                    System.out.println("rout");
                 }
             }
             Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
@@ -182,9 +179,9 @@ public class GcmIntentService extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        /*PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, Activity_Choix_Pos.class), 0);
-*/
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, AcceptRefuseLocalisation.class), 0);
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_launcher)
@@ -194,7 +191,7 @@ public class GcmIntentService extends IntentService {
                                 .bigText(msg))
                         .setContentText(msg);
 
-        //mBuilder.setContentIntent(contentIntent);
+        mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }

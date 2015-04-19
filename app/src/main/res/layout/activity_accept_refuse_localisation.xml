@@ -17,7 +17,8 @@
         android:layout_marginLeft="20dp"
         android:layout_alignLeft="@+id/text"
         android:textColor="@color/white"
-        android:layout_below="@+id/text" />
+        android:layout_below="@+id/text"
+        android:onClick="onClickRefuse" />
 
     <Button
         android:layout_width="wrap_content"
@@ -28,7 +29,8 @@
         android:layout_alignTop="@+id/refuse"
         android:layout_alignRight="@+id/text"
         android:textColor="@color/white"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"
+        android:onClick="onClickAccept" />
 
     <TextView
         android:layout_width="wrap_content"
