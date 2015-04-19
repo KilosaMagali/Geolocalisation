@@ -226,6 +226,29 @@ public class Activity_list_ami extends Activity implements AdapterView.OnItemSel
                 startActivity(intentParser);
                 break;
             case 1:  //Demander sa position
+                String rid =null;
+                String[] params = {"selectUser.php", "pseudo", amiClicked.getPseudo()};
+                Requete r = new Requete();
+                r.execute(params);
+                try {
+                    r.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                String response = r.getResult();
+                try {
+                    JSONArray jArray = new JSONArray(response);
+                    System.out.println("Donnée de la réponse : " + jArray);
+                    JSONObject json_data = jArray.getJSONObject(0);
+                    rid = json_data.getString("rid");
+                } catch (JSONException e) {
+                    Log.e("log_tag", "Error parsing data " + e.toString());
+                }
+                String[] p = {"pushDemandePos.php", "rid", rid};
+                r = new Requete();
+                r.execute(p);
                 break;
             case 2: //Me rendre à sa position partagé
                 intentParser=new Intent(getApplicationContext(),MapDrawerActivityAmi.class);

@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class GcmIntentService extends IntentService {
@@ -57,8 +58,14 @@ public class GcmIntentService extends IntentService {
                 if (extras.getString("type").equalsIgnoreCase("0")) {
                     registerDemand(extras.getString("pseudo"));
                     sendNotification0(extras.getString("message"));
-                }else if(extras.getString("type").equalsIgnoreCase("1")){
-                            sendNotification1(extras.getString("message"));
+                }else if(extras.getString("type").equalsIgnoreCase("1")) {
+                    sendNotification1(extras.getString("message"));
+                }else if (extras.getString("type").equalsIgnoreCase("2")){
+                    sendNotification2(extras.getString("message"));
+                }else if (extras.getString("type").equalsIgnoreCase("2")){
+                    DataBase db = new DataBase(getApplicationContext(),"base de donne",null,4);
+                    ArrayList<Ami> listeAmi = db.recupAmiBD();
+                    //maj liste amis
                 }
             }
             Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
@@ -167,6 +174,27 @@ public class GcmIntentService extends IntentService {
                         .setContentText(msg);
 
         mBuilder.setContentIntent(contentIntent);
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+    }
+
+
+    private void sendNotification2(String msg) {
+        mNotificationManager = (NotificationManager)
+                this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        /*PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, Activity_Choix_Pos.class), 0);
+*/
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setContentTitle("Manhattan Project")
+                        .setAutoCancel(true)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText(msg))
+                        .setContentText(msg);
+
+        //mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }
