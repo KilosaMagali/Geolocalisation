@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ import java.util.List;
 public class AdapterListAmiPartage extends BaseAdapter{
     List<Ami>		person;
     LayoutInflater	inflater;
+    ArrayList<CheckBox> checkboxs = new ArrayList<CheckBox>();
 
     public AdapterListAmiPartage (Context context, List<Ami> person)
     {
@@ -58,6 +60,7 @@ public class AdapterListAmiPartage extends BaseAdapter{
         {
             holder = (ViewHolder) convertView.getTag ();
         }
+        checkboxs.add(holder.checked);
         holder.position = person.get (position).getPos();
         holder.pseudo.setText (person.get (position).getPseudo());
         holder.checked.setChecked (person.get (position).isChecked ());

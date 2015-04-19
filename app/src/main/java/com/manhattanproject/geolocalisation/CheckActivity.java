@@ -97,11 +97,18 @@ public class CheckActivity extends ListActivity
 
     public void allSelect(View view){
         //On recupere le tag
-
-        System.out.println("ok"+personList.getItemAtPosition(0));
-        //CheckBox c = (CheckBox) v.findViewById(R.id.checkbox);
-        //c.setChecked(true);
-        ((CheckBox)findViewById(R.id.checkbox)).setChecked(true);
-        Log.v("Checked ", "true" + 0);
+        if(((CheckBox)view).isChecked())
+        for(int i = 0;i < _adapter.checkboxs.size();++i){
+            _adapter.checkboxs.get(i).setChecked(true);
+            person.get(i).setChecked(true);
+            Log.v("Checked", "true" + i);
+        }
+        else{
+            for(int i = 0;i < _adapter.checkboxs.size();++i){
+                _adapter.checkboxs.get(i).setChecked(false);
+                person.get(i).setChecked(false);
+                Log.v("Checked", "false" + i);
+            }
+        }
     }
 }
