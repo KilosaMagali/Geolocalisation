@@ -65,6 +65,14 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
         expandableList.setAdapter(adaptor);
         registerForContextMenu(expandableList);
     }
+
+    protected void onResume(Bundle savedInstanceState){
+        listeLieu = db.recupLieuPersoBD();
+        adaptor = new AdapterListLieu(this, listeLieu);
+        expandableList.setAdapter(adaptor);
+        registerForContextMenu(expandableList);
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
@@ -328,6 +336,8 @@ public class Activity_list_lieu extends Activity implements AdapterView.OnItemSe
                             "Lieu:" + name +
                                     "\nAjout reussi!! ",
                             Toast.LENGTH_LONG).show();
+                    adaptor = new AdapterListLieu(getApplicationContext(), listeLieu);
+                    expandableList.setAdapter(adaptor);
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"FAILED",Toast.LENGTH_LONG).show();

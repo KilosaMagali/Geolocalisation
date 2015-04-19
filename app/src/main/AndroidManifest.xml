@@ -82,7 +82,7 @@
         <activity
             android:name=".Activity_list_utilisateur"
             android:label="@string/title_activity_activity_list_utilisateur"
-            android:parentActivityName=".Map" >
+            android:parentActivityName=".Activity_list_ami" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity_list_ami" />

@@ -64,6 +64,16 @@ public class Activity_list_ami extends Activity implements AdapterView.OnItemSel
 
     }
 
+    protected void onResume(Bundle savedInstanceState){
+        super.onResume();
+        Utilisateur courant = new Utilisateur();
+        courant.recup(getApplicationContext());
+        listeAmi=recupereAmi(courant);
+        adaptor = new AdapterListAmi(this, listeAmi);
+        expandableList.setAdapter(adaptor);
+        registerForContextMenu(expandableList);
+    }
+
     public static ArrayList<Ami> recupereAmi(Utilisateur courant){
         //final String[] params={"selectUsersFriends.php","pseudo","4rrrrrr"};
         final String[] params={"selectUsersFriends.php","pseudo",courant.getPseudo()};

@@ -87,9 +87,17 @@ public class Activity_Demandes_Lieux extends Activity implements AdapterView.OnI
                 Lieu l = new Lieu(-1,lieuClicked.getCategorie(),lieuClicked.getDesignation(),lieuClicked.getDescription(),lieuClicked.isPartage(),lieuClicked.getPosition(),false);
                 db.supprLieu(lieuClicked);
                 db.ajoutLieu(l);
+                listeLieu = db.recupLieuProposeBD();
+                adaptor = new AdapterListLieu(this, listeLieu);
+                expandableList.setAdapter(adaptor);
+                registerForContextMenu(expandableList);
                 break;
             case 1: //Refuser
                 db.supprLieu(lieuClicked);
+                listeLieu = db.recupLieuProposeBD();
+                adaptor = new AdapterListLieu(this, listeLieu);
+                expandableList.setAdapter(adaptor);
+                registerForContextMenu(expandableList);
                 break;
             default:
 
