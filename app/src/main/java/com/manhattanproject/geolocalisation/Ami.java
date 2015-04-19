@@ -38,7 +38,7 @@ public class Ami implements java.lang.Comparable{
         this.checked = checked;
     }
 
-
+    public boolean getConnert(){return this.connect;}
 
     public Ami(LatLng position, String pseudo, String statut) {
         this.position = position;

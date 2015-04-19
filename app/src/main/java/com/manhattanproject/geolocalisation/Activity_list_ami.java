@@ -256,9 +256,13 @@ public class Activity_list_ami extends Activity implements AdapterView.OnItemSel
                 } catch (JSONException e) {
                     Log.e("log_tag", "Error parsing data " + e.toString());
                 }
-                String[] p = {"pushDemandePos.php", "rid", rid};
-                r = new Requete();
-                r.execute(p);
+                if(amiClicked.getConnert()==true) {
+                    String[] p = {"pushDemandePos.php", "rid", rid};
+                    r = new Requete();
+                    r.execute(p);
+                }else{
+                    Toast.makeText(getApplicationContext(),amiClicked.getPseudo()+" est hors ligne",Toast.LENGTH_LONG).show();
+                }
                 break;
             case 2: //Me rendre à sa position partagé
                 intentParser=new Intent(getApplicationContext(),MapDrawerActivityAmi.class);
