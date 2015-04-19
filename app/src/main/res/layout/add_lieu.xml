@@ -50,18 +50,22 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ajouter"
+        android:text="  Ajouter  "
         android:id="@+id/btnAjout"
-        android:layout_marginLeft="80dp"
+        android:background="@drawable/buttons"
+        android:layout_marginLeft="75dp"
         android:layout_marginRight="33dp"
+        android:textColor="@color/white"
         android:layout_below="@+id/checkBoxAddCurrentLoc"
          />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Annuler"
+        android:text="  Annuler  "
+        android:background="@drawable/buttons"
         android:id="@+id/btnAnnule"
-        android:layout_toEndOf="@+id/btnAjout"
+        android:textColor="@color/white"
+        android:layout_toRightOf="@+id/btnAjout"
         android:layout_alignTop="@+id/btnAjout"
         />
 
