@@ -55,7 +55,7 @@
         android:textOff="Offline"
         android:layout_alignTop="@+id/imageButton"
         android:layout_alignLeft="@+id/pseudo"
-        android:layout_marginDown="10dp"/>
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
