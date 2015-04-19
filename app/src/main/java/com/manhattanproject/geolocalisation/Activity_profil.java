@@ -184,16 +184,22 @@ public class Activity_profil extends Activity implements AdapterView.OnItemSelec
         Switch on = (Switch)findViewById(R.id.OnOff);
         Utilisateur user = new Utilisateur();
         user.recup(getApplicationContext());
+        int boolbyint;
         if(on.isChecked()) {
             user.onligne = true;
             user.save(getApplicationContext());
             Toast.makeText(getApplicationContext(), "Vous êtes maintenant en ligne", Toast.LENGTH_LONG).show();
+            boolbyint=1;
         }
         else{
             user.onligne = false;
             user.save(getApplicationContext());
             Toast.makeText(getApplicationContext(), "Vous êtes maintenant hors ligne", Toast.LENGTH_LONG).show();
+            boolbyint=0;
         }
+        final String[] params={"updateEtat.php","pseudo",user.getPseudo(),"etat",Integer.toString(boolbyint)};
+        Requete r = new Requete();
+        r.execute(params);
     }
 
     public void appliquerModif(View view){
@@ -312,6 +318,9 @@ public class Activity_profil extends Activity implements AdapterView.OnItemSelec
                     Toast.makeText(getApplicationContext(),
                             "Mot de passe correct\nChangement reussi",
                             Toast.LENGTH_LONG).show();
+                    final String[] params={"updatemdp.php","pseudo",user.getPseudo(),"mdp",nouveau};
+                    Requete r = new Requete();
+                    r.execute(params);
                 } else {
                     Toast.makeText(getApplicationContext(), "Mot de passe incorrect", Toast.LENGTH_LONG).show();
                 }

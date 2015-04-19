@@ -84,7 +84,14 @@ public class Activity_list_ami extends Activity implements AdapterView.OnItemSel
             for(int i=0;i<jArray.length();i++){
                 JSONObject json_data = jArray.getJSONObject(i);
                 System.out.println("Donnée de l'ami : "+json_data.getString("pseudo"));
-                listeA.add(i,new Ami(i,new LatLng(json_data.getDouble("positionx"),json_data.getDouble("positiony")), json_data.getString("pseudo"), json_data.getString("statut")));
+                Ami a=new Ami(i,new LatLng(json_data.getDouble("positionx"),json_data.getDouble("positiony")), json_data.getString("pseudo"), json_data.getString("statut"));
+                if(json_data.getDouble("etat")==0){
+                    a.setConnect(false);
+                }
+                else{
+                    a.setConnect(true);
+                }
+                listeA.add(i,a);
             }
         }catch(JSONException e){
             Log.e("log_tag", "Error parsing data " + e.toString());
