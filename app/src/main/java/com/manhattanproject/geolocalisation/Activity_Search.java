@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 
@@ -76,6 +77,39 @@ public class Activity_Search extends Activity implements AdapterView.OnItemSelec
         }catch(JSONException e){
             Log.e("log_tag", "Error parsing data " + e.toString());
         }
+        ArrayList<Utilisateur> listeAmi = new ArrayList<Utilisateur>();
+        Utilisateur courant = new Utilisateur();
+        courant.recup(getApplicationContext());
+        final String[] p={"selectUsersFriends.php","pseudo",courant.getPseudo()};
+        r = new Requete();
+        r.execute(p);
+        try {
+            r.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        response=r.getResult();
+        try{
+            JSONArray jArray = new JSONArray(response);
+            System.out.println("Donnée de la réponse : "+jArray);
+            for(int i=0;i<jArray.length();i++){
+                JSONObject json_data = jArray.getJSONObject(i);
+                System.out.println("Donnée de l'anus: "+json_data.getString("pseudo"));
+                listeAmi.add(i,new Utilisateur(i, json_data.getString("pseudo"), null, json_data.getString("statut"), new LatLng(json_data.getDouble("positionx"),json_data.getDouble("positiony"))));            }
+        }catch(JSONException e){
+            Log.e("log_tag", "Error parsing data " + e.toString());
+        }
+        Iterator it = listeUser.iterator();
+        Utilisateur ut = null;
+        while(it.hasNext()){
+            Utilisateur b = (Utilisateur)it.next();
+            if(b.getPseudo().equalsIgnoreCase(courant.getPseudo())){
+                ut = b;
+            }
+        }
+        listeUser.remove(ut);
         adaptor.notifyDataSetChanged();
 
     }
