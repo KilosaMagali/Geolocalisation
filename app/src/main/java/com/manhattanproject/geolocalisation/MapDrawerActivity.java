@@ -594,7 +594,7 @@ public class MapDrawerActivity extends FragmentActivity {
 			}
 			
 			if(result.size()<1){
-				Toast.makeText(getBaseContext(), "Pas de Schemin ", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getBaseContext(), "Pas de chemin ", Toast.LENGTH_SHORT).show();
 				return;
 			}
             //Display distance and duration to destination

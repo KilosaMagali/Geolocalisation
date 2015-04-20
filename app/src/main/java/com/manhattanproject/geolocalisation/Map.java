@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -35,7 +36,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 
-
 public class Map extends Activity implements View.OnClickListener ,AdapterView.OnItemSelectedListener {
     private GoogleMap googleMap;
     private LatLng latLong=new LatLng(0,0);
@@ -55,6 +55,25 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
     private static LatLng staticCurrentPosition;
     private static boolean gpsRequest=false;
     private ArrayList<Ami> listeAmi;
+    private Handler myHandler;
+    private Runnable myRunnable = new Runnable() {
+        @Override
+        public void run() {
+            // Code à executer de façon périodique
+            googleMap.clear();
+            addMarkerLieu();
+            addMarkerAmis();
+            myHandler.postDelayed(this,30000);
+        }
+    };
+
+
+    public void onPause() {
+        super.onPause();
+        if(myHandler != null)
+            myHandler.removeCallbacks(myRunnable); // On arrete le callback
+    }
+
 
 
     @Override
@@ -85,8 +104,6 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         }
-
-
 
 
         btnLieu=(Button)findViewById(R.id.btnLieu);
@@ -151,12 +168,16 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
             }
         });
         Context c = getApplicationContext();
+        myHandler = new Handler();
+        myHandler.postDelayed(myRunnable,30000); // on redemande toute les Xms
     }
 
     @Override
     protected  void onResume(){
         super.onResume();
         gpsRequest=true;
+        myHandler = new Handler();
+        myHandler.postDelayed(myRunnable,30000); // on redemande toute les Xms
     }
 
     private LatLng getMyCurrentLocation() {
@@ -282,12 +303,24 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
     }
 
     private void addMarkerAmis() {
+        Utilisateur courant = new Utilisateur();
+        courant.recup(getApplicationContext());
+        listeAmi = Activity_list_ami.recupereAmi(courant);
         if(null != googleMap && latLong!=null){
             if(listeAmi.size()!=0 && checkBoxAmis.isChecked()) {
                 for (int i = 0; i < listeAmi.size(); i++) {
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(listeAmi.get(i).getPosition())
-                            .title(listeAmi.get(i).pseudo));
+                    if(listeAmi.get(i).isConnect()) {
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(listeAmi.get(i).getPosition())
+                                .title(listeAmi.get(i).pseudo).snippet(listeAmi.get(i).getStatut()).
+                                        icon(BitmapDescriptorFactory.fromResource(R.drawable.ami)));
+                    }
+                    else{
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(listeAmi.get(i).getPosition())
+                                .title(listeAmi.get(i).pseudo).snippet(listeAmi.get(i).getStatut()).
+                                        icon(BitmapDescriptorFactory.fromResource(R.drawable.amioff)));
+                    }
                 }
 
             }
@@ -486,24 +519,21 @@ public class Map extends Activity implements View.OnClickListener ,AdapterView.O
 
         @Override
         public void onProviderDisabled(String provider) {
-            if(provider.equals(GPS_PROV))
+            if (provider.equals(GPS_PROV))
                 providerName = NETWORK_PROV;
-            LocationManager lm=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
-            Location location=lm.getLastKnownLocation(providerName);
-            if(location!=null){
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            Location location = lm.getLastKnownLocation(providerName);
+            if (location != null) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
-                currentLocation=location;
+                currentLocation = location;
 
             }
-            currentPosition=getLocation();
+            currentPosition = getLocation();
         }
-    }
+        }
 
-    public static LatLng getLocationFromOutsideTheClass(){
-                return staticCurrentPosition;
-    }
-
-
-
+        public static LatLng getLocationFromOutsideTheClass(){
+            return staticCurrentPosition;
+        }
 }
