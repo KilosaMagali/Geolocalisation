@@ -26,6 +26,9 @@ public class Position {
         } else {
             gps = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
+        if(gps==null){
+            return new LatLng(0,0);
+        }
         return new LatLng(gps.getLatitude(),gps.getLongitude());
     }
 }
