@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,9 +29,14 @@ import android.widget.TextView;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor> {
@@ -195,9 +201,17 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
     }
 
     private boolean PseudoExists(String pseudo) {
-        /*String[] params={"selectUser.php","pseudo",pseudo};
-        Requete r=new Requete();
-        String response=r.LancerRequete(params);
+        String[] params={"selectUser.php","pseudo",pseudo};
+        Requete r = new Requete();
+        r.execute(params);
+        try {
+            r.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        String response=r.getResult();
         try {
             JSONArray jArray = new JSONArray(response);
             JSONObject json_data = jArray.getJSONObject(0);
@@ -205,8 +219,10 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
         }catch(JSONException e){
             Log.e("log_tag", "Error parsing data " + e.toString());
         }
-        if(response.equalsIgnoreCase(pseudo))
-            return true;*/
+        if(response.equalsIgnoreCase(pseudo)) {
+            System.out.println("c'est vrai");
+            return true;
+        }
         return false;
     }
 
