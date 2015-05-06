@@ -34,7 +34,8 @@
         android:theme="@style/CustomActionBarTheme" >
         <activity
             android:name=".Map"
-            android:label="@string/carte" >
+            android:label="@string/carte"
+            android:screenOrientation="portrait">
         </activity>
 
         <meta-data
@@ -42,7 +43,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyD2Fqbyhj4e74izwcaIpbAe7TieFrWt4Fk" />
+            android:value="AIzaSyA4hdAZGC6pUZ6LpZ_uMEOWCvNYZMAHQkM" />
         <!-- cle Vincent : AIzaSyD2Fqbyhj4e74izwcaIpbAe7TieFrWt4Fk -->
         <!-- cle lucien : AIzaSyA4hdAZGC6pUZ6LpZ_uMEOWCvNYZMAHQkM -->
         <!-- cle Kilosa : AIzaSyAUmaxAZ5Bn-pzI4kKeeHYvHEvTTOigeJM -->
@@ -50,12 +51,14 @@
         <activity
             android:name=".Activity_list_ami"
             android:label="@string/title_activity_activity_list_ami"
+            android:screenOrientation="portrait"
             android:parentActivityName=".Map" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Map" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".Activity_list_lieu"
             android:label="Mes Lieux"
             android:parentActivityName=".Map" >
@@ -64,6 +67,7 @@
                 android:value=".Map" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".Activity_Demandes_Lieux"
             android:label="Lieux partagés"
             android:parentActivityName=".Activity_list_lieu" >
@@ -72,6 +76,7 @@
                 android:value=".Activity_list_lieu" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".CheckActivity"
             android:label="Choix des amis"
             android:parentActivityName=".Activity_list_lieu" >
@@ -80,6 +85,7 @@
                 android:value=".Activity_list_lieu" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".Activity_list_utilisateur"
             android:label="@string/title_activity_activity_list_utilisateur"
             android:parentActivityName=".Activity_list_ami" >
@@ -88,6 +94,7 @@
                 android:value=".Activity_list_ami" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
@@ -97,19 +104,23 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".MapDrawerActivity"
             android:label="SeRendreAunLiuDonne"
             android:noHistory="true" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".MapDrawerActivityAmi"
             android:label="SeRendreChezUnAmi"
             android:noHistory="true" >
@@ -136,18 +147,22 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".Activity_Search"
             android:label="@string/title_activity_activity__search" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".Activity_profil"
             android:label="@string/title_activity_activity_profil" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".Activity_profil_Utilisateur"
             android:label="@string/title_activity_activity_profil__utilisateur" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".AcceptRefuseLocalisation"
             android:label="@string/title_activity_accept_refuse_localisation" >
         </activity>

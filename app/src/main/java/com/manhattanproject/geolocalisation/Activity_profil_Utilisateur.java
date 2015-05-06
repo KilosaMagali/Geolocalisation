@@ -144,11 +144,14 @@ public class Activity_profil_Utilisateur extends Activity {
             e.printStackTrace();
             Log.w("Location", "Can not get Address!");
         }
-
-        String address = addresses.get(0).getAddressLine(0);
-        String city = addresses.get(0).getLocality();
-        String country = addresses.get(0).getCountryName();
-        return  "Dernière position: "+ address+" , \n"+city+" , "+country;
+        if(!addresses.isEmpty()) {
+            String address = addresses.get(0).getAddressLine(0);
+            String city = addresses.get(0).getLocality();
+            String country = addresses.get(0).getCountryName();
+            return "Dernière position: " + address + " , \n" + city + " , " + country;
+        }else{
+            return "Dernière position inconnue";
+        }
 
     }
 

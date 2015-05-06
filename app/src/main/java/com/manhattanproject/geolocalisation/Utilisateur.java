@@ -19,7 +19,7 @@ public class Utilisateur {
     boolean partagePos;
     String pseudo;
     String mdp;
-    boolean onligne = true;
+    boolean onligne = false;
     String statut;
     LatLng position;
     Bitmap image;
