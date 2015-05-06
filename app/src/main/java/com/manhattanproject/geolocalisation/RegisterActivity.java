@@ -182,6 +182,11 @@ public class RegisterActivity extends Activity implements LoaderCallbacks<Cursor
             cancel = true;
         }
 
+        if(!isPasswordValid(password)){
+            mPasswordView.setError("Le mot de passe est trop court : minimum 5");
+            focusView = mPasswordView;
+            cancel = true;
+        }
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
